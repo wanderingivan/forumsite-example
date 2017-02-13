@@ -54,7 +54,7 @@ public class User implements Serializable{
     private String imageName;
     
     @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE)
-    private List<Thread> threads; 
+    private List<ForumThread> threads; 
     
     @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE)
     private List<Comment> comments;
@@ -132,11 +132,11 @@ public class User implements Serializable{
         this.imageName = imageName;
     }
     
-    public List<Thread> getThreads() {
+    public List<ForumThread> getThreads() {
         return threads;
     }
 
-    public void setThreads(List<Thread> threads) {
+    public void setThreads(List<ForumThread> threads) {
         this.threads = threads;
     }
     
@@ -148,10 +148,10 @@ public class User implements Serializable{
         this.comments = comments;
     }
 
-    public void addThread(Thread t){
-        List<Thread> threads = getThreads();
+    public void addThread(ForumThread t){
+        List<ForumThread> threads = getThreads();
         if(threads == null){
-            threads = new ArrayList<Thread>();
+            threads = new ArrayList<ForumThread>();
             setThreads(threads);
         }
         threads.add(t);

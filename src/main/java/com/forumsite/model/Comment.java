@@ -29,7 +29,7 @@ public class Comment implements Serializable {
     
     @ManyToOne
     @JoinColumn(name="thread_id")
-    private Thread thread;
+    private ForumThread thread;
     
     @ManyToOne
     @JoinColumn(name="comment_author_id")
@@ -47,18 +47,22 @@ public class Comment implements Serializable {
         super();
     }
 
-    public Comment(Thread thread, User author, String message) {
+    public Comment(String message){
         super();
-        this.thread = thread;
-        this.author = author;
         this.message = message;
     }
+    
+    public Comment(ForumThread thread, User author, String message) {
+        this(message);
+        this.thread = thread;
+        this.author = author;
+    }
 
-    public Thread getThread() {
+    public ForumThread getThread() {
         return thread;
     }
 
-    public void setThread(Thread thread) {
+    public void setThread(ForumThread thread) {
         this.thread = thread;
     }
 

@@ -18,13 +18,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
-public class Thread implements Serializable{
+public class ForumThread implements Serializable{
     
     /**
      * 
@@ -37,13 +37,12 @@ public class Thread implements Serializable{
     private Long id;
     
     @NotNull    
-    @Max(50)
+    @Size(max=50)
     @Column
     private String name;
     
     @NotNull
     @Pattern(regexp="\\w+")// XXX Change this regex when cat names are specified
-    @Max(50)
     @Column
     private String category;
     
@@ -60,14 +59,18 @@ public class Thread implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date createdOn;
 
-    public Thread() {
+    public ForumThread() {
         super();
     }
-
-    public Thread(String name, String category, User author) {
+    
+    public ForumThread(String name, String category) {
         super();
         this.name = name;
         this.category = category;
+    }
+
+    public ForumThread(String name, String category, User author) {
+        this(name,category);
         this.author = author;
     }
     
@@ -146,7 +149,7 @@ public class Thread implements Serializable{
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        Thread other = (Thread) obj;
+        ForumThread other = (ForumThread) obj;
         if (category == null) {
             if (other.category != null) return false;
         }
