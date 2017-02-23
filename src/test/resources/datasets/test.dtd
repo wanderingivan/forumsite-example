@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT dataset (
+	Users*,
+	ForumThread*
+)>
+
+<!ELEMENT Users EMPTY>
+<!ATTLIST Users
+	id CDATA #IMPLIED
+	username CDATA #REQUIRED
+	password CDATA #REQUIRED
+	email CDATA #REQUIRED
+	description CDATA #REQUIRED
+	imageName CDATA #IMPLIED
+>
+
+<!ELEMENT ForumThread EMPTY>
+<!ATTLIST ForumThread
+	id CDATA #IMPLIED
+	name CDATA #REQUIRED
+	category CDATA #REQUIRED
+	createdOn CDATA #REQUIRED
+	lastUpdate CDATA #IMPLIED
+	author_id CDATA #REQUIRED
+>
