@@ -9,16 +9,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity(name="Users")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username","email"}))
+@NamedQueries({
+        @NamedQuery(name="User.findByName",
+                    query="SELECT u FROM Users u WHERE u.username= :username")
+})
 public class User implements Serializable{
 
     /**
@@ -47,16 +52,16 @@ public class User implements Serializable{
     private String email;
     
     @Column
-    @Max(255)
+    @Size(max=255)
     private String description;
     
     @Column
     private String imageName;
     
-    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE,orphanRemoval=true)
     private List<ForumThread> threads; 
     
-    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE,orphanRemoval=true)
     private List<Comment> comments;
     
     public User() {
