@@ -8,10 +8,15 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
+import com.forumsite.data.ForumThreadRepository;
+import com.forumsite.data.impl.ForumThreadRepositoryImpl;
+import com.forumsite.data.UserRepository;
+import com.forumsite.data.impl.UserRepositoryImpl;
 import com.forumsite.model.Comment;
 import com.forumsite.model.User;
 import com.forumsite.model.ForumThread;
 import com.forumsite.test.validation.AbstractValidationTest;
+import com.forumsite.util.Resources;
 
 
 @SuppressWarnings("rawtypes")
@@ -45,5 +50,14 @@ public class Deployments {
         return ShrinkWrap.create(JavaArchive.class)
                          .addClasses(classes)
                          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
+    
+    public static WebArchive persistenceWar(){
+        return basicWar(new Class[]{User.class,ForumThread.class,Comment.class,Resources.class,UserRepository.class,UserRepositoryImpl.class,ForumThreadRepository.class,ForumThreadRepositoryImpl.class})//XXX Do not commit
+                       .addAsResource("persistence.xml","META-INF/persistence.xml")
+                       .addAsWebInfResource("test-ds.xml")
+                       .addAsWebInfResource(
+                           new StringAsset("<faces-config version=\"2.0\"/>"),
+                        "faces-config.xml");
     }
 }
