@@ -13,6 +13,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +29,17 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@NamedQueries({
+    @NamedQuery(name="ForumThread.findByName",
+                query="SELECT ft FROM ForumThread ft where ft.name = :name")
+})
+@NamedEntityGraphs({
+    @NamedEntityGraph(name="graph.ForumThread.author",
+                  attributeNodes={@NamedAttributeNode("author")}),
+    @NamedEntityGraph(name="graph.ForumThread.associations",
+                  attributeNodes={@NamedAttributeNode("author"),
+                                  @NamedAttributeNode("comments")})
+})
 public class ForumThread implements Serializable{
     
     /**
@@ -50,7 +66,7 @@ public class ForumThread implements Serializable{
     @JoinColumn(name="author_id")
     private User author;
     
-    @OneToMany(mappedBy="thread",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="thread",cascade=CascadeType.ALL,orphanRemoval=true)
     private List<Comment> comments;
     
     @Temporal(TemporalType.TIMESTAMP)
