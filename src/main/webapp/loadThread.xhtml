@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <f:metadata>
+    		<f:viewParam name="threadName" value="#{threadBean.threadName}"/>
+    		<f:viewAction action="#{threadBean.load}"/>
+		</f:metadata>
+        <ui:param name="threadName" value="#{threadBean.threadName}"/>
+        <ui:param name="category" value="#{threadBean.topic.category}"/>
+        <ui:define name="content">
+        	<h:messages/>
+        	<ui:insert name="actionbar">
+        	  <ui:include src="/WEB-INF/templates/actionbar-thread.xhtml"/>
+        	</ui:insert>
+
+        	<h:panelGroup rendered="#{not empty threadBean.topic}">  
+			  <div class="row">
+			    <div class="col-md-10">
+			      <div class="panel panel-default forum-panel">
+			        <div class="panel-body">
+			          <ui:repeat var="comment" value="#{threadBean.topic.comments}">
+			           <div class="row">
+			             <div class="media forum">
+			               <div class="col-md-9">
+			                 <div class="media">
+			                   <div class="media-heading">
+			                     <div class="row">
+			                       <div class="col-md-10">
+			                     	 <p>#{comment.lastUpdate}</p>
+			                       </div>
+			                       <div class="col-md-2">
+			                     	   <h:link outcome="threadReply" value="#{msg['quote']}" >
+			                     	     <f:param name="author" value="#{comment.author.username}"/>
+			                     	     <f:param name="message" value="#{comment.message}"/>
+			                     	     <f:param name="threadId" value="#{threadBean.topic.id}"/>
+			                     	   </h:link>
+			                       </div>
+			                     </div>
+			                   </div>
+			                   <div class="media-body" style="padding-top:15px;">
+			                     <h4>#{comment.message}</h4>
+			                     <hr/>
+			                   </div>
+			                 </div>
+			               </div>
+			               <div class="col-md-3">
+			                 <div class="media">
+			                   <div class="media-image">
+			                     
+			                   </div>
+			                   <div class="media-body">
+			                     <h4>#{comment.author.username}</h4>
+			                   </div>
+			                 </div>
+			               </div>
+			             </div>
+			           </div>
+			          </ui:repeat>
+			        </div>
+			      </div>
+			    </div>
+			    <div class="col-md-2">
+			    
+			    </div>
+			  </div>
+        	</h:panelGroup>     
+        </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
