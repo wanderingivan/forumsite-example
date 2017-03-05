@@ -1,7 +1,7 @@
 body { 
 	font-family: "Roboto", Arial, Helvetica, sans-serif;
     font-size: 13px;
-    background-color:#f7f7f7;
+    background-color:#ece9e9;
 }
 .navbar {
     padding: 15px;
@@ -30,71 +30,71 @@ body {
     margin:50px auto 100px;
     z-index:2;
 }
-        .inner-wrap {
-            background: #FFFFFF;
-            overflow: hidden;
-            position: relative;
-            margin-top: -50px !important;
-            z-index: 3;
-            padding: 30px;
-            box-sizing: border-box;
-            box-shadow: 0 0 5px rgba(0,0,0,0.05);
-            width: 95%;
-            margin: 0 auto;
-        }
-        .breadcrumb {
-          background-color: #ffffff;
-          margin-bottom:30px;
-        }
-        h2.forum-title{
-          font-weight: 300;
-          font-size: 2em;
-          margin-bottom : 30px;
-        }
-        .button-new {
-          margin-right: 15px;
-          float: left;
-          background-color:#4a569d;
-          color : #FFFFFF;
-          display: inline-block;
-          padding: 8px 15px;
-          line-height: 1.4;
-          text-align: center;
-          white-space: nowrap;
-          vertical-align: middle;
-        }
-        .page-header {
-            position:relative;
-            background-color:#ababf9;
-            margin : 0px 0px 20px 0px;
-        }
-        input.base-form{
-          background-color: #F7F7F7;
-          border-color: #edecec;
-          color: #333333;
-          border-radius : 0px;
-          background-image: none;
-          border-right-width: 0;
-          float: left;
-          padding: 7px;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          -webkit-border-radius: 0;
-          border-radius: 0;
-          width: 150px;
-        }
-        .base-form:hover {
-            border-color:#4a569d;
-        }
-        button.base-form {
-          background-color: #F7F7F7;
-          border-color: #edecec;
-          color: #333333;     
-          border-radius: 0;
-        }
+.inner-wrap {
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    margin-top: -50px !important;
+    z-index: 3;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    width: 95%;
+    margin: 0 auto;
+}
+.breadcrumb {
+    background-color: #ffffff;
+    margin-bottom:30px;
+}
+h2.forum-title{
+    font-weight: 300;
+    font-size: 2em;
+    margin-bottom : 30px;
+}
+.button-new {
+    margin-right: 15px;
+    float: left;
+    background-color:#4a569d;
+    color : #FFFFFF;
+    display: inline-block;
+    padding: 8px 15px;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.page-header {
+    position:relative;
+    background-color:#ababf9;
+    margin : 0px 0px 0px 0px;
+}
+input.base-form{
+    background-color: #ece9e9;
+    border-color: #edecec;
+    color: #333333;
+    border-radius : 0px;
+    background-image: none;
+    border-right-width: 0;
+    float: left;
+    padding: 7px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    width: 150px;
+}
+.base-form:hover {
+    border-color:#4a569d;
+}
+button.base-form {
+    background-color: #ece9e9;
+    border-color: #edecec;
+    color: #333333;     
+    border-radius: 0;
+}
         button.base-form:hover {
-          background-color: #F7F7F7;
+          background-color: #ece9e9;
           color: #333333;  
         }
         .forum-panel{
@@ -111,7 +111,7 @@ body {
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a569d', endColorstr='#dc2424',GradientType=1 );
         }
         .forum-panel > .panel-body {
-          background-color:#F7F7F7;
+          background-color:#ece9e9;
         }
         .forum-panel > .panel-body > .media {
           background-color:#FFFFFF;       
@@ -121,11 +121,16 @@ body {
           top:55px;
         }
         .media.forum{
-          margin-bottom:15px;
+          margin:0px 10px 7px 10px;
+          padding:10px 0px;
           background-color:#ffffff;
+          min-height: 150px;
         }
         .footer {
             background-color: #ababf9;
             height: 90px;
             margin-top: -25px;
         }
+.action-bar {
+	margin-bottom:25px;
+}
