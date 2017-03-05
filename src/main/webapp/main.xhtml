@@ -1,51 +1,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
    xmlns:ui="http://java.sun.com/jsf/facelets">
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
       	<ui:define name="content">
+      	  <ui:insert name="action-bar">
+      	    <ui:include src="/WEB-INF/templates/actionbar.xhtml"/>
+      	  </ui:insert>
       	  <div class="row">
       	    <div class="col-md-10">
-      	      <h2 class="forum-title"><a href="#">Latest</a></h2>
-      	      <div class="action-bar top">
-      	        <div class="row">
-      	          <div class="col-md-10">
-      	            <a class="button-new" href="#">New Post</a>
-      	            <h:form id="searchForm" styleClass="form-inline">
-      	              <div class="form-group">
-						<h:inputText id="searchTerm" styleClass="form-controll base-form" placeholder="Search Topics"/>      	              
-      	              </div>
-      	              <div class="form-group">      	             
-      	              	<h:commandButton id="button" action="#{search.findTopic}" value=""> <i class="fa fa-search" aria-hidden="true"></i></h:commandButton>
-      	              </div>
-      	            </h:form>
-      	          </div>
-      	          <div class="col-md-2"></div>
-      	        </div>
-      	      </div>
-      	    </div>
-      	    <div class="col-md-2">
-      	    
-      	    </div>
-      	  </div><!-- /actionbar -->
-      	  <div class="row">
-      	    <div class="col-md-12">
       	      <ui:repeat var="category" value="#{categories}">
       	        <div class="panel panel-default forum-panel">
-      	          <div class="panel-heading">#{category}</div>
+      	          <div class="panel-heading">
+      	            <h:link value="#{category}" outcome="category">
+      	              <f:param name="category" value="#{category}"/>
+      	            </h:link>
+      	          </div>
       	          <div class="panel-body">
-      	            <ui:repeat var="topic" value="#{latest}">
-      	              <h:panelGroup render="#{topic.category == category}">
+      	            <ui:repeat var="topic" value="#{forumThreadProvider.latest()}">
+      	              <h:panelGroup rendered="#{topic.category == category}">
       	                <div class="row">
       	                  <div class="media forum">
       	                    <div class="col-md-7">
       	                      <div class="media">
       	                        <div class="media-image">
       	                          perhaps some gif
+      	                          #{topic.category}
       	                        </div>
       	                        <div class="media-body">
-      	                          <h3>#{topic.name}</h3>
-      	                          <p>by<font color="red">#{topic.author.username}</font></p>
+      	                          <h:link value="#{topic.name}" outcome="loadThread">
+      	                            <f:param name="threadName" value="#{topic.name}"/>
+      	                          </h:link>
+      	                          <p><h:outputText value="#{msg['topic_by']}"/><font color="red">#{topic.author.username}</font></p>
       	                        </div>
       	                      </div>
       	                    </div>
