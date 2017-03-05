@@ -1,24 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"     
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
      <ui:component>
       <div class="row">
         <div class="col-md-8">
           <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <li class="active">Data</li>
+            <li><h:link value="Home" outcome="main"/></li>
+            <h:panelGroup rendered="#{not empty category}">
+              <li>
+                <h:link value="#{category}" outcome="category">
+                  <f:param name="category" value="#{category}"/>
+                </h:link>
+              </li>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{not empty threadName}">
+              <li class="active">#{threadName}</li>
+            </h:panelGroup>
           </ol>
         </div>
         <div class="col-md-4">
           <form class="form-inline pull-right">
             <div class="form-group">
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search Site"/>
+              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="#{msg['search_site']}"/>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary"><h:outputText value="#{msg['search']}"/></button>
           </form>
         </div>
       </div><!-- /breadcrumb -->

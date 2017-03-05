@@ -20,8 +20,25 @@
                  </ul>
                </li>
                <li class="empty">Empty</li>
-               <li class="pull-right">Register</li>
-               <li class="pull-right">Log In</li>
+               <h:form id="localeForm">
+	             <li class="pull-right">
+	               <h:commandLink action="#{language.changeLocale('en')}">
+	                 <h:outputFormat class="sr-only" value="English" />
+	                 <h:graphicImage library="images" name="uk-flag-icon.png"/>
+	               </h:commandLink>
+	             </li>
+	             <li class="pull-right">
+	               <h:commandLink action="#{language.changeLocale('bg')}">
+	                 <h:outputFormat class="sr-only" value="Български" />
+	                 <h:graphicImage library="images" name="bg-flag-icon.png"/>
+	               </h:commandLink>
+	             </li>
+        	   </h:form>
+               <li>
+               
+               </li>
+               <li class="pull-right"><h:link value="#{msg['register']}" outcome="register"/></li>
+               <li class="pull-right"><h:link value="#{msg['login']}" outcome="login"/></li>
              </ul>
            </div>
          </div><!-- /navbar -->
