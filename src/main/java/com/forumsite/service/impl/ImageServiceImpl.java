@@ -4,10 +4,10 @@ package com.forumsite.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.http.Part;
 
 import org.apache.log4j.Logger;
 
@@ -95,8 +95,8 @@ public class ImageServiceImpl implements ImageService {
 
 	
 	@Override
-	public String saveImage(File file, String contentType, String fileName) throws IOException{
-		return imageUtil.saveImage(file, contentType, fileName);
+	public String saveImage(Part image) throws IOException{
+		return imageUtil.saveImage(image, image.getContentType(), image.getName());
 	}
 
 	

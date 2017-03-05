@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
+import javax.servlet.http.Part;
 
 /**
  *	Utility for manipulating images.  
@@ -82,7 +83,7 @@ public class ImageUtil {
 	 * @param contentType the content type of the file 
 	 * @param fileName the file name the file will be saved with
 	 */
-	public String saveImage(File input,String contentType,String fileName) {
+	public String saveImage(Part input,String contentType,String fileName) {
 		OutputStream out = null;
 		ImageOutputStream imageOut = null;
 		ImageWriter writer = null;
@@ -92,11 +93,11 @@ public class ImageUtil {
 		try{
 			//Do we need conversion
 			if(convertToJpg && contentType != "image/jpg"){
-				image = convertToJpg(ImageIO.read(input));
+				image = convertToJpg(ImageIO.read(input.getInputStream()));
 				fileName = fileName.substring(0, fileName.lastIndexOf('.'))
 						           .concat(".jpg");
 			}else{
-				image = ImageIO.read(input);
+				image = ImageIO.read(input.getInputStream());
 			}
 			
 			dest = new File(defaultDestPath,fileName);
@@ -110,7 +111,7 @@ public class ImageUtil {
 			
 			ImageWriteParam param = writer.getDefaultWriteParam();
 			//Do we want compression 
-		    if(input.length() > maxUncompressedSize && param.canWriteCompressed()){  
+		    if(input.getSize() > maxUncompressedSize && param.canWriteCompressed()){  
 		    	param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 		    	param.setCompressionQuality(0.7f);	
 		    }

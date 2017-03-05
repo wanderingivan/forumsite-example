@@ -2,7 +2,8 @@ package com.forumsite.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+
+import javax.servlet.http.Part;
 
 /**
  * 
@@ -26,11 +27,9 @@ public interface ImageService  {
 	/**
 	 * Saves an image to a predefined destination
 	 * @param file
-	 * @param contentType
-	 * @param fileName
 	 * @throws IOException
 	 */
-	String saveImage(File file,String contentType,String fileName) throws IOException;
+	String saveImage(Part image) throws IOException;
 
 	/**
 	 * Remove and image from the default image folder
