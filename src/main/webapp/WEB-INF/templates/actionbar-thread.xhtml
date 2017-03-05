@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body>
+     <ui:component> 
+      	  <div class="row">
+      	    <div class="col-md-10">
+      	      <h2 class="forum-title"><a href="#">Latest</a></h2>
+      	      <div class="action-bar top">
+      	        <div class="row">
+      	          <div class="col-md-10">
+      	            <h:link class="button-new" value="#{msg['new_comment']}" outcome="threadReply">
+			          <f:param name="threadId" value="#{threadBean.topic.id}"/>
+      	            </h:link>
+      	          </div>
+      	          <div class="col-md-2"></div>
+      	        </div>
+      	      </div>
+      	    </div>
+      	    <div class="col-md-2">
+      	    </div>
+      	  </div><!-- /actionbar -->
+     </ui:component>
+   </h:body>
+</html>
+
