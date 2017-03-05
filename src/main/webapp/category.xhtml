@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <f:metadata>
+    		<f:viewParam name="category" value="#{categoryBean.category}"/>
+    		<f:viewAction action="#{categoryBean.load}"/>
+		</f:metadata>
+        <ui:param name="category" value="#{param['category']}"/>
+      	<ui:define name="content">
+      	  <ui:insert name="action-bar">
+      	    <ui:include src="/WEB-INF/templates/actionbar.xhtml"/>
+      	  </ui:insert>
+
+      	  <div class="row">
+      	    <div class="col-md-10">
+      	      <div class="panel panel-default forum-panel">
+      	        <div class="panel-heading">
+      	          <h:link value="#{param['category']}" outcome="category">
+      	            <f:param name="category" value="#{category}"/>
+      	          </h:link>
+      	        </div>
+      	        <div class="panel-body">
+                  <ui:repeat var="topic" value="#{categoryBean.topics}">
+      	            <div class="row">
+      	              <div class="media forum">
+      	                <div class="col-md-7">
+      	                  <div class="media">
+      	                    <div class="media-image">
+      	                      perhaps some gif
+      	                      #{topic.category}
+      	                    </div>
+      	                    <div class="media-body">
+      	                      <h3>
+      	                        <h:link value="#{topic.name}" outcome="loadThread">
+      	                          <f:param name="threadName" value="#{topic.name}"/>
+      	                        </h:link>
+      	                      </h3>
+      	                      <p><h:outputText value="#{msg['topic_by']}"/><font color="red">#{topic.author.username}</font></p>
+      	                    </div>
+      	                  </div>
+      	                </div>
+      	                <div class="col-md-1">
+      	                  <span class="info">1</span>
+      	                </div>
+      	                <div class="col-md-1">
+      	                  <span class="info">81</span>
+      	                </div>
+      	                <div class="col-md-3">
+      	                  <div class="media">
+      	                    <div class="media-image"> user image</div>
+      	                    <div class="media-body">
+      	                      <h6>poster name</h6>
+      	                      <p><i>A date</i></p>
+      	                    </div>
+      	                  </div>
+      	                </div>
+      	              </div>
+      	            </div>
+      	          </ui:repeat>
+      	        </div>
+      	      </div>      	    
+      	    </div>
+      	  </div>
+      	</ui:define>
+      </ui:composition>
+   </h:body>
+</html>
