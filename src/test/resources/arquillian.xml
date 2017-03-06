@@ -7,13 +7,14 @@
         
     <container qualifier="jbossas-managed" default="true">
         <configuration>
-    		<property name="jbossHome">${jboss.home}</property>
-            <property name="modulePath">${jboss.home}/modules</property>
+    		<property name="jbossHome">${jboss.test.home}</property>
+            <property name="modulePath">${jboss.test.home}/modules</property>
         </configuration>
     </container>
 
 	<extension qualifier="webdriver">
 		<property name="browser">${browser}</property>
+        <property name="chromeDriverBinary">${jboss.test.home}/chromedriver</property>		
 	</extension>
 	
 	<extension qualifier="persistence">
