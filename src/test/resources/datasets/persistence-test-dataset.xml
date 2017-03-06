@@ -4,11 +4,13 @@
 
 	<Users id="11" username="username1" password="password" email="email@email.com1"  description="No description" imageName="empty"/>
 	<Users id="22" username="username2" password="password" email="email@email.com2"  description="No description" imageName="empty"/>
-	<Users id="33" username="username3" password="password" email="email@email.com3"  description="No description" imageName="empty"/>
+	<Users id="34" username="username3" password="password" email="email@email.com3"  description="No description" imageName="empty"/>
 
 	<ForumThread id="11" name="threadname1" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
 	<ForumThread id="22" name="threadname2" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
-	<ForumThread id="33" name="threadname3" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="34" name="threadname3" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
 	<ForumThread id="44" name="threadname4" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	
+	<Comment id="11" message="testComment" thread_id="11" comment_author_id="11" lastUpdate="2017-01-01"/>
 	
 </dataset>

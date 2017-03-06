@@ -16,6 +16,7 @@ import com.forumsite.model.Comment;
 import com.forumsite.model.User;
 import com.forumsite.model.ForumThread;
 import com.forumsite.test.validation.AbstractValidationTest;
+import com.forumsite.util.ImageUtil;
 import com.forumsite.util.Resources;
 
 
@@ -53,7 +54,7 @@ public class Deployments {
     }
     
     public static WebArchive persistenceWar(){
-        return basicWar(new Class[]{User.class,ForumThread.class,Comment.class,Resources.class,UserRepository.class,UserRepositoryImpl.class,ForumThreadRepository.class,ForumThreadRepositoryImpl.class})//XXX Do not commit
+        return basicWar(new Class[]{User.class,ForumThread.class,Comment.class,Resources.class,UserRepository.class,UserRepositoryImpl.class,ForumThreadRepository.class,ForumThreadRepositoryImpl.class,ImageUtil.class})//XXX Code smell
                        .addAsResource("persistence.xml","META-INF/persistence.xml")
                        .addAsWebInfResource("test-ds.xml")
                        .addAsWebInfResource(
