@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT dataset (
 	Users*,
-	ForumThread*,
-	Comment*
+	ForumThread*
 )>
 
 <!ELEMENT Users EMPTY>
@@ -24,12 +23,3 @@
 	lastUpdate CDATA #IMPLIED
 	author_id CDATA #REQUIRED
 >
-
-<!ELEMENT Comment EMPTY>
-<!ATTLIST Comment
-	id CDATA #IMPLIED
-	message CDATA #REQUIRED
-	thread_id CDATA #REQUIRED
-	comment_author_id CDATA #REQUIRED
-	lastUpdate CDATA #REQUIRED
-> 
