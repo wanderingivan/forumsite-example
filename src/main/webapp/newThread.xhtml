@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+       <ui:define name="content">
+         <h:form id="createThreadForm">
+           <h:message id="nameError" for="threadname"/>
+           <h:inputText id="threadname" value="#{threadController.thread.name}" />
+           <h:message id="categoryError" for="category"/>
+           <h:intputText id="category" value="{#threadController.thread.category}"/>
+           <h:message id="messageError" for="initialMessage"/>
+           <h:inputThext id="initialMessage" value="#{threadController.initialMessage}"/>
+           <h:commandButton id="create" action="#{threadController.createThread}"/>
+         </h:form>
+       </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
