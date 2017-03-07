@@ -1,10 +1,11 @@
 package com.forumsite.util;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 
 import org.picketlink.config.SecurityConfigurationBuilder;
 import org.picketlink.event.SecurityConfigurationEvent;
-
+@ApplicationScoped
 public class IdentityManagementConfiguration {
 
     
