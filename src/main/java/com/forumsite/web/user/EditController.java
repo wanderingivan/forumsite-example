@@ -56,6 +56,7 @@ public class EditController implements Serializable {
             logger.info("EditController updating user " + user);
         }
         try{
+           user.setPassword("empty");
            umgmt.updateUser(user,Optional.ofNullable(imageFile));
            return "loadUser?faces-redirect=true&username="+user.getUsername();
         }catch(Exception e){
