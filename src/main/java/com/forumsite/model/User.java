@@ -13,11 +13,18 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.picketlink.idm.permission.annotations.AllowedOperation;
+import org.picketlink.idm.permission.annotations.AllowedOperations;
+
+@AllowedOperations({
+    @AllowedOperation(value="update", mask=1)
+})
 @Entity(name="Users")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username","email"}))
 @NamedQueries({
@@ -43,7 +50,7 @@ public class User implements Serializable{
     
     @NotNull
     @Size(min = 5, max = 50)
-    @Column
+    @Transient
     private String password;
     
     @NotNull
@@ -84,12 +91,13 @@ public class User implements Serializable{
         this.imageName = imageName;
     }
 
+
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("User [getId()=").append(getId()).append(", getUsername()=").append(getUsername())
-               .append(", getPassword()=").append(getPassword()).append(", getEmail()=").append(getEmail())
-               .append(", getDescription()=").append(getDescription()).append("]");
+        builder.append("User [id=").append(id).append(", username=").append(username).append(", email=").append(email)
+               .append(", description=").append(description).append("]");
         return builder.toString();
     }
 
@@ -106,7 +114,7 @@ public class User implements Serializable{
     }
 
     public String getPassword() {
-        return "[Omitted]";
+        return password;
     }
 
     public void setPassword(String password) {
