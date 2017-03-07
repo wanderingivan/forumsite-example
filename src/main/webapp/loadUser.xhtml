@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <f:metadata>
+    		<f:viewParam name="username" value="#{userBean.user.username}"/>
+    		<f:viewParam name="username" value="#{userBean.username}"/>
+    		<f:event listener="#{userBean.load}" type="preRenderView"/>
+		</f:metadata>
+		<ui:param name="title" value="#{userBean.user.username}'s Profile Page"/>
+        <ui:define name="content">
+          <h:message/>
+           <h:outputText id="username" value="#{userBean.user.username}"/>
+           <br/>
+           <h:outputText id="email" value="#{userBean.user.email}"/>
+           <br/>
+           <h:outputText id="description" value="#{userBean.user.description}"/>
+           <br/>
+           <h:graphicImage value="images/#{userBean.user.imageName}"/>
+        </ui:define>
+      </ui:composition>
+    </h:body>
+</html>

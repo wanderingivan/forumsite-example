@@ -25,10 +25,12 @@ public class Deployments {
     private static final String WEBAPP_SRC = "src/main/webapp";
     
     public static WebArchive projectWar(){
-        return ShrinkWrap.create(MavenImporter.class,"testWar.war")
+        WebArchive war =  ShrinkWrap.create(MavenImporter.class,"ForumSite.war")
                          .loadPomFromFile("pom.xml")
                          .importBuildOutput()
                          .as(WebArchive.class);
+        war.addClasses(SeleniumDatabaseSeedWorkaround.class);
+        return war;
     }
     
     public static WebArchive basicSeleniumWar(Class [] classes){
