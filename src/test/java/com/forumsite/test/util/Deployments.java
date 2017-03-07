@@ -17,6 +17,7 @@ import com.forumsite.model.Comment;
 import com.forumsite.model.User;
 import com.forumsite.model.ForumThread;
 import com.forumsite.test.validation.AbstractValidationTest;
+import com.forumsite.util.ImageUtil;
 import com.forumsite.util.Resources;
 
 
@@ -25,10 +26,12 @@ public class Deployments {
     private static final String WEBAPP_SRC = "src/main/webapp";
     
     public static WebArchive projectWar(){
-        return ShrinkWrap.create(MavenImporter.class,"testWar.war")
+        WebArchive war =  ShrinkWrap.create(MavenImporter.class,"ForumSite.war")
                          .loadPomFromFile("pom.xml")
                          .importBuildOutput()
                          .as(WebArchive.class);
+        war.addClasses(SeleniumDatabaseSeedWorkaround.class);
+        return war;
     }
     
     public static WebArchive basicSeleniumWar(Class [] classes){
@@ -61,7 +64,7 @@ public class Deployments {
     }
     
     public static WebArchive persistenceWar(){
-        return basicWar(new Class[]{User.class,ForumThread.class,Comment.class,Resources.class,UserRepository.class,UserRepositoryImpl.class,ForumThreadRepository.class,ForumThreadRepositoryImpl.class})//XXX Do not commit
+        return basicWar(new Class[]{User.class,ForumThread.class,Comment.class,Resources.class,UserRepository.class,UserRepositoryImpl.class,ForumThreadRepository.class,ForumThreadRepositoryImpl.class,ImageUtil.class})//XXX Code smell
                        .addAsResource("persistence.xml","META-INF/persistence.xml")
                        .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                        .addAsWebInfResource("test-ds.xml")
