@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:param name="title" value="Editing #{editController.username}" />
+        <f:metadata>
+    		<f:viewParam name="username" value="#{editController.username}"/>
+    		<f:event listener="#{editController.load}" type="preRenderView"/>
+		</f:metadata>       
+       <ui:define name="content">
+        <h:form id="editUserForm" enctype="multipart/form-data">
+         <h:message id="usernameError" for="username" />
+         <h:inputText id="username" value="#{editController.user.username}"/>
+         <h:message id="emailError" for="email"/>
+         <h:inputText id="email" value="#{editController.user.email}" />
+         <h:message id="decriptionError" for="description"/>
+         <h:inputTextarea id="description" value="#{editController.user.description}" />
+         <h:inputFile id="image" value="#{editController.imageFile}"/>
+         <h:commandButton id="edit" action="#{editController.update}" value="edit" />
+        </h:form>
+       </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
