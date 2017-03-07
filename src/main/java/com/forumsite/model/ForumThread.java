@@ -27,6 +27,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.picketlink.idm.permission.annotations.AllowedOperation;
+import org.picketlink.idm.permission.annotations.AllowedOperations;
+
+@AllowedOperations({
+    @AllowedOperation(value="update",mask=2),
+    @AllowedOperation(value="delete",mask=4)
+})
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQueries({
