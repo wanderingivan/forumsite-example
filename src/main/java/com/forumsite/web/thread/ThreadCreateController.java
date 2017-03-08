@@ -12,7 +12,7 @@ import com.forumsite.model.ForumThread;
 import com.forumsite.service.ForumThreadManagement;
 
 @Model
-public class ThreadControler {
+public class ThreadCreateController {
     
     @Inject
     private FacesContext ctx;
@@ -24,6 +24,8 @@ public class ThreadControler {
     private Logger logger;
     
     private ForumThread newThread; 
+    
+    private String initialMessage;
     
     @PostConstruct
     public void initNewThread(){
@@ -50,6 +52,14 @@ public class ThreadControler {
 
     public void setNewThread(ForumThread newThread) {
         this.newThread = newThread;
+    }
+
+    public String getInitialMessage() {
+        return initialMessage;
+    }
+
+    public void setInitialMessage(String initialMessage) {
+        this.initialMessage = initialMessage;
     }
     
 }

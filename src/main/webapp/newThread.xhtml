@@ -7,12 +7,12 @@
        <ui:define name="content">
          <h:form id="createThreadForm">
            <h:message id="nameError" for="threadname"/>
-           <h:inputText id="threadname" value="#{threadController.thread.name}" />
+           <h:inputText id="threadname" value="#{threadCreateController.newThread.name}" />
            <h:message id="categoryError" for="category"/>
-           <h:intputText id="category" value="{#threadController.thread.category}"/>
+           <h:inputText id="category" value="#{threadCreateController.newThread.category}" />
            <h:message id="messageError" for="initialMessage"/>
-           <h:inputThext id="initialMessage" value="#{threadController.initialMessage}"/>
-           <h:commandButton id="create" action="#{threadController.createThread}"/>
+           <h:inputText id="initialMessage" value="#{threadCreateController.initialMessage}"/>
+           <h:commandButton id="create" value="Create thread" action="#{threadCreateController.create}"/>
          </h:form>
        </ui:define>
       </ui:composition>
