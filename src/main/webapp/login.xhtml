@@ -1,0 +1,41 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+ <body>
+<h:form id="loginForm" rendered="#{not identity.loggedIn}">
+    <h:messages globalOnly="true"/>
+
+    <div class="loginRow">
+        <h:outputLabel for="name" value="Username" styleClass="loginLabel"/>
+        <h:inputText id="name" value="#{loginCredentials.userId}"/>
+    </div>
+
+    <div class="loginRow">
+        <h:outputLabel for="password" value="Password" styleClass="loginLabel"/>
+        <h:inputSecret id="password" value="#{loginCredentials.password}" redisplay="true"/>
+    </div>
+
+    <div class="loginRow">
+
+    </div>
+
+    <div class="buttons">
+        <h:commandButton id="login" value="Login" action="#{loginController.login}" styleClass="loginButton"/>
+	</div>
+	</h:form>
+	<ui:fragment rendered="#{identity.loggedIn}">
+    <div>Currently logged in as: <b>#{identity.account.loginName}</b></div>
+
+    	<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('admin')}">
+      		<div>You have been granted the 'admin' application role.</div>
+		</ui:fragment>
+		<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('user')}">
+      		<div>You have been granted the 'user' application role.</div>
+		</ui:fragment>
+     </ui:fragment>
+     <h:form id="logoutForm">
+     	<h:commandLink action="#{identity.logout}" value="Logout"/>
+     </h:form>
+</body>
+</html>
