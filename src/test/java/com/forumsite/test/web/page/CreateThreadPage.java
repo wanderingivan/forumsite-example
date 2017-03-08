@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 @Location("newThread.jsf")
 public class CreateThreadPage {
-
+    
     @FindBy(id="createThreadForm:threadname")
     private WebElement threadName;
     

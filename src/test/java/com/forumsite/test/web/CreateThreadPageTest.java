@@ -20,7 +20,7 @@ import com.forumsite.test.web.page.ShowThreadPage;
 @RunWith(Arquillian.class)
 public class CreateThreadPageTest extends AbstractWebPageTest{
     
-    @Deployment
+    @Deployment(testable=false)
     public static WebArchive createDeployment(){
         return Deployments.projectWar();
     }
@@ -38,9 +38,9 @@ public class CreateThreadPageTest extends AbstractWebPageTest{
     @Test
     public void createThreadInputMessagesTest(@InitialPage CreateThreadPage cPage){
         cPage.createThread("thre", "cat", "");
-        assertFalse(cPage.getThreadNameError().getText().isEmpty());
-        assertFalse(cPage.getCategoryError().getText().isEmpty());
-        assertFalse(cPage.getMessageError().getText().isEmpty());
+        assertFalse("Threadname error messages are missing",cPage.getThreadNameError().getText().isEmpty());
+        assertFalse("Category error messages are missing",cPage.getCategoryError().getText().isEmpty());
+        assertFalse("Message error messages are missing",cPage.getMessageError().getText().isEmpty());
     }
     
     @Test

@@ -22,7 +22,9 @@ public class EditThreadPage {
     private WebElement categoryError;
     
     public void edit(String threadName, String category){
+        this.threadName.clear();
         this.threadName.sendKeys(threadName);
+        this.category.clear();
         this.category.sendKeys(category);
         Graphene.guardHttp(edit).click();       
     }

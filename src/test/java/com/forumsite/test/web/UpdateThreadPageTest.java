@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.graphene.page.InitialPage;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.forumsite.test.util.Deployments;
-import com.forumsite.test.web.page.CreateUserPage;
 import com.forumsite.test.web.page.EditThreadPage;
 import com.forumsite.test.web.page.ShowThreadPage;
 
@@ -33,38 +31,32 @@ public class UpdateThreadPageTest extends AbstractWebPageTest {
     EditThreadPage editPage;
     
     @Test
-    public void editUserTest(){
-        System.out.println("DEPURL" + deploymentUrl.toExternalForm());
+    public void editThreadTest(){
         browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
-        assertEquals("Editing theadname1",browser.getTitle().trim());
+        assertEquals("Editing threadname1",browser.getTitle().trim());
         editPage.edit("threadname10", "category2");
 
-        assertTrue(browser.getTitle().trim().equals("threadname10"));
+        assertTrue("The thread was not saved",browser.getTitle().trim().equals("threadname10"));
         assertEquals("username123",threadPage.getThreadname());
         assertEquals("email@emal23.com",threadPage.getCategory());
     }
     
     @Test
-    public void createUserInputMessagesTest(){
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username1");
-        assertEquals("Editing username1",browser.getTitle().trim());
+    public void editThreadInputMessagesTest(){
+        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
+        assertEquals("Editing threadname1",browser.getTitle().trim());
         editPage.edit("", "cat");
-        assertFalse(editPage.getThreadNameError().getText().isEmpty());
-        assertFalse(editPage.getCategoryError().getText().isEmpty());
+        assertFalse("There are no error messages for threadname", editPage.getThreadNameError().getText().isEmpty());
+        assertFalse("There are no error messages for category", editPage.getCategoryError().getText().isEmpty());
     }
     
     @Test
-    public void createUserDuplicateUsernameError(@InitialPage CreateUserPage editPage){
+    public void editThreadDuplicateThreadnameError(){
         fail("To be defined");
     }
     
     @Test
-    public void createUserDuplicateEmailError(@InitialPage CreateUserPage editPage){
-        fail("To be defined");
-    }
-    
-    @Test
-    public void createUserAccessDeniedError(@InitialPage CreateUserPage editPage){
+    public void editThreadAccessDeniedError(){
         fail("To be defined");
     }    
     

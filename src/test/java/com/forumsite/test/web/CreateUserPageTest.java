@@ -31,10 +31,9 @@ public class CreateUserPageTest extends AbstractWebPageTest {
     
     @Test
     public void createUserTest(@InitialPage CreateUserPage cPage){
-        cPage.assertCreateUser("username1", "password", "email@email.com", "empty");
-
-        assertTrue(browser.getTitle().trim().equals("username1's Profile Page"));
-        assertEquals("username1",userPage.getUsername());
+        cPage.assertCreateUser("username4", "password", "email@email.com", "empty");
+        assertEquals("username4Profile Page",browser.getTitle().trim());
+        assertEquals("username4",userPage.getUsername());
         assertEquals("email@email.com",userPage.getEmail());
         assertEquals("empty",userPage.getDescription());
     }
