@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import org.picketlink.Identity;
 import org.picketlink.authorization.annotations.LoggedIn;
-import org.picketlink.authorization.annotations.RequiresPermission;
 import org.picketlink.authorization.annotations.RolesAllowed;
+import org.picketlink.http.AccessDeniedException;
 import org.picketlink.idm.PermissionManager;
 import org.picketlink.idm.model.basic.User;
 
@@ -36,8 +36,11 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
     }
 
     @Override
-    @RequiresPermission(resourceClass=ForumThread.class,operation="update")
     public void updateThread(ForumThread t) {
+        if(!this.identity.hasPermission(t, "update")){
+            throw new AccessDeniedException(String.format("No permission for update on thread %s by user %s",t,identity.getAccount()
+                                                                                                                       .getId()));
+        }
         repo.update(t);
     }
 

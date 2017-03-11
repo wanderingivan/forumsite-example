@@ -6,10 +6,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 
+import org.picketlink.Identity;
+import org.picketlink.http.AccessDeniedException;
 import org.picketlink.idm.credential.Password;
 import org.picketlink.idm.model.basic.BasicModel;
 import org.picketlink.authorization.annotations.LoggedIn;
-import org.picketlink.authorization.annotations.RequiresPermission;
 import org.picketlink.authorization.annotations.Restrict;
 import org.picketlink.authorization.annotations.RolesAllowed;
 import org.picketlink.idm.IdentityManager;
@@ -26,6 +27,9 @@ public class UserManagementImpl implements UserManagement {
 
     @Inject
     private IdentityManager idm;
+    
+    @Inject
+    private Identity identity;
     
     @Inject
     private PermissionManager permissionManager;
@@ -53,8 +57,11 @@ public class UserManagementImpl implements UserManagement {
 
     @Override
     @LoggedIn
-    @RequiresPermission(resourceClass=User.class,operation="update")
     public void updateUser(User u,Optional<Part> image) throws Exception{
+        if(!this.identity.hasPermission(u, "update")){
+            throw new AccessDeniedException(String.format("No permission for update on user %s by user %s",u,identity.getAccount()
+                                                                                                                     .getId()));
+        }
         if(image.isPresent()){ 
             String imageName = imageService.saveImage(image.get()); 
             u.setImageName(imageName);
