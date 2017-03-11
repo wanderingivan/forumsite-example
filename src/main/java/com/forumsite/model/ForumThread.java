@@ -60,7 +60,7 @@ public class ForumThread implements Serializable{
     private Long id;
     
     @NotNull    
-    @Size(max=50)
+    @Size(min=5,max=50)
     @Column
     private String name;
     
