@@ -20,13 +20,15 @@ public class LoginController {
    @Inject
    private FacesContext fctx;
    
-   public void login(){
+   public String login(){
        System.out.println("Login clicked");
        AuthenticationResult result = identity.login();
        System.out.println(result);
        if(AuthenticationResult.FAILED.equals(result)){
            fctx.addMessage(null, new FacesMessage("Authentication was unsuccessful.  Please check your username and password before trying again."));
+           return "";
        }
+       return "main.jsf?faces-redirect=true";
    }
    
     
