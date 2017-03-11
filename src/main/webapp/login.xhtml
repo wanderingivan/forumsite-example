@@ -19,12 +19,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
     <div class="loginRow">
 
     </div>
-
     <div class="buttons">
         <h:commandButton id="login" value="Login" action="#{loginController.login}" styleClass="loginButton"/>
 	</div>
 	</h:form>
 	<ui:fragment rendered="#{identity.loggedIn}">
+
     <div>Currently logged in as: <b>#{identity.account.loginName}</b></div>
 
     	<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('admin')}">
@@ -32,10 +32,11 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		</ui:fragment>
 		<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('user')}">
       		<div>You have been granted the 'user' application role.</div>
-		</ui:fragment>
+		</ui:fragment>     
+		<h:form id="logoutForm">
+     	  <h:commandLink id="logout" action="#{identity.logout}" value="Logout"/>
+        </h:form>
      </ui:fragment>
-     <h:form id="logoutForm">
-     	<h:commandLink action="#{identity.logout}" value="Logout"/>
-     </h:form>
+
 </body>
 </html>
