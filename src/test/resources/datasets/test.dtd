@@ -8,7 +8,6 @@
 <!ATTLIST Users
 	id CDATA #IMPLIED
 	username CDATA #REQUIRED
-	password CDATA #REQUIRED
 	email CDATA #REQUIRED
 	description CDATA #REQUIRED
 	imageName CDATA #IMPLIED
