@@ -14,7 +14,7 @@
            <h:message id="nameError" for="threadname"/>
            <h:inputText id="threadname" value="#{threadEditController.thread.name}" />
            <h:message id="categoryError" for="category"/>
-           <h:inputText id="category" value="{#threadEditController.thread.category}"/>
+           <h:inputText id="category" value="#{threadEditController.thread.category}" />>
            <h:commandButton id="edit" action="#{threadEditController.update}"/>
          </h:form>
        </ui:define>
