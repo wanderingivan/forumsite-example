@@ -71,7 +71,6 @@ public class ForumThreadPersistenceTests {
     @Test
     public void testListThread(){
         assertEquals(4, repo.list().size());
-        System.out.println("Author: " + repo.list().get(0).getAuthor());
     }
     
     @Test
