@@ -5,9 +5,10 @@
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
         <f:metadata>
-    		<f:viewParam name="threadName" value="#{threadBean.threadName}"/>
+    		<f:viewParam name="threadname" value="#{threadBean.threadName}"/>
     		<f:viewAction action="#{threadBean.load}"/>
 		</f:metadata>
+		<ui:param name="title" value="#{threadBean.threadName}" />
         <ui:param name="threadName" value="#{threadBean.threadName}"/>
         <ui:param name="category" value="#{threadBean.topic.category}"/>
         <ui:define name="content">
