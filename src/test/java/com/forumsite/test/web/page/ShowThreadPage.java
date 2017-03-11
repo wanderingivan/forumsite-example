@@ -11,11 +11,11 @@ public class ShowThreadPage {
     @FindBy(id="category")
     private WebElement category;
 
-    public WebElement getThreadname() {
-        return threadname;
+    public String getThreadname() {
+        return threadname.getText().trim();
     }
 
-    public WebElement getCategory() {
-        return category;
+    public String getCategory() {
+        return category.getText().trim();
     }
 }
