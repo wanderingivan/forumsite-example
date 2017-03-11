@@ -1,14 +1,20 @@
 package com.forumsite.test.util;
 
-import java.util.stream.IntStream;
+import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
+import org.picketlink.idm.IdentityManager;
+import org.picketlink.idm.PermissionManager;
+import org.picketlink.idm.RelationshipManager;
+import org.picketlink.idm.credential.Password;
+import org.picketlink.idm.model.basic.BasicModel;
 
 import com.forumsite.model.ForumThread;
 import com.forumsite.model.User;
@@ -22,8 +28,8 @@ import com.forumsite.model.User;
  * the current version as far as {@code WebDriver} is concerned 
  */
 
-@Startup
-@Singleton
+@Stateless
+@SuppressWarnings("unchecked")
 public class SeleniumDatabaseSeedWorkaround {
 
     @Inject
@@ -32,31 +38,66 @@ public class SeleniumDatabaseSeedWorkaround {
     @Inject
     private Logger logger;
     
-    @PostConstruct
-    public void initDatabase(){
+    @Inject
+    private IdentityManager idm;
+    
+    @Inject
+    private PermissionManager permissionManager;
+    
+    @Inject
+    private RelationshipManager relManager;
+    
+    public void initDatabase(@Observes @Initialized(ApplicationScoped.class) final Object event){
       if(logger.isInfoEnabled()){
           logger.info("Workaround seeding database instead of DBUnit");
       }
       initUsers(); 
       initThreads();
+      if(logger.isDebugEnabled()){
+          logger.info("ThreadList: \n" +em.createQuery("SELECT ft FROM ForumThread ft").getResultList());
+          logger.info("UserList: \n" +em.createQuery("SELECT u FROM Users u").getResultList());
+      }
     }
     
+    
     private void initUsers(){
-       IntStream.of(1,4)
-                .mapToObj(i -> {
-                    return new User("username"+i,"password","email@email"+i+".com");
-                })
-                .forEach(u -> em.persist(u));
+       for(int i = 2; i < 4; i++){
+           User u = new User("username"+i,"password","email@email"+i+".com"); 
+           em.persist(u);
+       }
+       addUserAcl();
+    }
+    
+    private void addUserAcl(){
+        for(User u : ((List<User>) em.createQuery("SELECT u FROM Users u").getResultList())){
+            org.picketlink.idm.model.basic.User user = new org.picketlink.idm.model.basic.User(u.getUsername());
+            user.setEmail(u.getEmail());
+            user.setId(u.getUsername());
+            idm.add(user);
+            idm.updateCredential(user, new Password(u.getPassword()));
+            permissionManager.grantPermission(user, u, "update");
+            BasicModel.grantRole(relManager, user, BasicModel.getRole(idm, "user"));
+        }
     }
     
     private void initThreads(){
         User u = em.createNamedQuery("User.findByName", User.class)
-                   .setParameter("username", "username1")
+                   .setParameter("username", "username2")
                    .getSingleResult();
-        IntStream.of(1,4)
-                 .mapToObj(i -> {
-                     return new ForumThread("threadname"+i, "category", u);
-                 })
-                 .forEach(t -> em.persist(u));
+        
+        org.picketlink.idm.model.basic.User firstUser = BasicModel.getUser(idm, "username2");
+        org.picketlink.idm.model.basic.User secondUser  = BasicModel.getUser(idm, "username3");
+        
+        for(int i = 1; i < 4; i++){
+            ForumThread t = new ForumThread("threadname"+i, "category", u);
+            em.persist(t);
+            permissionManager.grantPermission(firstUser, t, "update");
+        }
+        
+        for(int i = 5; i < 7; i++){
+            ForumThread t = new ForumThread("threadname"+i, "category", u);
+            em.persist(t);
+            permissionManager.grantPermission(secondUser, t, "update");
+        }
     }
 }
