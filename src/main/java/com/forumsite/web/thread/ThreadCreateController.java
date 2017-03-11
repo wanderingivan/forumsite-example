@@ -2,7 +2,6 @@ package com.forumsite.web.thread;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -34,16 +33,11 @@ public class ThreadCreateController {
     
     public String create(){
         if(logger.isInfoEnabled()){
-            logger.info("ForumThreadController adding new user " + newThread);
+            logger.info("ForumThreadController adding new thread" + newThread);
         }        
-        try{
-            fmgmt.saveThread(newThread);
-            return "loadThread?faces-redirect=true&threadname="+newThread.getName();
-        }catch(Exception e){
-            logger.error(String.format("Exception caught persisting thread %s \n %s ",newThread,e));
-            ctx.addMessage(null, new FacesMessage("There wan an error creating this thread. Please try again later."));
-        }
-        return "";
+
+        fmgmt.saveThread(newThread);
+        return "loadThread?faces-redirect=true&threadname="+newThread.getName();
     }
 
     public ForumThread getNewThread() {

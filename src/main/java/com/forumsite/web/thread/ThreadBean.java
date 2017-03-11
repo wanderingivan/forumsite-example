@@ -27,7 +27,6 @@ public class ThreadBean {
             logger.debug("Loading thread with name " + threadName);
         }
         topic = producer.getThread(threadName);
-        //return "loadThread";
     }
 
     public String getThreadName() {

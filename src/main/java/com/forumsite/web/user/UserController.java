@@ -4,11 +4,8 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.Part;
 
 import org.apache.log4j.Logger;
@@ -28,8 +25,6 @@ public class UserController {
     @Inject
     private Logger logger;
     
-    @Named
-    @Produces
     private User user; 
 
     private Part imageFile;
@@ -40,31 +35,14 @@ public class UserController {
         user = new User();
     }
     
-    public String register(){
+    public String register() throws Exception{
         if(logger.isInfoEnabled()){
             logger.info("UserController adding new user " + user);
         }
-        try{
-           umgmt.saveUser(user,Optional.ofNullable(imageFile));
-           return "loadUser?faces-redirect=true&username="+user.getUsername();
-        }catch(Exception e){
-            logger.error(String.format("Exception caught persisting user %s \n %s ",user,e));
-            ctx.addMessage(null, new FacesMessage("There was an error registering this user"));
-        }
-           return "";
+        umgmt.saveUser(user,Optional.ofNullable(imageFile));
+        return "loadUser?faces-redirect=true&username="+user.getUsername();
     }
     
-    public void edit(){
-        if(logger.isInfoEnabled()){
-            logger.info("UserController updating user " + user);
-        }
-        try{
-            umgmt.updateUser(user,Optional.ofNullable(imageFile));
-            initNewUser();
-         }catch(Exception e){
-             logger.error(String.format("Exception caught updating user %s \n %s ",user,e));
-         }        
-    }
 
     public User getUser() {
         return user;

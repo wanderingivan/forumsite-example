@@ -3,7 +3,6 @@ package com.forumsite.web.thread;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,14 +49,8 @@ public class ThreadEditController implements Serializable {
         if(logger.isInfoEnabled()){
             logger.info("EditController updating thread " + thread);
         }
-        try{
-           fmgmt.updateThread(thread);
-           return "loadThread?faces-redirect=true&threadname="+thread.getName();
-        }catch(Exception e){
-            logger.error(String.format("Exception caught updating user  %s \n %s ",thread,e));
-            ctx.addMessage(null, new FacesMessage("There was an error updating this thread"));
-        }
-           return "";
+        fmgmt.updateThread(thread);
+        return "loadThread?faces-redirect=true&threadname="+thread.getName();
     }
 
     public ForumThread getThread() {
