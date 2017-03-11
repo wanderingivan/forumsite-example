@@ -9,6 +9,6 @@ import com.forumsite.test.persistence.*;
 @RunWith(Suite.class)
 @SuiteClasses({ForumThreadPersistenceTests.class,
                UserPersistenceTests.class})
-public class PersistenceTestSuite {
+public class PersistenceSuiteTest {
 
 }

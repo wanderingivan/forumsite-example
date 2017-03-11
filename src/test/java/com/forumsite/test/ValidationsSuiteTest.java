@@ -10,4 +10,4 @@ import com.forumsite.test.validation.*;
 @SuiteClasses({CommentValidationTests.class,
                UserValidationTests.class,
                ForumThreadValidationTests.class})
-public class ValidationsTestSuite {}
+public class ValidationsSuiteTest {}

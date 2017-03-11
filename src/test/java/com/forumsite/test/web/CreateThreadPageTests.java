@@ -14,11 +14,13 @@ import org.junit.runner.RunWith;
 
 import com.forumsite.test.util.Deployments;
 import com.forumsite.test.web.page.CreateThreadPage;
+import com.forumsite.test.web.page.ErrorPage;
+import com.forumsite.test.web.page.LoginPage;
 import com.forumsite.test.web.page.ShowThreadPage;
 
 
 @RunWith(Arquillian.class)
-public class CreateThreadPageTest extends AbstractWebPageTest{
+public class CreateThreadPageTests extends AbstractWebPageTests{
     
     @Deployment(testable=false)
     public static WebArchive createDeployment(){
@@ -28,28 +30,42 @@ public class CreateThreadPageTest extends AbstractWebPageTest{
     @Page
     ShowThreadPage threadPage;
     
+    @Page
+    CreateThreadPage cPage;
+    
+    @Page
+    ErrorPage ePage;
+    
     @Test
-    public void createThreadTest(@InitialPage CreateThreadPage cPage){
+    public void createThreadTest(@InitialPage LoginPage login){ // NOTE right now this is a very short test that checks if the user has permission to create,
+        login.loginIfNotAuthenticated("username2", "password"); // it should check that the entity is persisted and presented properly
+        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
         cPage.createThread("threadname4", "category","message");
         assertEquals("threadname4",browser.getTitle().trim());
 
     }
     
     @Test
-    public void createThreadInputMessagesTest(@InitialPage CreateThreadPage cPage){
+    public void createThreadInputMessagesTest(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
+        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
         cPage.createThread("thre", "cat", "");
+        assertEquals("We're not on input page","New Thread",browser.getTitle().trim());
         assertFalse("Threadname error messages are missing",cPage.getThreadNameError().getText().isEmpty());
         assertFalse("Category error messages are missing",cPage.getCategoryError().getText().isEmpty());
         assertFalse("Message error messages are missing",cPage.getMessageError().getText().isEmpty());
     }
     
     @Test
-    public void createUserDuplicateThreadnameError(@InitialPage CreateThreadPage cPage){
+    public void createThreadDuplicateThreadnameError(@InitialPage CreateThreadPage cPage){
         fail("To be defined");
     }
     
     @Test
-    public void createUserThreadDeniedError(@InitialPage CreateThreadPage cPage){
-        fail("To be defined");
+    public void createThreadAccessDeniedError(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
+        cPage.createThread("threadname5", "category","message");
+        ePage.assertOnAccessDeniedPage();
     }
 }

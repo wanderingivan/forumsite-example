@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.graphene.page.InitialPage;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -14,10 +15,12 @@ import org.junit.runner.RunWith;
 
 import com.forumsite.test.util.Deployments;
 import com.forumsite.test.web.page.EditThreadPage;
+import com.forumsite.test.web.page.ErrorPage;
+import com.forumsite.test.web.page.LoginPage;
 import com.forumsite.test.web.page.ShowThreadPage;
 
 @RunWith(Arquillian.class)
-public class UpdateThreadPageTest extends AbstractWebPageTest {
+public class UpdateThreadPageTests extends AbstractWebPageTests {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment(){
@@ -30,19 +33,23 @@ public class UpdateThreadPageTest extends AbstractWebPageTest {
     @Page
     EditThreadPage editPage;
     
+    @Page
+    ErrorPage ePage;
+    
     @Test
-    public void editThreadTest(){
+    public void editThreadTest(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
         browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
         assertEquals("Editing threadname1",browser.getTitle().trim());
-        editPage.edit("threadname10", "category2");
-
-        assertTrue("The thread was not saved",browser.getTitle().trim().equals("threadname10"));
-        assertEquals("username123",threadPage.getThreadname());
-        assertEquals("email@emal23.com",threadPage.getCategory());
+        editPage.edit("threadname11", "category2");
+        assertTrue("The thread was not updated",browser.getTitle().trim().equals("threadname11"));
+        assertEquals("threadname11",threadPage.getThreadname());
+        assertEquals("category2",threadPage.getCategory());
     }
     
     @Test
-    public void editThreadInputMessagesTest(){
+    public void editThreadInputMessagesTest(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
         browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
         assertEquals("Editing threadname1",browser.getTitle().trim());
         editPage.edit("", "cat");
@@ -56,8 +63,18 @@ public class UpdateThreadPageTest extends AbstractWebPageTest {
     }
     
     @Test
-    public void editThreadAccessDeniedError(){
-        fail("To be defined");
+    public void editThreadAclAccessDeniedError(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
+        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname5");
+        assertEquals("Editing threadname5",browser.getTitle().trim());
+        editPage.edit("threadname10", "category2");
+        ePage.assertOnAccessDeniedPage();
     }    
     
+    @Test
+    public void editThreadLoginAccessDeniedError(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
+        ePage.assertOnAccessDeniedPage();
+    }
 }

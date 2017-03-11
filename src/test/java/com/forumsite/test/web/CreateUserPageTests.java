@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 
 import com.forumsite.test.util.Deployments;
 import com.forumsite.test.web.page.CreateUserPage;
+import com.forumsite.test.web.page.ErrorPage;
+import com.forumsite.test.web.page.LoginPage;
 import com.forumsite.test.web.page.ShowUserPage;
 
 import static org.junit.Assert.*;
@@ -18,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Arquillian.class)
-public class CreateUserPageTest extends AbstractWebPageTest {
+public class CreateUserPageTests extends AbstractWebPageTests {
 
     
     @Deployment(testable = false)
@@ -27,12 +29,20 @@ public class CreateUserPageTest extends AbstractWebPageTest {
     }
     
     @Page
+    CreateUserPage cPage;
+    
+    @Page
     ShowUserPage userPage;
     
+    @Page
+    ErrorPage ePage;
+    
     @Test
-    public void createUserTest(@InitialPage CreateUserPage cPage){
+    public void createUserTest(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        browser.get(deploymentUrl.toExternalForm() +  "newUser.jsf");      
         cPage.assertCreateUser("username4", "password", "email@email.com", "empty");
-        assertEquals("username4Profile Page",browser.getTitle().trim());
+        assertEquals("username4's Profile Page",browser.getTitle().trim());
         assertEquals("username4",userPage.getUsername());
         assertEquals("email@email.com",userPage.getEmail());
         assertEquals("empty",userPage.getDescription());
@@ -47,18 +57,20 @@ public class CreateUserPageTest extends AbstractWebPageTest {
     }
     
     @Test
-    public void createUserDuplicateUsernameError(@InitialPage CreateUserPage cPage){
+    public void createUserDuplicateUsernameExceptionTest(@InitialPage CreateUserPage cPage){
         fail("To be defined");
     }
     
     @Test
-    public void createUserDuplicateEmailError(@InitialPage CreateUserPage cPage){
+    public void createUserDuplicateEmailTest(@InitialPage CreateUserPage cPage){
         fail("To be defined");
     }
     
     @Test
-    public void createUserAccessDeniedError(@InitialPage CreateUserPage cPage){
-        fail("To be defined");
+    public void createUserAccessDeniedTest(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
+        browser.get(deploymentUrl.toExternalForm() +  "newUser.jsf");
+        ePage.assertOnAccessDeniedPage();
     }
     
 }

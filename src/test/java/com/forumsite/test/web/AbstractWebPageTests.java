@@ -6,7 +6,7 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.WebDriver;
 
-public class AbstractWebPageTest {
+public class AbstractWebPageTests {
 
     @Drone
     WebDriver browser;
