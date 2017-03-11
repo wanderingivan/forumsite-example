@@ -12,13 +12,13 @@
             <li><h:link value="Home" outcome="main"/></li>
             <h:panelGroup rendered="#{not empty category}">
               <li>
-                <h:link value="#{category}" outcome="category">
+                <h:link id="category" value="#{category}" outcome="category">
                   <f:param name="category" value="#{category}"/>
                 </h:link>
               </li>
             </h:panelGroup>
             <h:panelGroup rendered="#{not empty threadName}">
-              <li class="active">#{threadName}</li>
+              <li id="threadname" class="active">#{threadName}</li>
             </h:panelGroup>
           </ol>
         </div>
