@@ -8,7 +8,8 @@ import com.forumsite.test.persistence.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({ForumThreadPersistenceTests.class,
-               UserPersistenceTests.class})
+               UserPersistenceTests.class,
+               CommentPersistenceTests.class})
 public class PersistenceSuiteTest {
 
 }
