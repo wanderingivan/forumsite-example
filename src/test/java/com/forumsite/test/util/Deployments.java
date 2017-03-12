@@ -9,16 +9,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 
-import com.forumsite.data.ForumThreadRepository;
-import com.forumsite.data.impl.ForumThreadRepositoryImpl;
-import com.forumsite.data.UserRepository;
-import com.forumsite.data.impl.UserRepositoryImpl;
-import com.forumsite.model.Comment;
-import com.forumsite.model.User;
-import com.forumsite.model.ForumThread;
+import com.forumsite.data.*;
+import com.forumsite.data.impl.*;
+import com.forumsite.model.*;
+import com.forumsite.util.*;
 import com.forumsite.test.validation.AbstractValidationTest;
-import com.forumsite.util.ImageUtil;
-import com.forumsite.util.Resources;
 
 
 @SuppressWarnings("rawtypes")
@@ -72,6 +67,8 @@ public class Deployments {
                                     UserRepositoryImpl.class,
                                     ForumThreadRepository.class,
                                     ForumThreadRepositoryImpl.class,
+                                    CommentRepository.class,
+                                    CommentRepositoryImpl.class,
                                     ImageUtil.class})
                        .addAsResource("persistence.xml","META-INF/persistence.xml")
                        .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
