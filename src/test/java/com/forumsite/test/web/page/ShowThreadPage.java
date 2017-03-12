@@ -1,5 +1,6 @@
 package com.forumsite.test.web.page;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,9 @@ public class ShowThreadPage {
     
     @FindByJQuery(".threadComment:eq(0)")
     private GrapheneElement firstComment;
+    
+    @FindBy(id="reply-link")
+    private WebElement replyLink; 
 
     public String getThreadname() {
         return threadname.getText().trim();
@@ -30,5 +34,9 @@ public class ShowThreadPage {
     
     public boolean commentExists(){
         return firstComment.isPresent();
+    }
+    
+    public void goToReply(){
+        Graphene.guardHttp(replyLink).click();
     }
 }
