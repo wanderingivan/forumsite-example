@@ -32,7 +32,7 @@ public class UserValidationTests extends AbstractValidationTest {
     public void testRegisterEmptyUser(){
         User user = new User();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(3, violations.size());
+        assertEquals(2, violations.size());
     }
     
     @Test
@@ -57,22 +57,8 @@ public class UserValidationTests extends AbstractValidationTest {
     }
     
     @Test
-    public void testRegisterInvalidPassword(){
-        User user = new User("username","pass","email@test.com");
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(1, violations.size());       
-    }
-    
-    @Test
     public void testRegisterInvalidUsernameSize(){
         User user = new User(testStringOfSize(60),"password","email@test.com");
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(1, violations.size());       
-    }
-    
-    @Test
-    public void testRegisterInvalidPasswordSize(){
-        User user = new User("username",testStringOfSize(60),"email@test.com");
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());       
     }

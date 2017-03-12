@@ -7,6 +7,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.page.InitialPage;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,18 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     ErrorPage ePage;
     
     @Test
+    @InSequence(1)
+    public void editUserInputMessagesTest(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
+        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username2");
+        assertEquals("Editing username2",browser.getTitle().trim());
+        editPage.editUser("use", "email", "empty");
+        assertFalse(editPage.getUsernameError().getText().isEmpty());
+        assertFalse(editPage.getEmailError().getText().isEmpty());
+    }
+    
+    @Test
+    @InSequence(2)
     public void editUserTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
         browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username2");
@@ -48,16 +61,7 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     }
     
     @Test
-    public void editUserInputMessagesTest(@InitialPage LoginPage login){
-        login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username2");
-        assertEquals("Editing username2",browser.getTitle().trim());
-        editPage.editUser("use", "email", "empty");
-        assertFalse(editPage.getUsernameError().getText().isEmpty());
-        assertFalse(editPage.getEmailError().getText().isEmpty());
-    }
-    
-    @Test
+    @InSequence(3)
     public void editUserAclAccessDeniedTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
         browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username3");
