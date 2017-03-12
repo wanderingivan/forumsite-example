@@ -4,7 +4,7 @@ import com.forumsite.model.Comment;
 
 public interface CommentRepository {
 
-    void createComment(Comment c, long thread_id, String username);
+    void createComment(Comment c, String threadName, String username);
 
     Comment retrieveComment(long id);
 

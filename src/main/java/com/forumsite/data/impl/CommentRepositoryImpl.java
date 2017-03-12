@@ -17,8 +17,10 @@ public class CommentRepositoryImpl implements CommentRepository {
     
     //NOTE preliminary method should be replaced by stored procedure
     @Override
-    public void createComment(Comment c, long thread_id, String username) {
-        ForumThread t = em.find(ForumThread.class, thread_id);
+    public void createComment(Comment c, String threadName, String username) {
+        ForumThread t = (ForumThread) em.createNamedQuery("ForumThread.findByName")
+                                        .setParameter("name", threadName)
+                                        .getSingleResult();
         User author = (User) em.createNamedQuery("User.findByName")
                                .setParameter("username", username)
                                .getSingleResult();
