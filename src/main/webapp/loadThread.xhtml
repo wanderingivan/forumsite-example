@@ -22,7 +22,9 @@
 			    <div class="col-md-10">
 			      <div class="panel panel-default forum-panel">
 			        <div class="panel-body">
-			          <ui:repeat var="comment" value="#{threadBean.topic.comments}">
+			          <ui:repeat var="comment" value="#{threadBean.topic.comments}" varStatus="stat">
+			           #{stat}
+			           #{stat.index}
 			           <div class="threadComment">
 			           <div class="row">
 			             <div class="media forum">
@@ -43,7 +45,7 @@
 			                     </div>
 			                   </div>
 			                   <div class="media-body" style="padding-top:15px;">
-			                     <h4>#{comment.message}</h4>
+			                     <h5 id="commentId#{stat.index}">#{comment.message}</h5>
 			                     <hr/>
 			                   </div>
 			                 </div>

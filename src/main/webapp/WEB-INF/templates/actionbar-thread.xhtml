@@ -10,8 +10,8 @@
       	      <div class="action-bar top">
       	        <div class="row">
       	          <div class="col-md-10">
-      	            <h:link class="button-new" value="#{msg['new_comment']}" outcome="threadReply">
-			          <f:param name="threadId" value="#{threadBean.topic.id}"/>
+      	            <h:link id="reply-link" class="button-new" value="#{msg['new_comment']}" outcome="replyThread">
+			          <f:param name="threadname" value="#{threadBean.topic.name}"/>
       	            </h:link>
       	          </div>
       	          <div class="col-md-2"></div>
