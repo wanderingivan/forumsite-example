@@ -40,7 +40,7 @@ public class CommentPersistenceTests {
     @Test
     public void testCreateComment(){
         Comment c = new Comment("A message");
-        repo.createComment(c,11l,"username2");
+        repo.createComment(c,"threadname1","username2");
         ForumThread t = fRepo.findThread(11l);
         Comment testComment = t.getComments().get(t.getComments().size()-1);
         assertEquals(c.getMessage(),testComment.getMessage());
