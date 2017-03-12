@@ -41,13 +41,13 @@ public class ForumThreadPersistenceTests {
     @Test
     public void testCreateThread(){
         ForumThread f = new ForumThread("newthread", "category");
-        f.setAuthor(uRepo.findUser(11L));
-        repo.save(f);
+        repo.save(f,"A message","username1");
         ForumThread t = repo.getThreadByName("newthread");
         assertNotNull(t);
         assertTrue(t.equals(f));
         assertNotNull(t.getAuthor());
         assertEquals("username1",t.getAuthor().getUsername());
+        assertEquals("A message",t.getComments().get(0).getMessage());
         repo.delete(t.getId());
     }
     

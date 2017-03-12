@@ -1,8 +1,6 @@
 package com.forumsite.test.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.page.InitialPage;
@@ -40,8 +38,12 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
     public void createThreadTest(@InitialPage LoginPage login){ // NOTE right now this is a very short test that checks if the user has permission to create,
         login.loginIfNotAuthenticated("username2", "password"); // it should check that the entity is persisted and presented properly
         browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
-        cPage.createThread("threadname4", "category","message");
+        cPage.createThread("threadname4", "category1","message");
         assertEquals("threadname4",browser.getTitle().trim());
+        assertEquals("threadname4",threadPage.getThreadname());
+        assertEquals("category1",threadPage.getCategory());
+        assertTrue("Comment was not saved",threadPage.commentExists());
+        //assertEquals("message",threadPage.getFirstComment());
 
     }
     
