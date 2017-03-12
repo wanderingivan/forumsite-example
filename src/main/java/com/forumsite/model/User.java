@@ -48,8 +48,7 @@ public class User implements Serializable{
     @Column
     private String username;
     
-    @NotNull
-    @Size(min = 5, max = 50)
+
     @Transient
     private String password;
     

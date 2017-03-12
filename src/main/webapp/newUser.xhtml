@@ -11,7 +11,9 @@
          <h:message id="usernameError" for="username" />
          <h:inputText id="username" value="#{userController.user.username}" />
          <h:message id="passwordError" for="password"/>
-         <h:inputSecret id="password" value="#{userController.user.password}" />
+         <h:inputSecret id="password" value="#{userController.user.password}">
+           <f:validateLength minimum="5" maximum="50"/>
+         </h:inputSecret>
          <h:message id="emailError" for="email"/>
          <h:inputText id="email" value="#{userController.user.email}" />
          <h:message id="decriptionError" for="description"/>
