@@ -23,6 +23,7 @@
 			      <div class="panel panel-default forum-panel">
 			        <div class="panel-body">
 			          <ui:repeat var="comment" value="#{threadBean.topic.comments}">
+			           <div class="threadComment">
 			           <div class="row">
 			             <div class="media forum">
 			               <div class="col-md-9">
@@ -59,6 +60,7 @@
 			               </div>
 			             </div>
 			           </div>
+                       </div>
 			          </ui:repeat>
 			        </div>
 			      </div>

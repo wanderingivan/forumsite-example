@@ -10,7 +10,7 @@ public interface ForumThreadRepository {
     
     public ForumThread getThreadByName(String threadName);
     
-    public void save(ForumThread thread);
+    public void save(ForumThread thread,String firstMessage,String username);
     
     public void update(ForumThread thread);
     
@@ -21,4 +21,5 @@ public interface ForumThreadRepository {
     public List<ForumThread> loadCategory(String category);
     
     public void delete(long id);
+
 }

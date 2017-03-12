@@ -30,9 +30,10 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
 
     @Override
     @LoggedIn
-    public void saveThread(ForumThread t) {
-        repo.save(t);
-        createAcl(t);
+    public void saveThread(ForumThread t,String firstMessage) {
+        User user = (User) identity.getAccount();
+        repo.save(t,firstMessage,user.getLoginName());
+        createAcl(t,user);
     }
 
     @Override
@@ -50,8 +51,9 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
         repo.delete(threadId);
     }
 
-    private void createAcl(ForumThread t){
-        User user = (User) identity.getAccount();
+    private void createAcl(ForumThread t,User user){
         permissionManager.grantPermission(user, t, "update, delete");
     }
+
+
 }

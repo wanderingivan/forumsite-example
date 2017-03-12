@@ -11,7 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.forumsite.data.ForumThreadRepository;
+import com.forumsite.model.Comment;
 import com.forumsite.model.ForumThread;
+import com.forumsite.model.User;
 
 @ApplicationScoped
 public class ForumThreadRepositoryImpl implements ForumThreadRepository {
@@ -30,10 +32,20 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
                  .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.ForumThread.associations"))
                  .setParameter("name", threadName)
                  .getSingleResult();
+
     }
 
+    //XXX Should be replaced by a stored procedure
     @Override
-    public void save(ForumThread thread) {
+    public void save(ForumThread thread,String firstMessage,String username) {
+        User author = (User) em.createNamedQuery("User.findByName")
+                .setParameter("username", username)
+                .getSingleResult();
+        Comment c = new Comment(firstMessage);
+        c.setAuthor(author);
+        c.setThread(thread);
+        thread.setAuthor(author);
+        thread.addComments(c);
         em.persist(thread);
     }
 
