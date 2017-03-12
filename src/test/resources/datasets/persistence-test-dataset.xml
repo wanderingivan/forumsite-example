@@ -11,4 +11,5 @@
 	<ForumThread id="33" name="threadname3" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
 	<ForumThread id="44" name="threadname4" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
 	
+	<Comment id="11" message="A message" thread_id="11" comment_author_id="22"/>
 </dataset>
