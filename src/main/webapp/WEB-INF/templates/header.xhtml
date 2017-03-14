@@ -37,8 +37,15 @@
                <li>
                
                </li>
-               <li class="pull-right"><h:link value="#{msg['register']}" outcome="register"/></li>
-               <li class="pull-right"><h:link value="#{msg['login']}" outcome="login"/></li>
+               	<ui:fragment rendered="#{!identity.loggedIn}">
+               	  <li class="pull-right"><h:link value="#{msg['register']}" outcome="newUser"/></li>
+                  <li class="pull-right"><h:link value="#{msg['login']}" outcome="login"/></li>
+               	</ui:fragment>
+               	<ui:fragment rendered="#{identity.loggedIn}">
+               	  <h:form id="logoutForm">
+     	            <h:commandLink id="logout" action="#{identity.logout}" value="#{msg['logout']}"/>               	
+     	          </h:form>
+               	</ui:fragment>
              </ul>
            </div>
          </div><!-- /navbar -->

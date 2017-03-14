@@ -8,6 +8,7 @@
     		<f:viewParam name="category" value="#{categoryBean.category}"/>
     		<f:viewAction action="#{categoryBean.load}"/>
 		</f:metadata>
+		<ui:param name="title" value="#{param['category']}"/>
         <ui:param name="category" value="#{param['category']}"/>
       	<ui:define name="content">
       	  <ui:insert name="action-bar">
@@ -18,7 +19,7 @@
       	    <div class="col-md-10">
       	      <div class="panel panel-default forum-panel">
       	        <div class="panel-heading">
-      	          <h:link value="#{param['category']}" outcome="category">
+      	          <h:link value="#{category}" outcome="category">
       	            <f:param name="category" value="#{category}"/>
       	          </h:link>
       	        </div>

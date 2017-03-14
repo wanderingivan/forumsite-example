@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"     
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      >
     <body>
      <ui:component>
       <div class="row">
@@ -23,12 +25,16 @@
           </ol>
         </div>
         <div class="col-md-4">
-          <form class="form-inline pull-right">
+          <h:form id="searchForm" class="form-inline pull-right">
             <div class="form-group">
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="#{msg['search_site']}"/>
+              <h:inputText class="form-control" id="query"  title="#{msg['search_site']}" p:placeholder="#{msg['search_site']}" value="#{searchThreadController.query}"/>
             </div>
-            <button type="submit" class="btn btn-primary"><h:outputText value="#{msg['search']}"/></button>
-          </form>
+            <ui:fragment rendered="#{not empty category}">
+              <h:inputHidden id="category" value="#{category}"/>
+              <h:selectBooleanCheckbox id="useCategory" value="#{searchThreadController.useCategory}"/><h:outputText value="Search in category"/>
+            </ui:fragment>
+            <h:commandButton id="search" action="#{searchThreadController.search}" value="#{msg['search']}"/>
+          </h:form> 
         </div>
       </div><!-- /breadcrumb -->
      </ui:component> 
