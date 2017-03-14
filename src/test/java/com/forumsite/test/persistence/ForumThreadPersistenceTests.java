@@ -70,12 +70,22 @@ public class ForumThreadPersistenceTests {
     
     @Test
     public void testListThread(){
-        assertEquals(4, repo.list().size());
+        assertEquals(5, repo.list().size());
     }
     
     @Test
     public void testSearchThreads(){
-        assertEquals(4, repo.searchThreads("thread").size());
+        assertEquals(5, repo.searchThreads("thread").size());
+    }
+
+    @Test
+    public void testSearchThreadsByCategory(){
+        assertEquals(1, repo.searchThreads("thread","category1").size());
+    }
+    
+    @Test
+    public void testGetCategory(){
+        assertEquals(4, repo.loadCategory("category").size());
     }
   
 }
