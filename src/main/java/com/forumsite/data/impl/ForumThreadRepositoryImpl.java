@@ -8,6 +8,7 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.forumsite.data.ForumThreadRepository;
@@ -82,12 +83,28 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
     }
 
     @Override
+    public List<ForumThread> searchThreads(String threadName, String category) {
+        StringBuilder sb = new StringBuilder("%").append(threadName).append("%");
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
+        Root<ForumThread> r = crit.from(ForumThread.class);
+        Predicate namePredicate = cb.like(r.get("name"), sb.toString());
+        Predicate categoryPredicate = cb.and(cb.equal(r.get("category"), category));
+        crit.where(namePredicate,categoryPredicate);
+    
+        return em.createQuery(crit).getResultList();
+    }
+    
+    @Override
     public List<ForumThread> loadCategory(String category) {
+        @SuppressWarnings("rawtypes")
+        EntityGraph graph = em.getEntityGraph("graph.ForumThread.associations");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
         crit.where(cb.like(r.get("category"),category)); 
         return em.createQuery(crit)
+                 .setHint("javax.persistence.fetchgraph",graph)
                  .setMaxResults(10)
                  .getResultList();
     }
@@ -96,6 +113,8 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
     public void delete(long id) {
         em.remove(findThread(id));
     }
+
+
 
 
 

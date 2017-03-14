@@ -12,5 +12,8 @@ public interface ForumThreadProducer {
     
     public List<ForumThread> search(String threadName);
     
+    public List<ForumThread> search(String threadName, String category);
+    
     public List<ForumThread> category(String category);
+    
 }

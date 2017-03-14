@@ -18,6 +18,8 @@ public interface ForumThreadRepository {
     
     public List<ForumThread> searchThreads(String threadName);
     
+    public List<ForumThread> searchThreads(String threadName, String category);
+    
     public List<ForumThread> loadCategory(String category);
     
     public void delete(long id);

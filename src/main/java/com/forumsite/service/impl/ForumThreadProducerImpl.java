@@ -34,6 +34,11 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
     }
 
     @Override
+    public List<ForumThread> search(String threadName, String category) {
+        return repo.searchThreads(threadName,category);
+    }
+    
+    @Override
     public List<ForumThread> category(String category) {
         return repo.loadCategory(category);
     }
