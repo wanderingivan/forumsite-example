@@ -16,6 +16,8 @@ public interface ForumThreadRepository {
     
     public List<ForumThread> list();
     
+    public List<ForumThread> latest();
+    
     public List<ForumThread> searchThreads(String threadName);
     
     public List<ForumThread> searchThreads(String threadName, String category);

@@ -3,6 +3,8 @@ package com.forumsite.service.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,7 +25,7 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
     }
 
     @Override
-    public List<ForumThread> latest() {
+    public List<ForumThread> index() {
         System.out.println("This shouldn't be initialized like this!!!:\n" + repo.list());
         return repo.list();
     }
@@ -43,4 +45,11 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
         return repo.loadCategory(category);
     }
 
+    @Produces
+    @Named
+    @RequestScoped
+    @Override
+    public List<ForumThread> latest(){
+        return repo.latest();
+    }
 }

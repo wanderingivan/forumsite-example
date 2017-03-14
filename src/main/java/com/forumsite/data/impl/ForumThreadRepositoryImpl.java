@@ -114,8 +114,16 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
         em.remove(findThread(id));
     }
 
-
-
-
+    @Override
+    public List<ForumThread> latest() {
+        System.out.println("Latest called");
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
+        Root<ForumThread> r = crit.from(ForumThread.class);
+        crit.orderBy(cb.desc(r.get("lastUpdate")));
+        return em.createQuery(crit)
+                 .setMaxResults(5)
+                 .getResultList();
+    }
 
 }

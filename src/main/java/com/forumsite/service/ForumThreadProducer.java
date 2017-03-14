@@ -8,7 +8,7 @@ public interface ForumThreadProducer {
 
     public ForumThread getThread(String name);
     
-    public List<ForumThread> latest();
+    public List<ForumThread> index();
     
     public List<ForumThread> search(String threadName);
     
@@ -16,4 +16,6 @@ public interface ForumThreadProducer {
     
     public List<ForumThread> category(String category);
     
+
+    public List<ForumThread> latest();
 }

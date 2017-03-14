@@ -19,7 +19,7 @@ public class Index {
     
     @PostConstruct
     public void init(){
-        threads = service.latest();
+        threads = service.index();
     }
     
     public List<ForumThread> getThreads(){
