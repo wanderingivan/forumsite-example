@@ -18,6 +18,10 @@ public class ThreadBean {
     @Inject
     private ForumThreadProducer producer;
     
+    private final int DEFAULT_OFFSET = 0,COMMENTS_PER_PAGE=10;
+    
+    private int fromComment;
+    
     private String threadName;
     
     private ForumThread topic;
@@ -40,5 +44,18 @@ public class ThreadBean {
     public ForumThread getTopic() {
         return topic;
     }
+
+    public int getFromComment() {
+        return fromComment == 0 ? DEFAULT_OFFSET : fromComment;
+    }
+
+    public void setFromComment(int fromComment) {
+        this.fromComment = fromComment;
+    }
     
+    public int getCommentsPerPage(){
+        int reqSize = getFromComment() + COMMENTS_PER_PAGE;
+        int total = topic.getComments().size();
+        return reqSize > total ? total : reqSize;
+    }
 }

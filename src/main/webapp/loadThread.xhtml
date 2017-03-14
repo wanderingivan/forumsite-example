@@ -6,6 +6,7 @@
       <ui:composition template="/WEB-INF/templates/default.xhtml">
         <f:metadata>
     		<f:viewParam name="threadname" value="#{threadBean.threadName}"/>
+    		<f:viewParam name="fromComment" value="#{threadBean.fromComment}"/>
     		<f:viewAction action="#{threadBean.load}"/>
 		</f:metadata>
 		<ui:param name="title" value="#{threadBean.threadName}" />
@@ -21,10 +22,22 @@
 			  <div class="row">
 			    <div class="col-md-10">
 			      <div class="panel panel-default forum-panel">
+			        <ui:fragment rendered="#{threadBean.topic.comments.size() > 10}">
+			          <ui:repeat begin="0" end="#{(threadBean.topic.comments.size()-1)/10}" 
+			                     value="#{threadBean.topic.comments}" varStatus="stat">
+				        <h:link id="nextPageLink" value="#{(stat.index) + 1}" outcome="loadThread">
+			              <f:param name="threadname" value="#{threadBean.threadName}"/>
+			              <f:param name="fromComment" value="#{stat.index * 10}"/>
+			            </h:link>		        	
+			          </ui:repeat>
+			        </ui:fragment>
+
 			        <div class="panel-body">
-			          <ui:repeat var="comment" value="#{threadBean.topic.comments}" varStatus="stat">
-			           #{stat}
-			           #{stat.index}
+
+			          <ui:repeat var="comment" value="#{threadBean.topic.comments}" 
+			                                   varStatus="stat" 
+			                                   begin="#{threadBean.fromComment}" 
+			                                   size="#{threadBean.commentsPerPage}">
 			           <div class="threadComment">
 			           <div class="row">
 			             <div class="media forum">
