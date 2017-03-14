@@ -16,6 +16,7 @@ import org.picketlink.idm.RelationshipManager;
 import org.picketlink.idm.credential.Password;
 import org.picketlink.idm.model.basic.BasicModel;
 
+import com.forumsite.model.Comment;
 import com.forumsite.model.ForumThread;
 import com.forumsite.model.User;
 
@@ -92,12 +93,24 @@ public class SeleniumDatabaseSeedWorkaround {
             ForumThread t = new ForumThread("threadname"+i, "category1", u);
             em.persist(t);
             permissionManager.grantPermission(firstUser, t, "update");
+            for(int k = 0;k < 15;k++){
+                Comment c = new Comment(t,u,"A comment");
+                em.persist(c);
+            }
         }
         
         for(int i = 5; i < 7; i++){
             ForumThread t = new ForumThread("threadname"+i, "category2", u);
             em.persist(t);
             permissionManager.grantPermission(secondUser, t, "update");
+            for(int k = 0;k < 5;k++){
+                Comment c = new Comment(t,u,"A comment");
+                em.persist(c);
+            }
+        }
+        
+        for(int i = 1;i < 7;i++){
+
         }
     }
 }
