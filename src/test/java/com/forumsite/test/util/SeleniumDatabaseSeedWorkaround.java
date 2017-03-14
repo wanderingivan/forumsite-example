@@ -89,13 +89,13 @@ public class SeleniumDatabaseSeedWorkaround {
         org.picketlink.idm.model.basic.User secondUser  = BasicModel.getUser(idm, "username3");
         
         for(int i = 1; i < 4; i++){
-            ForumThread t = new ForumThread("threadname"+i, "category", u);
+            ForumThread t = new ForumThread("threadname"+i, "category1", u);
             em.persist(t);
             permissionManager.grantPermission(firstUser, t, "update");
         }
         
         for(int i = 5; i < 7; i++){
-            ForumThread t = new ForumThread("threadname"+i, "category", u);
+            ForumThread t = new ForumThread("threadname"+i, "category2", u);
             em.persist(t);
             permissionManager.grantPermission(secondUser, t, "update");
         }

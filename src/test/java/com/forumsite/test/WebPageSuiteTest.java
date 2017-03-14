@@ -12,7 +12,8 @@ import com.forumsite.test.web.*;
     CreateThreadPageTests.class,
     UpdateThreadPageTests.class,
     UpdateUserPageTests.class,
-    AddCommentPageTests.class
+    AddCommentPageTests.class,
+    SearchPageTests.class
 })
 public class WebPageSuiteTest {
 
