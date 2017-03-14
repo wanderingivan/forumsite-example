@@ -19,7 +19,7 @@
       	            </h:link>
       	          </div>
       	          <div class="panel-body">
-      	            <ui:repeat var="topic" value="#{forumThreadProvider.latest()}">
+      	            <ui:repeat var="topic" value="#{index.threads}">
       	              <h:panelGroup rendered="#{topic.category == category}">
       	                <div class="row">
       	                  <div class="media forum">
@@ -31,7 +31,7 @@
       	                        </div>
       	                        <div class="media-body">
       	                          <h:link value="#{topic.name}" outcome="loadThread">
-      	                            <f:param name="threadName" value="#{topic.name}"/>
+      	                            <f:param name="threadname" value="#{topic.name}"/>
       	                          </h:link>
       	                          <p><h:outputText value="#{msg['topic_by']}"/><font color="red">#{topic.author.username}</font></p>
       	                        </div>
@@ -41,7 +41,7 @@
       	                    	<span class="info">1</span>
       	                    </div>
       	                    <div class="col-md-1">
-      	                    	<span class="info">81</span>
+      	                    	<span class="info">#{topic.comments.size()}</span>
       	                    </div>
       	                    <div class="col-md-3">
       	                      <div class="media">
@@ -59,6 +59,34 @@
       	          </div>
       	        </div>
       	      </ui:repeat>
+      	    </div>
+      	    <div class="col-md-2">
+      	     <ui:fragment rendered="#{!identity.loggedIn}">
+              <div class="sideform">
+                <h:form id="loginForm">
+    			  <div class="loginRow">
+        			<h:outputLabel for="name" value="Username" styleClass="loginLabel"/>
+        			<h:inputText id="name" value="#{loginCredentials.userId}"/>
+    			  </div>
+
+    			  <div class="loginRow">
+                    <h:outputLabel for="password" value="Password" styleClass="loginLabel"/>
+                    <h:inputSecret id="password" value="#{loginCredentials.password}" redisplay="true"/>
+                  </div>
+
+    			  <div class="buttons">
+        			<h:commandButton id="login" value="Login" action="#{loginController.login}" styleClass="loginButton"/>
+				  </div>
+                </h:form>
+              </div>
+              </ui:fragment>
+              <div class="latest">
+             	
+              	<ui:repeat var="topic" value="#{latest}">
+              	  <h5>#{topic.name}</h5>
+              	  <p>#{topic.category}</p>
+              	</ui:repeat>
+              </div>      	    
       	    </div>
       	  </div>
       	</ui:define>
