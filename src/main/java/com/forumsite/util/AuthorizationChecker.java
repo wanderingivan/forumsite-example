@@ -39,4 +39,11 @@ public class AuthorizationChecker {
         Role role = getRole(this.identityManager, roleName);
         return BasicModel.hasGroupRole(this.relationshipManager, this.identity.getAccount(), role, group);
     }
+    
+    public boolean hasPermission(Object entity, String operation){
+        if(identity.isLoggedIn()){
+            return identity.hasPermission(entity, operation);
+        }
+        return false;
+    }
 }
