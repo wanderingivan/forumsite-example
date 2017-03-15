@@ -20,6 +20,7 @@
       	          </div>
       	          <div class="panel-body">
       	            <ui:repeat var="topic" value="#{index.threads}">
+      	              <ui:param name="last" value="#{topic.lastComment}"/>
       	              <h:panelGroup rendered="#{topic.category == category}">
       	                <div class="row">
       	                  <div class="media forum">
@@ -33,7 +34,12 @@
       	                          <h:link value="#{topic.name}" outcome="loadThread">
       	                            <f:param name="threadname" value="#{topic.name}"/>
       	                          </h:link>
-      	                          <p><h:outputText value="#{msg['topic_by']}"/><font color="red">#{topic.author.username}</font></p>
+      	                          <p>
+      	                             <h:outputText value="#{msg['topic_by']}"/><h:outputText value="&#160;" /> 
+      	                             <h:link value="#{topic.author.username}" outcome="loadUser">
+      	                               <f:param name="username" value="#{topic.author.username}"/>
+      	                             </h:link>
+      	                          </p>
       	                        </div>
       	                      </div>
       	                    </div>
@@ -45,10 +51,20 @@
       	                    </div>
       	                    <div class="col-md-3">
       	                      <div class="media">
-      	                        <div class="media-image"> user image</div>
+      	                        <div class="media-left"><h:graphicImage style="width:50px;height:50px;" value="/images/#{topic.author.imageName}"/></div>
       	                        <div class="media-body">
-      	                          <h6>poster name</h6>
-      	                          <p><i>A date</i></p>
+								  #{last.message}
+      	                          <p><h:link value="#{topic.author.username}" outcome="loadUser">
+      	                               <f:param name="username" value="#{topic.author.username}"/>
+      	                             </h:link>
+      	                          </p>
+      	                          <p>
+      	                            <i>
+      	                              <h:outputText value="#{last.lastUpdate}" >
+                                        <f:convertDateTime pattern="dd.MM HH:mm" />
+                                      </h:outputText>
+                                    </i>
+                                  </p>
       	                        </div>
       	                      </div>
       	                    </div>
@@ -85,10 +101,14 @@
               	<ui:repeat var="topic" value="#{latest}">
               	  <h5>#{topic.name}</h5>
               	  <p>#{topic.category}</p>
+              	  <p>#{topic.author.username}</p>
               	</ui:repeat>
               </div>      	    
       	    </div>
       	  </div>
+          <ui:insert name="action-bar">
+      	    <ui:include src="/WEB-INF/templates/actionbar.xhtml"/>
+      	  </ui:insert>
       	</ui:define>
       </ui:composition>
    </h:body>

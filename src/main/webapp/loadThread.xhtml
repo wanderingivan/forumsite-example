@@ -46,10 +46,14 @@
 			                   <div class="media-heading">
 			                     <div class="row">
 			                       <div class="col-md-10">
-			                     	 <p>#{comment.lastUpdate}</p>
+			                     	 <p>
+			                     	   <h:outputText value="#{comment.lastUpdate}" >
+                                         <f:convertDateTime pattern="dd.MM HH:mm" />
+                                       </h:outputText>
+                                     </p>
 			                       </div>
 			                       <div class="col-md-2">
-			                     	   <h:link outcome="threadReply" value="#{msg['quote']}" >
+			                     	   <h:link outcome="replyThread" value="#{msg['quote']}" >
 			                     	     <f:param name="author" value="#{comment.author.username}"/>
 			                     	     <f:param name="message" value="#{comment.message}"/>
 			                     	     <f:param name="threadId" value="#{threadBean.topic.id}"/>
@@ -65,12 +69,21 @@
 			               </div>
 			               <div class="col-md-3">
 			                 <div class="media">
-			                   <div class="media-image">
-			                     
-			                   </div>
-			                   <div class="media-body">
-			                     <h4>#{comment.author.username}</h4>
-			                   </div>
+      	                        <div class="media-left"><h:graphicImage style="width:50px;height:50px;" value="/images/#{comment.author.imageName}"/></div>
+      	                        <div class="media-body">
+								  #{last.message}
+      	                          <p><h:link value="#{comment.author.username}" outcome="loadUser">
+      	                               <f:param name="username" value="#{comment.author.username}"/>
+      	                             </h:link>
+      	                          </p>
+      	                          <p>
+      	                            <i>
+      	                              <h:outputText value="#{comment.lastUpdate}" >
+                                        <f:convertDateTime pattern="dd.MM HH:mm" />
+                                      </h:outputText>
+                                    </i>
+                                  </p>      	                          
+      	                        </div>
 			                 </div>
 			               </div>
 			             </div>

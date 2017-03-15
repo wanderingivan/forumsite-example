@@ -69,7 +69,7 @@ public class ForumThread implements Serializable{
     @Column
     private String category;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="author_id")
     private User author;
     
@@ -157,7 +157,11 @@ public class ForumThread implements Serializable{
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
-
+    
+    public Comment getLastComment(){
+        return getComments().get(getComments().size()-1);
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
