@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"       	          
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   >
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:param name="title" value="main"/>
@@ -14,9 +15,10 @@
       	      <ui:repeat var="category" value="#{categories}">
       	        <div class="panel panel-default forum-panel">
       	          <div class="panel-heading">
-      	            <h:link value="#{category}" outcome="category">
+      	            <h:link value="#{category}" outcome="category" title="Go to #{category}">
       	              <f:param name="category" value="#{category}"/>
       	            </h:link>
+      	            <i class="fa fa-minus pull-right"></i>
       	          </div>
       	          <div class="panel-body">
       	            <ui:repeat var="topic" value="#{index.threads}">
@@ -26,17 +28,24 @@
       	                  <div class="media forum">
       	                    <div class="col-md-7">
       	                      <div class="media">
-      	                        <div class="media-image">
+      	                        <div class="media-left">
       	                          perhaps some gif
-      	                          #{topic.category}
       	                        </div>
       	                        <div class="media-body">
-      	                          <h:link value="#{topic.name}" outcome="loadThread">
-      	                            <f:param name="threadname" value="#{topic.name}"/>
-      	                          </h:link>
+      	                          <div class="media-heading">
+      	                            <h:link value="#{topic.name}" outcome="loadThread">
+      	                              <f:param name="threadname" value="#{topic.name}"/>
+      	                            </h:link>
+      	                          </div>
+      	                          <p>      	            
+      	                            <h:link value="#{category}" outcome="category" title="Go to #{category}">
+      	                              <f:param name="category" value="#{category}"/>
+      	                            </h:link>
+      	                          </p>
       	                          <p>
-      	                             <h:outputText value="#{msg['topic_by']}"/><h:outputText value="&#160;" /> 
-      	                             <h:link value="#{topic.author.username}" outcome="loadUser">
+      	                             <h:outputText value="#{msg['topic_by']}"/>
+      	                             <h:outputText value="&#160;" /> 
+      	                             <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                               <f:param name="username" value="#{topic.author.username}"/>
       	                             </h:link>
       	                          </p>
@@ -44,27 +53,53 @@
       	                      </div>
       	                    </div>
       	                    <div class="col-md-1">
-      	                    	<span class="info">1</span>
+      	                    	<span class="info">
+      	                    	 1 
+      	                    	 <i class="fa fa-eye" aria-hidden="true"></i>
+      	                    	</span>
       	                    </div>
       	                    <div class="col-md-1">
-      	                    	<span class="info">#{topic.comments.size()}</span>
+      	                      <ui:fragment rendered="#{indentity.loggedIn}">
+      	                    	<span class="info">
+      	                    	  <h:link outcome="replyThread">      	                    	  
+      	                    	    #{topic.comments.size()}
+      	                    	    <i class="fa fa-comment" aria-hidden="true"></i>
+			                        <f:param name="threadname" value="#{topic.name}"/>
+      	                          </h:link>
+      	                    	</span>
+      	                      </ui:fragment>
+      	                      <ui:fragment rendered="#{!indentity.loggedIn}">
+      	                    	<span class="info">
+      	                    	  #{topic.comments.size()}
+      	                    	  <i class="fa fa-comment" aria-hidden="true"></i>
+							    </span>      	                      
+      	                      </ui:fragment>
       	                    </div>
       	                    <div class="col-md-3">
-      	                      <div class="media">
-      	                        <div class="media-left"><h:graphicImage style="width:50px;height:50px;" value="/images/#{topic.author.imageName}"/></div>
+      	                      <div class="media lastComment">
+      	                        <div class="media-left">
+      	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
+      	                        </div>
       	                        <div class="media-body">
-								  #{last.message}
-      	                          <p><h:link value="#{topic.author.username}" outcome="loadUser">
-      	                               <f:param name="username" value="#{topic.author.username}"/>
-      	                             </h:link>
+      	                          <p>
+      	                            <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                              <f:param name="username" value="#{topic.author.username}"/>
+      	                            </h:link>
       	                          </p>
       	                          <p>
+      	                            <ui:fragment rendered="#{last.message.length() gt 50}">
+								      <h:outputText value="#{last.message.substring(0,50)}"/>
+      	                            </ui:fragment>
+      	                            <ui:fragment rendered="#{last.message.length() lt 50}">
+								      <h:outputText value="#{last.message}"/>
+      	                            </ui:fragment>
+
+                                  </p>
       	                            <i>
       	                              <h:outputText value="#{last.lastUpdate}" >
                                         <f:convertDateTime pattern="dd.MM HH:mm" />
                                       </h:outputText>
                                     </i>
-                                  </p>
       	                        </div>
       	                      </div>
       	                    </div>
@@ -97,19 +132,66 @@
               </div>
               </ui:fragment>
               <div class="latest">
-             	
-              	<ui:repeat var="topic" value="#{latest}">
-              	  <h5>#{topic.name}</h5>
-              	  <p>#{topic.category}</p>
-              	  <p>#{topic.author.username}</p>
-              	</ui:repeat>
+      	        <div class="panel panel-default forum-panel">
+      	          <div class="panel-heading">
+      	            <h:outputText value="#{msg['global.latest']}" />
+      	            <i class="fa fa-minus pull-right" style="padding-top:2px;"></i>
+      	          </div>
+      	          <div class="panel-body">
+              	  <ui:repeat var="topic" value="#{latest}">
+              	   <div class="sidecolumn">
+              	     <div class="media">
+              	      <div class="media-body">
+      	                <p>      	            
+      	                  <h:link value="#{topic.name}" outcome="loadThread">
+      	                    <f:param name="threadname" value="#{topic.name}"/>
+      	                  </h:link>   
+      	                </p>
+      	                <p>
+      	                  <h:link value="#{topic.category}" outcome="category" title="Go to #{topic.category}">
+      	                    <f:param name="category" value="#{topic.category}"/>
+      	                  </h:link>
+      	                </p>    	      
+						<p>
+      	                  <i>
+      	                    <h:outputText value="#{topic.createdOn}" >
+                              <f:convertDateTime pattern="dd.MM HH:mm" />
+                          	</h:outputText>
+                          </i>						
+						</p>
+              	      </div>
+              	      <div class="media-right">
+      	                <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
+      	                <p>
+      	                  <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                    <f:param name="username" value="#{topic.author.username}"/>
+      	                  </h:link>
+      	                </p>    	      
+      	              </div>
+              	    </div>
+              	   </div>
+              	  </ui:repeat>
+              	  </div>
+      	        </div>             	
+
               </div>      	    
       	    </div>
       	  </div>
           <ui:insert name="action-bar">
       	    <ui:include src="/WEB-INF/templates/actionbar.xhtml"/>
       	  </ui:insert>
+          <script>
+   	        $(document).ready(function(){
+   	        	$(".fa.fa-minus.pull-right").click(function(){
+	   	     		$(this).toggleClass('fa-minus');
+   		    		$(this).toggleClass('fa-plus');
+   	    			$(this).closest('.panel').find('.panel-body')
+   	                                         .slideToggle(700);
+   	    		});	
+   			});
+   		  </script>
       	</ui:define>
       </ui:composition>
    </h:body>
+
 </html>
