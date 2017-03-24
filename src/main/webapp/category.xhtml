@@ -23,45 +23,9 @@
       	            <f:param name="category" value="#{category}"/>
       	          </h:link>
       	        </div>
-      	        <div class="panel-body">
-                  <ui:repeat var="topic" value="#{categoryBean.topics}">
-      	            <div class="row">
-      	              <div class="media forum">
-      	                <div class="col-md-7">
-      	                  <div class="media">
-      	                    <div class="media-image">
-      	                      perhaps some gif
-      	                      #{topic.category}
-      	                    </div>
-      	                    <div class="media-body">
-      	                      <h3>
-      	                        <h:link value="#{topic.name}" outcome="loadThread">
-      	                          <f:param name="threadName" value="#{topic.name}"/>
-      	                        </h:link>
-      	                      </h3>
-      	                      <p><h:outputText value="#{msg['topic_by']}"/><font color="red">#{topic.author.username}</font></p>
-      	                    </div>
-      	                  </div>
-      	                </div>
-      	                <div class="col-md-1">
-      	                  <span class="info">1</span>
-      	                </div>
-      	                <div class="col-md-1">
-      	                  <span class="info">81</span>
-      	                </div>
-      	                <div class="col-md-3">
-      	                  <div class="media">
-      	                    <div class="media-image"> user image</div>
-      	                    <div class="media-body">
-      	                      <h6>poster name</h6>
-      	                      <p><i>A date</i></p>
-      	                    </div>
-      	                  </div>
-      	                </div>
-      	              </div>
-      	            </div>
-      	          </ui:repeat>
-      	        </div>
+				  <ui:insert name="threadlist">
+				    <ui:include src="/WEB-INF/templates/threadlist.xhtml"/>
+				  </ui:insert>
       	      </div>      	    
       	    </div>
       	  </div>
