@@ -5,22 +5,50 @@
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
        <ui:define name="content">
-       
-
-       <h:form id="createUserForm" enctype="multipart/form-data">
-         <h:message id="usernameError" for="username" />
-         <h:inputText id="username" value="#{userController.user.username}" />
-         <h:message id="passwordError" for="password"/>
-         <h:inputSecret id="password" value="#{userController.user.password}">
-           <f:validateLength minimum="5" maximum="50"/>
-         </h:inputSecret>
-         <h:message id="emailError" for="email"/>
-         <h:inputText id="email" value="#{userController.user.email}" />
-         <h:message id="decriptionError" for="description"/>
-         <h:inputTextarea id="description" value="#{userController.user.description}" />
-         <h:inputFile id="image" value="#{userController.imageFile}"/>
-         <h:commandButton id="create" action="#{userController.register}" value="Submit" />
-       </h:form>
+         <div class="row">
+       	   <div class="col-md-offset-4 col-md-4">
+       	     <div class="form-title">
+               <h:outputText value="#{msg['add_user']}"/>
+             </div>
+       	   </div>
+         </div>
+         <div class="row">
+           <div class="col-md-offset-3 col-md-6">
+             <h:form id="createUserForm" enctype="multipart/form-data" class="siteform">
+               <div class="form-group">
+                 <h:message id="usernameError" for="username" />
+	             <h:outputLabel for="username" value="#{msg['username']}"/>
+                 <h:inputText id="username" class="form-control" value="#{userController.user.username}" />
+               </div>
+               <div class="form-group">
+                 <h:message id="passwordError" for="password"/>
+                 <h:outputLabel for="password" value="#{msg['password']}"/>
+                 <h:inputSecret id="password" class="form-control"  value="#{userController.user.password}">
+                   <f:validateLength minimum="5" maximum="50"/>
+                 </h:inputSecret>
+               </div>
+               <div class="form-group">         
+                 <h:message id="emailError" for="email"/>
+                 <h:outputLabel for="email" value="#{msg['email']}"/>
+                 <h:inputText id="email" class="form-control"  value="#{userController.user.email}" />
+               </div>
+               <div class="form-group">        
+                 <h:message id="decriptionError" for="description"/>
+                 <h:outputLabel for="description" value="#{msg['description']}"/>
+                 <h:inputTextarea id="description" class="form-control"  value="#{userController.user.description}" />
+               </div>
+               <div class="form-group">
+                 <h:outputLabel for="image" value="#{msg['profile_pic']}"/>
+                 <h:inputFile id="image"  class="button-new" value="#{userController.imageFile}"/>
+               </div>
+               <br/>
+               <div class="form-group">
+                 <h:commandButton id="create" class="button" action="#{userController.register}" value="#{msg['add_user']}" />
+               </div>
+             </h:form>
+           </div>
+           <div class="col-md-3"></div>
+         </div>
        </ui:define>
       </ui:composition>
    </h:body>

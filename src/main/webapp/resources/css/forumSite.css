@@ -239,3 +239,42 @@ span.info {
 .siteform .button:hover {
 	background-color: #D82527;	
 }
+.user-info {
+	
+}
+.user-info img { 
+	width:125px;
+	height:125px;
+	border-radius:64px;
+}
+.user-info p {
+	text-align:center;
+}
+.pagination-link {
+	margin: 3px;
+	padding: 5px;
+	border: 1px solid #4A569D;
+	display: inline-table;
+	background-color: #ECF0F1;
+	color: #4A569D;
+}
+.pagination-link:hover {
+	color: #D82527;		
+	border-color: #D82527;	
+}
+.quick-reply-link {
+	color: #4A569D;
+	font-weight :600;	
+	cursor:pointer;
+}
+.form-title {
+	text-align: center;
+	color: #ffffff;
+	background-color: #4A569D;
+	padding: 15px;
+	margin-bottom: 25px;
+	background: -moz-linear-gradient(left, #4a569d 1%, #dc2424 100%);
+	background: -webkit-linear-gradient(left, #4a569d 1%,#dc2424 100%);
+	background: linear-gradient(to right, #4a569d 1%,#dc2424 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a569d', endColorstr='#dc2424',GradientType=1 );	
+}

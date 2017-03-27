@@ -6,15 +6,38 @@
       <ui:composition template="/WEB-INF/templates/default.xhtml">
        <ui:param name="title" value="New Thread"/>
        <ui:define name="content">
-         <h:form id="createThreadForm">
-           <h:message id="nameError" for="threadname"/>
-           <h:inputText id="threadname" value="#{threadCreateController.newThread.name}" />
-           <h:message id="categoryError" for="category"/>
-           <h:inputText id="category" value="#{threadCreateController.newThread.category}" />
-           <h:message id="messageError" for="initialMessage"/>
-           <h:inputText id="initialMessage" value="#{threadCreateController.initialMessage}"/>
-           <h:commandButton id="create" value="Create thread" action="#{threadCreateController.create}"/>
-         </h:form>
+         <div class="row">
+       	   <div class="col-md-offset-4 col-md-4">
+       	     <div class="form-title">
+               <h:outputText value="#{msg['add_thread']}"/>
+             </div>
+       	   </div>
+         </div>
+         <div class="row">
+           <div class="col-md-offset-3 col-md-6">
+             <h:form id="createThreadForm" class="siteform">
+               <div class="form-group">
+                 <h:message id="nameError" for="threadname"/>
+                 <h:outputLabel for="threadname" value="#{msg['threadname']}"/>
+                 <h:inputText id="threadname" class="form-control" value="#{threadCreateController.newThread.name}" />
+               </div>
+               <div class="form-group">
+                 <h:message id="categoryError" for="category"/>
+                 <h:outputLabel for="category" value="#{msg['category']}"/>
+                 <h:inputText id="category" class="form-control" value="#{threadCreateController.newThread.category}" />
+               </div>
+               <div class="form-group">
+                 <h:message id="messageError" for="initialMessage"/>
+                 <h:outputLabel for="initialMessage" value="#{msg['first_message']}"/>
+                 <h:inputTextarea id="initialMessage" class="form-control" value="#{threadCreateController.initialMessage}"/>
+               </div>
+               <div class="form-group">
+                 <h:commandButton id="create" class="button" action="#{threadCreateController.create}" value="#{msg['add_thread']}" />
+               </div>
+             </h:form>
+           </div>
+           <div class="col-md-row-3"></div>
+         </div>
        </ui:define>
       </ui:composition>
    </h:body>

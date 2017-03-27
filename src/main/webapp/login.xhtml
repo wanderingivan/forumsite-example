@@ -1,42 +1,49 @@
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-xmlns:ui="http://java.sun.com/jsf/facelets">
- <body>
-<h:form id="loginForm" rendered="#{not identity.loggedIn}">
-    <h:messages globalOnly="true"/>
-
-    <div class="loginRow">
-        <h:outputLabel for="name" value="Username" styleClass="loginLabel"/>
-        <h:inputText id="name" value="#{loginCredentials.userId}"/>
-    </div>
-
-    <div class="loginRow">
-        <h:outputLabel for="password" value="Password" styleClass="loginLabel"/>
-        <h:inputSecret id="password" value="#{loginCredentials.password}" redisplay="true"/>
-    </div>
-
-    <div class="loginRow">
-
-    </div>
-    <div class="buttons">
-        <h:commandButton id="login" value="Login" action="#{loginController.login}" styleClass="loginButton"/>
-	</div>
-	</h:form>
-	<ui:fragment rendered="#{identity.loggedIn}">
-
-    <div>Currently logged in as: <b>#{identity.account.loginName}</b></div>
-
-    	<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('admin')}">
-      		<div>You have been granted the 'admin' application role.</div>
-		</ui:fragment>
-		<ui:fragment rendered="#{authorizationChecker.hasApplicationRole('user')}">
-      		<div>You have been granted the 'user' application role.</div>
-		</ui:fragment>     
-		<h:form id="logoutForm">
-     	  <h:commandLink id="logout" action="#{identity.logout}" value="Logout"/>
-        </h:form>
-     </ui:fragment>
-
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:body>
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+      <ui:define name="content">
+       <ui:fragment rendered="#{not identity.loggedIn}"> 
+        <div class="row">
+       	  <div class="col-md-offset-4 col-md-4">
+       	    <div class="form-title">
+              <h:outputText value="#{msg['login']}"/>
+            </div>
+       	  </div>
+        </div>
+        <div class="row">
+		  <div class="col-md-offset-4 col-md-4">
+	        <h:messages globalOnly="true"/>
+			<h:form id="loginForm" rendered="#{not identity.loggedIn}" class="siteform">
+		      <div class="form-group">
+        		<h:outputLabel for="name" value="#{msg['username']}" styleClass="loginLabel"/>
+        		<h:inputText id="name" class="form-control" value="#{loginCredentials.userId}"/>		     	 
+		      </div>
+		      <div class="form-group">
+        		<h:outputLabel for="password" value="#{msg['password']}" styleClass="loginLabel"/>
+        		<h:inputSecret id="password" class="form-control" value="#{loginCredentials.password}" redisplay="true"/>		      
+		      </div>
+		      <div class="form-group">
+		        <h:commandButton id="login" class="button" value="#{msg['submit']}" action="#{loginController.login}"/>
+		      </div>
+		    </h:form>
+		  </div>
+		  <div class="col-md-4"></div>        
+        </div>
+       </ui:fragment>
+       <ui:fragment rendered="#{identity.loggedIn}">
+         <div class="row">
+       	   <div class="col-md-offset-4 col-md-4">
+            <div><h:outputText value="#{msg['loggedin_as']}"/><b>#{identity.account.loginName}</b></div>
+           </div>
+         </div>
+		 <h:form id="formLogout">
+     	   <h:commandLink id="logout" class="button" action="#{identity.logout}" value="#{msg['logout']}"/>
+         </h:form>
+       </ui:fragment>
+      </ui:define>
+    </ui:composition>
+  </h:body>
 </html>
