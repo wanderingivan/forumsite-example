@@ -22,16 +22,17 @@
 			  <div class="row">
 			    <div class="col-md-10">
 			      <div class="panel panel-default forum-panel">
-			        <ui:fragment rendered="#{threadBean.topic.comments.size() > 10}">
-			          <ui:repeat begin="0" end="#{(threadBean.topic.comments.size()-1)/10}" 
-			                     value="#{threadBean.topic.comments}" varStatus="stat">
-				        <h:link id="nextPageLink" value="#{(stat.index) + 1}" outcome="loadThread">
-			              <f:param name="threadname" value="#{threadBean.threadName}"/>
-			              <f:param name="fromComment" value="#{stat.index * 10}"/>
-			            </h:link>		        	
-			          </ui:repeat>
-			        </ui:fragment>
-
+			        <div class="page-links">
+			          <ui:fragment rendered="#{threadBean.topic.comments.size() gt 10}">
+			            <ui:repeat begin="0" end="#{(threadBean.topic.comments.size()-1)/10}" 
+			                       value="#{threadBean.topic.comments}" varStatus="stat">
+				          <h:link id="nextPageLink" value="#{(stat.index) + 1}" outcome="loadThread" class="pagination-link">
+			                <f:param name="threadname" value="#{threadBean.threadName}"/>
+			                <f:param name="fromComment" value="#{stat.index * 10}"/>
+			              </h:link>		        	
+			            </ui:repeat>
+			          </ui:fragment>
+                    </div>
 			        <div class="panel-body">
 
 			          <ui:repeat var="comment" value="#{threadBean.topic.comments}" 
@@ -41,7 +42,7 @@
 			           <div class="threadComment">
 			           <div class="row">
 			             <div class="media forum">
-			               <div class="col-md-9">
+			               <div class="col-md-10">
 			                 <div class="media">
 			                   <div class="media-heading">
 			                     <div class="row">
@@ -61,8 +62,8 @@
 			                       </div>
 			                       <div class="col-md-2">
 			                     	   <h:link outcome="replyThread" value="#{msg['quote']}" >
-			                     	     <f:param name="author" value="#{comment.author.username}"/>
-			                     	     <f:param name="message" value="#{comment.message}"/>
+			                     	     <f:param name="quoted" value="#{comment.author.username}"/>
+			                     	     <f:param name="quote" value="#{comment.message}"/>
 			                     	     <f:param name="threadId" value="#{threadBean.topic.id}"/>
 			                     	   </h:link>
 			                       </div>
@@ -71,25 +72,36 @@
 			                   <div class="media-body" style="padding-top:15px;">
 			                     <h5 id="commentId#{stat.index}">#{comment.message}</h5>
 			                     <hr/>
+								 <div class="quick-reply">
+								   <div id="qrLink#{stat.index}" class="quick-reply-link">Quick Reply</div>
+								   <div id="qrForm#{stat.index}" class="quick-reply-form" style="display:none;">
+								     <h:form id="quickReply#{stat.index}" class="form-horizonthal siteform">
+     	  							    <h:message id="messageError" for="message"/>
+     	  							    <div class="form-group">
+     	  								  <h:inputTextarea id="message" value="#{commentController.message}" class="form-control">
+     	    							    <f:validateLength minimum="1" maximum="225" />
+     	  								  </h:inputTextarea>
+     	  								</div>
+			          					<f:param name="threadname" value="#{threadBean.topic.name}"/>
+			          					<div class="form-group">
+     	  								  <h:commandButton id="addComment" class="button" action="#{commentController.addComment}" value="#{msg['add_comment']}" >
+     	  								  </h:commandButton>
+     	  								</div>
+								     </h:form>
+								   </div>
+								 </div>
 			                   </div>
 			                 </div>
 			               </div>
-			               <div class="col-md-3">
+			               <div class="col-md-2">
 			                 <div class="media">
-      	                        <div class="media-left"><h:graphicImage style="width:50px;height:50px;" value="/images/#{comment.author.imageName}"/></div>
-      	                        <div class="media-body">
-								  #{last.message}
-      	                          <p><h:link value="#{comment.author.username}" outcome="loadUser">
+      	                        <div class="media-left user-info">
+      	                          <h:graphicImage value="/images/#{comment.author.imageName}"/>
+      	                          <p>
+      	                             <h:link value="#{comment.author.username}" outcome="loadUser">
       	                               <f:param name="username" value="#{comment.author.username}"/>
       	                             </h:link>
       	                          </p>
-      	                          <p>
-      	                            <i>
-      	                              <h:outputText value="#{comment.lastUpdate}" >
-                                        <f:convertDateTime pattern="dd.MM HH:mm" />
-                                      </h:outputText>
-                                    </i>
-                                  </p>      	                          
       	                        </div>
 			                 </div>
 			               </div>
@@ -105,6 +117,16 @@
 			    </div>
 			  </div>
         	</h:panelGroup>     
+        	<script>
+        	$(document).ready(function(){
+        			$('.quick-reply-link').each(function(index,element){
+        				$(element).click(function(){
+        					console.log(index);
+        					$("#qrForm"+index).toggle(750);
+        				})
+        			})
+        		});
+        	</script>
         </ui:define>
       </ui:composition>
    </h:body>
