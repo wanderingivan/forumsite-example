@@ -20,7 +20,7 @@
        </div>
        <div class="row">
          <div class="col-md-offset-3 col-md-6">
-           <h:form id="createUserForm" enctype="multipart/form-data" class="siteform">
+           <h:form id="editUserForm" enctype="multipart/form-data" class="siteform">
              <div class="form-group">
                <h:message id="usernameError" for="username" />
 	           <h:outputLabel for="username" value="#{msg['username']}"/>
@@ -42,7 +42,7 @@
              </div>
              <br/>
              <div class="form-group">
-               <h:commandButton id="create" class="button" action="#{editController.update}" value="#{msg['add_user']}" />
+               <h:commandButton id="edit" class="button" action="#{editController.update}" value="#{msg['edit_user']}" />
              </div>
            </h:form>
          </div>

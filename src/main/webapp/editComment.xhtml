@@ -6,7 +6,7 @@
       <ui:composition template="/WEB-INF/templates/default.xhtml">
       <f:metadata>
     	<f:viewParam name="commentId" value="#{commentEditController.commentId}"/>
-    	<f:event listener="#{commentEditController.fetchComment}" type="preRenderView"></f:event>
+        <f:viewAction action="#{commentEditController.fetchComment}"/>
 	  </f:metadata>
       <ui:param name="title" value="Editing comment #{commentEditController.comment.id}" />
       <ui:define name="content">
