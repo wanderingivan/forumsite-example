@@ -2,7 +2,9 @@ package com.forumsite.web.thread;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.Stateful;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,7 +16,8 @@ import com.forumsite.service.ForumThreadManagement;
 import com.forumsite.service.ForumThreadProducer;
 
 @Named()
-@SessionScoped
+@Stateful
+@ConversationScoped
 public class ThreadEditController implements Serializable {
 
     /**
@@ -34,15 +37,18 @@ public class ThreadEditController implements Serializable {
     @Inject
     private transient Logger logger;
     
+    @Inject
+    private Conversation conversation;
+    
     private ForumThread thread; 
-
     
     private String threadname;
     
-
-    
     public void load(){
-        thread = producer.getThread(threadname);
+        if(thread == null){
+            conversation.begin();
+            thread = producer.getThread(threadname);
+        }
     }
     
     public String update(){
@@ -50,6 +56,7 @@ public class ThreadEditController implements Serializable {
             logger.info("EditController updating thread " + thread);
         }
         fmgmt.updateThread(thread);
+        conversation.end();
         return "loadThread?faces-redirect=true&threadname="+thread.getName();
     }
 

@@ -3,7 +3,9 @@ package com.forumsite.web.user;
 import java.io.Serializable;
 import java.util.Optional;
 
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.Stateful;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +18,8 @@ import com.forumsite.service.UserManagement;
 import com.forumsite.service.UserProducer;
 
 @Named()
-@SessionScoped
+@Stateful
+@ConversationScoped
 public class EditController implements Serializable {
 
     /**
@@ -36,6 +39,9 @@ public class EditController implements Serializable {
     @Inject
     private transient Logger logger;
     
+    @Inject
+    private Conversation conversation;
+    
     private User user; 
 
     private Part imageFile;
@@ -47,7 +53,10 @@ public class EditController implements Serializable {
     }
     
     public void load(){
-        user = producer.getUser(username);
+        if(user == null){
+            conversation.begin();
+            user = producer.getUser(username);
+        }
     }
     
     public String update() throws Exception{
@@ -55,6 +64,7 @@ public class EditController implements Serializable {
             logger.info("EditController updating user " + user);
         }
         umgmt.updateUser(user,Optional.ofNullable(imageFile));
+        conversation.end();
         return "loadUser?faces-redirect=true&username="+user.getUsername();
     }
 
