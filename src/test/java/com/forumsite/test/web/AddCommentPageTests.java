@@ -40,12 +40,12 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateComment(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname2");
-        assertEquals("threadname2",browser.getTitle().trim());
+        browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname5");
+        assertEquals("threadname5",browser.getTitle().trim());
         tPage.goToReply();
-        assertEquals("threadname2 add comment",browser.getTitle().trim());
+        assertEquals("threadname5 add comment",browser.getTitle().trim());
         cPage.sendComment("a new comment");
-        GrapheneElement comment = new GrapheneElementImpl(browser.findElement(By.id("commentId0")));
+        GrapheneElement comment = new GrapheneElementImpl(browser.findElement(By.id("commentId5")));
         assertTrue("Did not find comment",comment.isPresent());
         assertEquals("a new comment",comment.getText().toString());
     }

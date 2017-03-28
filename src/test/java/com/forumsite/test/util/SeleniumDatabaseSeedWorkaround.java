@@ -96,6 +96,7 @@ public class SeleniumDatabaseSeedWorkaround {
             for(int k = 0;k < 15;k++){
                 Comment c = new Comment(t,u,"A comment");
                 em.persist(c);
+                //permissionManager.grantPermission(firstUser, c, "update");
             }
         }
         
@@ -106,11 +107,8 @@ public class SeleniumDatabaseSeedWorkaround {
             for(int k = 0;k < 5;k++){
                 Comment c = new Comment(t,u,"A comment");
                 em.persist(c);
+                permissionManager.grantPermission(firstUser, c, "update");
             }
-        }
-        
-        for(int i = 1;i < 7;i++){
-
         }
     }
 }

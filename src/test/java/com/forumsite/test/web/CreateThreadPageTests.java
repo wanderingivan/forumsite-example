@@ -41,7 +41,7 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
         cPage.createThread("threadname4", "category1","message");
         assertEquals("threadname4",browser.getTitle().trim());
         assertEquals("threadname4",threadPage.getThreadname());
-        assertEquals("category1",threadPage.getCategory());
+        assertEquals("Category1",threadPage.getCategory());
         assertTrue("Comment was not saved",threadPage.commentExists());
         //assertEquals("message",threadPage.getFirstComment());
 

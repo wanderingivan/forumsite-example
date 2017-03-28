@@ -33,17 +33,17 @@ public class UpdateCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testUpdateComment(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm()+ "/editComment?commentId=1");
-        assertEquals("Editing comment 1",browser.getTitle().trim());
+        browser.get(deploymentUrl.toExternalForm()+ "editComment.jsf?commentId=112");
+        assertEquals("Editing comment 112",browser.getTitle().trim());
         ePage.editComment("A new message");
         
     }
     
     @Test
     public void testUpdateCommentAccessDeniedFromAcl(@InitialPage LoginPage login){
-        login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm()+ "/editComment?commentId=1");
-        assertEquals("Editing comment 1",browser.getTitle().trim());
+        login.loginIfNotAuthenticated("username3", "password");
+        browser.get(deploymentUrl.toExternalForm()+ "editComment.jsf?commentId=112");
+        assertEquals("Editing comment 112",browser.getTitle().trim());
         ePage.editComment("A new message");
         errorPage.assertOnAccessDeniedPage();
     }
@@ -51,8 +51,7 @@ public class UpdateCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testUpdateCommentAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm()+ "/editComment?commentId=1");       
-        ePage.editComment("A new message");
+        browser.get(deploymentUrl.toExternalForm()+ "/editComment.jsf?commentId=1");       
         errorPage.assertOnAccessDeniedPage();
     }
 }

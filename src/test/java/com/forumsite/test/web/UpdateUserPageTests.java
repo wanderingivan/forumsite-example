@@ -56,7 +56,6 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
 
         assertEquals("username123's Profile Page",browser.getTitle().trim());
         assertEquals("username123",userPage.getUsername());
-        assertEquals("email@email23.com",userPage.getEmail());
         assertEquals("empty",userPage.getDescription());
     }
     

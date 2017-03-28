@@ -13,6 +13,7 @@ import com.forumsite.test.web.*;
     UpdateThreadPageTests.class,
     UpdateUserPageTests.class,
     AddCommentPageTests.class,
+    UpdateCommentPageTests.class,
     SearchPageTests.class
 })
 public class WebPageSuiteTest {
