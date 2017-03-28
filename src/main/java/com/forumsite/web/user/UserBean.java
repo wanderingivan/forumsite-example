@@ -25,6 +25,10 @@ public class UserBean {
     private UserProducer producer;
     
     private String username;
+
+    private final int DEFAULT_OFFSET = 0,COMMENTS_PER_PAGE=10;
+
+    private int fromComment;
     
     private User user;
     
@@ -39,10 +43,8 @@ public class UserBean {
         try{
             user  = producer.getUser(username);
         }catch(NoResultException e){
-            System.out.println("Inside no result exception block");
             ctx.addMessage(null, new FacesMessage("Sorry, there is no user with the name " + username));
         }catch(Exception e){
-            System.out.println("Inside general exception block");
             logger.error(String.format("Exception caught loading user %s :\n %s",username,e));
         }
     }
@@ -57,6 +59,20 @@ public class UserBean {
 
     public User getUser() {
         return user;
+    }
+    
+    public int getFromComment() {
+        return fromComment == 0 ? DEFAULT_OFFSET : fromComment;
+    }
+
+    public void setFromComment(int fromComment) {
+        this.fromComment = fromComment;
+    }
+    
+    public int getCommentsPerPage(){
+        int reqSize = getFromComment() + COMMENTS_PER_PAGE;
+        int total = user.getComments().size();
+        return reqSize > total ? total : reqSize;
     }
     
 }
