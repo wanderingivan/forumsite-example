@@ -9,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,6 +34,10 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
         @NamedQuery(name="User.findByName",
                     query="SELECT u FROM Users u WHERE u.username= :username")
 })
+@NamedEntityGraphs({
+    @NamedEntityGraph(name="graph.User.fetchComments",
+                      attributeNodes={@NamedAttributeNode("comments")})
+})
 public class User implements Serializable{
 
     /**
@@ -48,7 +55,6 @@ public class User implements Serializable{
     @Column
     private String username;
     
-
     @Transient
     private String password;
     

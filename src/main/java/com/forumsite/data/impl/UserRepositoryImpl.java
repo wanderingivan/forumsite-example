@@ -22,7 +22,9 @@ public class UserRepositoryImpl implements UserRepository {
     
     @Override
     public User getUserByName(String username) {
+
         return em.createNamedQuery("User.findByName",User.class)
+                 .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.User.fetchComments"))
                  .setParameter("username", username)
                  .getSingleResult();
     }
