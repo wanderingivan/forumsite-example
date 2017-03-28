@@ -27,14 +27,24 @@ public class CommentController {
     
     private String threadName;
     
+    private String quote;
+    
+    private String quoted;
+    
     
     public String addComment(){
+        if(logger.isTraceEnabled()){
+            logger.trace("Adding new comment " + message + " for thread " + threadName );
+        }
         cmgmt.addComment(new Comment(message),threadName);
         return "loadThread?faces-redirect=true&threadname="+threadName;
     }
 
 
     public String getMessage() {
+        if(getQuote() != null  && getQuoted() != null){
+            message = String.format("[ %s said:\n%s ]", getQuoted(),getQuote()); 
+        }
         return message;
     }
 
@@ -52,5 +62,25 @@ public class CommentController {
     public void setThreadName(String threadName) {
         this.threadName = threadName;
     }
-   
+
+
+    public String getQuote() {
+        return quote;
+    }
+
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+
+    public String getQuoted() {
+        return quoted;
+    }
+
+
+    public void setQuoted(String quoted) {
+        this.quoted = quoted;
+    }
+    
 }
