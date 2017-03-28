@@ -26,7 +26,6 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
 
     @Override
     public List<ForumThread> index() {
-        System.out.println("This shouldn't be initialized like this!!!:\n" + repo.list());
         return repo.list();
     }
 

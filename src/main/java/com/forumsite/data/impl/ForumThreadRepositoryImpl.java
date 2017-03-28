@@ -40,8 +40,8 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
     @Override
     public void save(ForumThread thread,String firstMessage,String username) {
         User author = (User) em.createNamedQuery("User.findByName")
-                .setParameter("username", username)
-                .getSingleResult();
+                               .setParameter("username", username)
+                               .getSingleResult();
         Comment c = new Comment(firstMessage);
         c.setAuthor(author);
         c.setThread(thread);
@@ -60,8 +60,6 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
         @SuppressWarnings("rawtypes")
         EntityGraph graph = em.getEntityGraph("graph.ForumThread.associations");
         System.out.println(graph);
-        //HashMap<String, EntityGraph> hints = new HashMap<>();
-        //hints.put("javax.persistence.fetchgraph",graph);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
