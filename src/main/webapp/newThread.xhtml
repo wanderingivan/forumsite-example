@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"       	          
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:b="http://butterfaces.larmic.de/components">
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
        <ui:param name="title" value="New Thread"/>
@@ -29,7 +30,21 @@
                <div class="form-group">
                  <h:message id="messageError" for="initialMessage"/>
                  <h:outputLabel for="initialMessage" value="#{msg['first_message']}"/>
-                 <h:inputTextarea id="initialMessage" class="form-control" value="#{threadCreateController.initialMessage}"/>
+     	         <b:markdown id="initialMessage"
+                    hideLabel="true"
+                    tooltip="tooltip"
+                    styleClass="null"
+                    readonly="false"
+                    required="true"
+                    disabled="false"
+                    placeholder="Enter text..."
+                    language="en"
+                    autoFocus="true"
+                    rendered="true"
+                    value="#{threadCreateController.initialMessage}"
+                    >
+                    <f:validateLength minimum="1" maximum="225" />
+                 </b:markdown>               
                </div>
                <div class="form-group">
                  <h:commandButton id="create" class="button" action="#{threadCreateController.create}" value="#{msg['add_thread']}" />

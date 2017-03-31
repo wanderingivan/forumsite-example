@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"       	          
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:b="http://butterfaces.larmic.de/components">
    <h:body>
       <ui:composition template="/WEB-INF/templates/default.xhtml">
       <f:metadata>
@@ -10,12 +11,27 @@
 	  </f:metadata>
       <ui:param name="title" value="Editing comment #{commentEditController.comment.id}" />
       <ui:define name="content">
-     	<h:form id="commentEditForm">
-     	  <h:message id="messageError" for="message"/>
-     	  <h:inputTextarea id="message" value="#{commentEditController.comment.message}">
-     	    <f:validateLength minimum="1" maximum="225" />
-     	  </h:inputTextarea>
-     	  <h:commandButton id="editComment" action="#{commentEditController.updateComment}" value="#{msg['edit_comment']}" />
+     	<h:form id="commentEditForm" class="siteform">
+     	  <div class="form-group">
+     	    <h:message id="messageError" for="message"/>
+     	    <b:markdown id="message"
+                        hideLabel="true"
+                        tooltip="tooltip"
+                        styleClass="null"
+                        readonly="false"
+                        required="true"
+                        disabled="false"
+                        language="en"
+                        autoFocus="false"
+                        rendered="true"
+                        value="#{commentEditController.comment.message}"
+             >
+               <f:validateLength minimum="1" maximum="225" />
+             </b:markdown> 
+     	  </div>
+     	  <div class="form-group">
+	     	<h:commandButton id="editComment" class="button" action="#{commentEditController.updateComment}" value="#{msg['edit_comment']}" />
+     	  </div>
      	</h:form> 
       </ui:define>
       </ui:composition>
