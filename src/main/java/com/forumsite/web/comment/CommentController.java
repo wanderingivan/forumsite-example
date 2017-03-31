@@ -43,7 +43,7 @@ public class CommentController {
 
     public String getMessage() {
         if(getQuote() != null  && getQuoted() != null){
-            message = String.format("[ %s said:\n%s ]", getQuoted(),getQuote()); 
+            message = String.format("> %s said: %s ", getQuoted(),getQuote()); 
         }
         return message;
     }
