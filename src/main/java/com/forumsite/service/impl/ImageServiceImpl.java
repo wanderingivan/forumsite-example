@@ -30,7 +30,7 @@ public class ImageServiceImpl implements ImageService {
 
     private static final Logger logger = Logger.getLogger(ImageServiceImpl.class);
     
-	private String placeholderFilename ="placeholder";
+	private String placeholderFilename ="placeholder.jpg";
 	
 	@Inject
 	@ConfiguredImageUtil

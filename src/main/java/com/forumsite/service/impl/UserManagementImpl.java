@@ -43,7 +43,7 @@ public class UserManagementImpl implements UserManagement {
     @Inject
     private ImageService imageService;
     
-    private String placeholder;
+    private String placeholder = "placeholder.jpg";
     
     @Override
     @Restrict("#{!isLoggedIn()}")
