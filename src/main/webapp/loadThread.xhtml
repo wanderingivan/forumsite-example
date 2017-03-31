@@ -64,7 +64,7 @@
 			                     	   <h:link outcome="replyThread" value="#{msg['quote']}" >
 			                     	     <f:param name="quoted" value="#{comment.author.username}"/>
 			                     	     <f:param name="quote" value="#{comment.message}"/>
-			                     	     <f:param name="threadId" value="#{threadBean.topic.id}"/>
+			                			 <f:param name="threadname" value="#{threadBean.threadName}"/>
 			                     	   </h:link>
 			                       </div>
 			                     </div>
@@ -118,7 +118,7 @@
 			  </div>
         	</h:panelGroup>     
         	<script>
-        	$(document).ready(function(){
+        	$(document).ready(() => {
         			$('.quick-reply-link').each(function(index,element){
         				$(element).click(function(){
         					console.log(index);
