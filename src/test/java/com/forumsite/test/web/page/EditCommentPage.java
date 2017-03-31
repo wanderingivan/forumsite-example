@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class EditCommentPage {
     
-    @FindBy(id="commentEditForm:message")
+    @FindBy(tagName="textarea")
     private WebElement commentMessage;
     
     @FindBy(id="commentEditForm:editComment")

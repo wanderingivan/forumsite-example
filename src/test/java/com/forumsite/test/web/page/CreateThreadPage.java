@@ -14,7 +14,7 @@ public class CreateThreadPage {
     @FindBy(id="createThreadForm:category")
     private WebElement category;
     
-    @FindBy(id="createThreadForm:initialMessage")
+    @FindBy(tagName="textarea")
     private WebElement initialMessage;
     
     @FindBy(id="createThreadForm:create")

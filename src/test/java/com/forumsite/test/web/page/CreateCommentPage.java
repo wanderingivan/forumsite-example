@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class CreateCommentPage {
 
-    @FindBy(id="commentForm:message")
+    @FindBy(tagName="textarea")
     private WebElement commentMessage;
     
     @FindBy(id="commentForm:addComment")
@@ -16,6 +16,7 @@ public class CreateCommentPage {
     private WebElement messageError;
     
     public void sendComment(String comment){
+        commentMessage.click();
         commentMessage.sendKeys(comment);
         Graphene.guardHttp(addCommentButton).click();
     }

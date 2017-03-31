@@ -45,6 +45,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
         tPage.goToReply();
         assertEquals("threadname5 add comment",browser.getTitle().trim());
         cPage.sendComment("a new comment");
+        assertEquals("threadname5",browser.getTitle().trim());
         GrapheneElement comment = new GrapheneElementImpl(browser.findElement(By.id("commentId5")));
         assertTrue("Did not find comment",comment.isPresent());
         assertEquals("a new comment",comment.getText().toString());
