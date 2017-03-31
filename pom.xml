@@ -242,6 +242,28 @@
       </properties>
     </profile>
     
+    <profile>
+      <id>arquillian-wildfly-managed-chrome-selenium-tests</id>
+      <properties>
+      	<browser>chrome</browser>
+      </properties>      
+      <dependencies>
+     	<dependency>
+       	  <groupId>org.wildfly</groupId>
+       	  <artifactId>wildfly-arquillian-container-embedded</artifactId>
+          <version>${version.arquillian.wildfly}</version>
+          <scope>test</scope>
+         </dependency>
+            
+         <dependency>
+           <groupId>org.wildfly</groupId>
+           <artifactId>wildfly-embedded</artifactId>
+           <version>${version.arquillian.wildfly}</version>
+           <scope>test</scope>
+         </dependency> 	    
+  	  </dependencies>
+    </profile>
+    
   	<profile>
   	  <id>arquillian-wildfly-managed</id>
   	  <dependencies>
