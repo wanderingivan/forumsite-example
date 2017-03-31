@@ -76,7 +76,7 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
-        crit.where(cb.like(r.get("name"), sb.toString()));
+        crit.where(cb.like(cb.lower(r.get("name")), sb.toString().toLowerCase()));
         return em.createQuery(crit).getResultList();
     }
 
@@ -86,7 +86,7 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
-        Predicate namePredicate = cb.like(r.get("name"), sb.toString());
+        Predicate namePredicate = cb.like(cb.lower(r.get("name")), sb.toString().toLowerCase());
         Predicate categoryPredicate = cb.and(cb.equal(r.get("category"), category));
         crit.where(namePredicate,categoryPredicate);
     
