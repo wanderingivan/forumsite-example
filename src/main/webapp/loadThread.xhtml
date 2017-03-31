@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"       	          
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:b="http://butterfaces.larmic.de/components">    
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
         <f:metadata>
@@ -70,7 +71,9 @@
 			                     </div>
 			                   </div>
 			                   <div class="media-body" style="padding-top:15px;">
-			                     <h5 id="commentId#{stat.index}">#{comment.message}</h5>
+			                     <h5 id="commentId#{stat.index}">
+			                       <b:markdown hideLabel="true" readonly="true" disabled="true" value="#{comment.message}"/>
+			                     </h5>
 			                     <hr/>
 								 <div class="quick-reply">
 								   <div id="qrLink#{stat.index}" class="quick-reply-link">Quick Reply</div>
