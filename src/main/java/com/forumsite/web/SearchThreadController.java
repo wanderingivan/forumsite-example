@@ -28,22 +28,12 @@ public class SearchThreadController {
     
     private String query;
     
-    private String category;
-    
-    private boolean useCategory = true;
-    
     public String search(){
-        getCategoryFromContext();
         if(logger.isDebugEnabled()){
             logger.debug("Search action querring for threads with name " + getQuery());
         }
-        if(useCategory != false && (category != null && !category.isEmpty())){
-            topics = service.search(getQuery(),getCategory());
-        }else{
-            topics = service.search(getQuery());
-        }
-        FacesMessage message = prepareMessage();
-        ctx.addMessage("searchMessage", message);
+        topics = service.search(getQuery());
+        ctx.addMessage("searchMessage", prepareMessage());
         return "searchThreads";
     }
     
@@ -60,13 +50,7 @@ public class SearchThreadController {
                   .getResourceBundle(ctx, "msg")
                   .getString(key);
     }
-    
-    private void getCategoryFromContext(){
-        setCategory(ctx.getExternalContext()
-                       .getRequestParameterMap()
-                       .get("searchForm:category"));
-    }
-    
+
     public List<ForumThread> getTopics(){
         return this.topics;
     }
@@ -77,22 +61,6 @@ public class SearchThreadController {
 
     public void setQuery(String query) {
         this.query = query;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public boolean isUseCategory() {
-        return useCategory;
-    }
-
-    public void setUseCategory(boolean useCategory) {
-        this.useCategory = useCategory;
     }
     
 }
