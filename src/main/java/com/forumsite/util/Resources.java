@@ -3,7 +3,6 @@ package com.forumsite.util;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.log4j.Logger;
 
 
 public class Resources {
@@ -41,5 +42,12 @@ public class Resources {
                                                           "category2",
                                                           "category3",
                                                           "TestCat"));
+    }
+    
+    @Produces
+    @ApplicationScoped
+    @ConfiguredImageUtil
+    public ImageUtil imageUtil(){
+        return new ImageUtil("/tmp/siteimage",true,2000000);
     }
 }

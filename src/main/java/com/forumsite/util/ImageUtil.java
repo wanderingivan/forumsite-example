@@ -28,9 +28,9 @@ import javax.servlet.http.Part;
 public class ImageUtil {
 
 	
-	private final String defaultDestPath;
-	private final long  maxUncompressedSize;
-	private final boolean convertToJpg;
+	private String defaultDestPath;
+	private long  maxUncompressedSize;
+	private boolean convertToJpg;
 	
 	public ImageUtil() {
 		super();
