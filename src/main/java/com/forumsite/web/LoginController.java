@@ -21,9 +21,7 @@ public class LoginController {
    private FacesContext fctx;
    
    public String login(){
-       System.out.println("Login clicked");
        AuthenticationResult result = identity.login();
-       System.out.println(result);
        if(AuthenticationResult.FAILED.equals(result)){
            fctx.addMessage(null, new FacesMessage("Authentication was unsuccessful.  Please check your username and password before trying again."));
            return "";
