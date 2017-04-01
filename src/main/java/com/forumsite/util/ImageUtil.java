@@ -92,7 +92,7 @@ public class ImageUtil {
 
 		try{
 			//Do we need conversion
-			if(convertToJpg && contentType != "image/jpg"){
+			if(convertToJpg && contentType != "image/jpeg"){
 				image = convertToJpg(ImageIO.read(input.getInputStream()));
 				fileName = fileName.substring(0, fileName.lastIndexOf('.'))
 						           .concat(".jpg");
@@ -119,9 +119,9 @@ public class ImageUtil {
 		    writer.write(null, new IIOImage(image,null,null), param);
 		    
 		}catch(Exception e){
-			dest.delete();
-			System.out.println(e);
-			e.printStackTrace();
+			//System.out.println(e);
+			//e.printStackTrace();
+			if(dest != null){ dest.delete(); }
 			throw new RuntimeException(e);
 		}finally{
 			try {

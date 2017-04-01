@@ -96,7 +96,7 @@ public class ImageServiceImpl implements ImageService {
 	
 	@Override
 	public String saveImage(Part image) throws IOException{
-		return imageUtil.saveImage(image, image.getContentType(), image.getName());
+		return imageUtil.saveImage(image, image.getContentType(), image.getSubmittedFileName());
 	}
 
 	
