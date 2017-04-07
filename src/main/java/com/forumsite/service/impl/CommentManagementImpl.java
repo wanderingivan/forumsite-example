@@ -45,7 +45,7 @@ public class CommentManagementImpl implements CommentManagement {
     @Override
     public void updateComment(Comment comment) {
         if(!checker.hasApplicationRole("admin") && !this.identity.hasPermission(comment, "update")){
-            throw new AccessDeniedException(String.format("No permission for update on %s by user %s",comment,identity.getAccount()
+            throw new AccessDeniedException(String.format("No permission for update for Comment %d by user %s",comment.getId(),identity.getAccount()
                                                                                                                              .getId()));
         }
         repo.updateComment(comment.getId(), comment.getMessage());
