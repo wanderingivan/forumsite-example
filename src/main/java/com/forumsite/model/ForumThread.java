@@ -48,7 +48,7 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
                       attributeNodes={ @NamedAttributeNode(value="comments"),
                                        @NamedAttributeNode("author")})
 })
-public class ForumThread implements Serializable{
+public class ForumThread extends Identity implements Serializable{
     
     /**
      * 
@@ -102,7 +102,7 @@ public class ForumThread implements Serializable{
         this.author = author;
     }
     
-    public Long getId() {
+    public long getId() {
         return id;
     }    
     
