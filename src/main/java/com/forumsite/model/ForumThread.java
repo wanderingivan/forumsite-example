@@ -27,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.JoinFormula;
 import org.picketlink.idm.permission.annotations.AllowedOperation;
 import org.picketlink.idm.permission.annotations.AllowedOperations;
 
@@ -42,10 +43,10 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
 })
 @NamedEntityGraphs({
     @NamedEntityGraph(name="graph.ForumThread.author",
-                  attributeNodes={@NamedAttributeNode("author")}),
+                      attributeNodes={@NamedAttributeNode("author")}),
     @NamedEntityGraph(name="graph.ForumThread.associations",
-                  attributeNodes={@NamedAttributeNode("author"),
-                                  @NamedAttributeNode("comments")})
+                      attributeNodes={ @NamedAttributeNode(value="comments"),
+                                       @NamedAttributeNode("author")})
 })
 public class ForumThread implements Serializable{
     
@@ -69,12 +70,16 @@ public class ForumThread implements Serializable{
     @Column
     private String category;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="author_id")
     private User author;
     
     @OneToMany(mappedBy="thread",cascade=CascadeType.ALL,orphanRemoval=true)
     private List<Comment> comments;
+    
+    @ManyToOne(fetch=FetchType.LAZY) 
+    @JoinFormula("(SELECT c.id FROM Comment c WHERE c.id = id ORDER BY c.lastUpdate DESC LIMIT 1)")
+    private Comment latestComment;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
@@ -196,5 +201,8 @@ public class ForumThread implements Serializable{
                .append(createdOn).append("]");
         return builder.toString();
     }
-    
+
+    public Comment getLatestComment() {
+        return latestComment;
+    }
 }
