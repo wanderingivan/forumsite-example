@@ -63,11 +63,11 @@
       	                    <div class="col-md-3">
       	                      <div class="media lastComment">
       	                        <div class="media-left">
-      	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
+      	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{last.author.username}'s profile picture"/>
       	                        </div>
       	                        <div class="media-body">
       	                          <p>
-      	                            <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                            <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{last.author.username}'s profile" >
       	                              <f:param name="username" value="#{topic.author.username}"/>
       	                            </h:link>
       	                          </p>
