@@ -51,7 +51,7 @@ public class UserManagementImpl implements UserManagement {
         String imageName = placeholder;
         if(image.isPresent()){ imageName = imageService.saveImage(image.get()); }
         u.setImageName(imageName);
-        repo.save(u);
+        repo.add(u);
         updatePricketlink(u);
     }
 

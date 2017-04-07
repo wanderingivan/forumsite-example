@@ -1,6 +1,7 @@
 package com.forumsite.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,18 +17,18 @@ public class UserProducerImpl implements UserProducer {
     private UserRepository repo;
     
     @Override
-    public User getUser(String username) {
-        return repo.getUserByName(username);
+    public Optional<User> getUser(String username) {
+        return repo.getByName(username);
     }
 
     @Override
     public List<User> latest() {
-        return repo.listUsers();
+        return repo.list();
     }
 
     @Override
     public List<User> findUsers(String username) {
-        return repo.searchUsers(username);
+        return repo.search(username);
     }
 
 }
