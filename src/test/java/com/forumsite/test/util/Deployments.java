@@ -11,6 +11,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 
 import com.forumsite.data.*;
 import com.forumsite.data.impl.*;
+import com.forumsite.data.util.PredicateBuilder;
 import com.forumsite.model.*;
 import com.forumsite.util.*;
 import com.forumsite.test.validation.AbstractValidationTest;
@@ -49,7 +50,7 @@ public class Deployments {
     }
     
     public static JavaArchive validationsJar(){
-        return basicJar(new Class[]{User.class,ForumThread.class,Comment.class,AbstractValidationTest.class});
+        return basicJar(new Class[]{User.class,ForumThread.class,Comment.class,Identity.class, AbstractValidationTest.class});
     }
     
     
@@ -64,13 +65,17 @@ public class Deployments {
                                     ForumThread.class,
                                     Comment.class,
                                     Resources.class,
+                                    Identity.class,
                                     UserRepository.class,
                                     UserRepositoryImpl.class,
                                     ForumThreadRepository.class,
                                     ForumThreadRepositoryImpl.class,
                                     CommentRepository.class,
                                     CommentRepositoryImpl.class,
-                                    ImageUtil.class})
+                                    ImageUtil.class,
+                                    Repository.class,
+                                    AbstractJPARepository.class,
+                                    PredicateBuilder.class})
                        .addAsResource("persistence.xml","META-INF/persistence.xml")
                        .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                        .addAsWebInfResource("test-ds.xml")

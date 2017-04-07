@@ -2,6 +2,8 @@ package com.forumsite.test.persistence;
 
 import static org.junit.Assert.*;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -30,45 +32,47 @@ public class UserPersistenceTests {
     @Test
     public void testCreateUser(){
         User u = new User("username4","password","email@test.com");
-        repo.save(u);
-        User t = repo.getUserByName("username4");
-        assertNotNull(t);
-        assertEquals(u,t);
+        repo.add(u);
+        Optional<User> t = repo.getByName("username4");
+        assertTrue(t.isPresent());
+        assertEquals(u,t.get());
     }
     
     @Test
     public void testReadUser(){
-        User u = repo.getUserByName("username1");
-        assertNotNull(u);
-        assertEquals("username1",u.getUsername());
+        Optional<User> u = repo.getByName("username1");
+        assertTrue(u.isPresent());
+        assertEquals("username1",u.get()
+                                  .getUsername());
     }
     
     @Test
     public void testUpdateUser(){
-        User u = repo.findUser(11L);   
+        User u = repo.get(11L).get();   
         u.setUsername("newusername");
         u.setEmail("newemail@email.com");
         repo.update(u);
-        User t = repo.findUser(11L);
-        assertNotNull(t);
-        assertEquals(u,t);
-        assertEquals("newemail@email.com",t.getEmail());
+        Optional<User> t = repo.get(11L);
+        assertTrue(t.isPresent());
+        assertEquals(u,t.get());
+        assertEquals("newemail@email.com",t.get()
+                                           .getEmail());
     }
     
     @Test
     public void testDeleteUser(){
         repo.delete(11L);
-        assertNull(repo.findUser(11L));
+        assertFalse(repo.get(11L).isPresent());
     }
     
     @Test
     public void testGetLatestUsers(){
-        assertEquals(3,repo.listUsers().size());
+        assertEquals(3,repo.list().size());
     }
 
     @Test
     public void testFindUsers(){
-        assertEquals(3,repo.searchUsers("username").size());
+        assertEquals(3,repo.search("username").size());
     }
     
 }

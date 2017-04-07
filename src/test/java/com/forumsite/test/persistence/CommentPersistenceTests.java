@@ -44,7 +44,7 @@ public class CommentPersistenceTests {
         ForumThread t = fRepo.findThread(11l);
         Comment testComment = t.getComments().get(t.getComments().size()-1);
         assertEquals(c.getMessage(),testComment.getMessage());
-        User author = uRepo.getUserByName("username2");
+        User author = uRepo.getByName("username2").get();
         assertEquals(author,testComment.getAuthor());
         repo.delete(c.getId());
         fRepo.delete(t.getId());
