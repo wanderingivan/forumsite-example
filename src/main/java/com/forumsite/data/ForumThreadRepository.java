@@ -1,29 +1,25 @@
 package com.forumsite.data;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.forumsite.model.ForumThread;
 
-public interface ForumThreadRepository {
+public interface ForumThreadRepository extends Repository<ForumThread> {
     
-    public ForumThread findThread(long id);
     
-    public ForumThread getThreadByName(String threadName);
+    Optional<ForumThread> getByName(String threadName);
     
-    public void save(ForumThread thread,String firstMessage,String username);
+    void add(ForumThread thread,String firstMessage,String username);
     
-    public void update(ForumThread thread);
+    void update(ForumThread thread);
     
-    public List<ForumThread> list();
+    List<ForumThread> latest();
     
-    public List<ForumThread> latest();
+    List<ForumThread> search(String threadName);
     
-    public List<ForumThread> searchThreads(String threadName);
+    List<ForumThread> search(String threadName, String category);
     
-    public List<ForumThread> searchThreads(String threadName, String category);
-    
-    public List<ForumThread> loadCategory(String category);
-    
-    public void delete(long id);
+    List<ForumThread> getCategory(String category);
 
 }
