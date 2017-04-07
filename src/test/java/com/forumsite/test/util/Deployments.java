@@ -25,6 +25,7 @@ public class Deployments {
                          .loadPomFromFile("pom.xml")
                          .importBuildOutput()
                          .as(WebArchive.class);
+        war.addAsResource("persistence.xml","META-INF/persistence.xml"); 
         war.addClasses(SeleniumDatabaseSeedWorkaround.class);
         return war;
     }
