@@ -1,10 +1,10 @@
 package com.forumsite.data.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -13,59 +13,46 @@ import com.forumsite.data.UserRepository;
 import com.forumsite.model.User;
 
 @ApplicationScoped
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends AbstractJPARepository<User> implements UserRepository {
 
-    @Inject
-    private EntityManager em;
-    
-    public UserRepositoryImpl(){}
+    public UserRepositoryImpl(){
+        super(User.class);
+    }
     
     @Override
-    public User getUserByName(String username) {
-
-        return em.createNamedQuery("User.findByName",User.class)
-                 .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.User.fetchComments"))
-                 .setParameter("username", username)
-                 .getSingleResult();
+    public Optional<User> getByName(String username) {
+        try{
+            return Optional.ofNullable(
+                    em().createNamedQuery("User.findByName",User.class)
+                        .setHint("javax.persistence.fetchgraph",em().getEntityGraph("graph.User.fetchComments"))
+                        .setParameter("username", username)
+                        .getSingleResult());
+        }catch(NoResultException nre){}
+        return Optional.empty();
     }
 
     @Override
-    public List<User> listUsers() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+    public List<User> list() {
+        CriteriaBuilder cb = cb();
         CriteriaQuery<User> crit = cb.createQuery(User.class);
         Root<User> r = crit.from(User.class);
         crit.orderBy(cb.desc(r.get("id")));
-        return em.createQuery(crit).getResultList();
+        return em().createQuery(crit).setMaxResults(20).getResultList();
     }
 
     @Override
-    public void save(User user) {
-        em.persist(user);
-    }
+    public List<User> search(String username) {
+        final String usernameParam = new StringBuilder("%").append(username)
+                                                   .append("%")
+                                                   .toString()
+                                                   .toLowerCase();
 
-    @Override
-    public void update(User user) {
-        em.merge(user);
-    }
-
-    @Override
-    public void delete(long userId) {
-        em.remove(findUser(userId));
-    }
-
-    @Override
-    public User findUser(long id) {
-        return em.find(User.class, id);
-    }
-
-    @Override
-    public List<User> searchUsers(String username) {
-        StringBuilder sb = new StringBuilder("%").append(username).append("%");
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> crit = cb.createQuery(User.class);
-        Root<User> r = crit.from(User.class);
-        crit.where(cb.like(cb.lower(r.get("username")), sb.toString().toLowerCase()));
-        return em.createQuery(crit).getResultList();
+        return listWhere((cb,r,query) -> { return cb.like(
+                                                   cb.lower(r.get("username")),
+                                                   usernameParam
+                                                  );
+                                         }
+                                          ,15,null);
     }
 
 }
