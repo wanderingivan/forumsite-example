@@ -2,6 +2,8 @@ package com.forumsite.test.persistence;
 
 import static org.junit.Assert.*;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -34,8 +36,9 @@ public class ForumThreadPersistenceTests {
     
     @Test
     public void testGetThreadByName() throws Exception{
-        ForumThread t  = repo.getThreadByName("threadname1");
-        assertNotNull(t);
+        Optional<ForumThread> o = repo.getByName("threadname1");
+        assertTrue(o.isPresent());
+        ForumThread t = o.get();
         assertNotNull(t.getLastComment());
         assertNotNull(t.getLastComment().getAuthor());
         assertEquals("username2",t.getLastComment().getAuthor().getUsername());
@@ -51,11 +54,12 @@ public class ForumThreadPersistenceTests {
     @Test
     public void testCreateThread(){
         ForumThread f = new ForumThread("newthread", "category");
-        repo.save(f,"A message","username1");
-        ForumThread t = repo.getThreadByName("newthread");
-        assertNotNull(t);
-        assertTrue(t.equals(f));
-        assertNotNull(t.getAuthor());
+        repo.add(f,"A message","username1");
+        Optional<ForumThread> o = repo.getByName("newthread");
+        assertTrue("No thread was returned",o.isPresent());
+        ForumThread t = o.get();
+        assertTrue("Saved thread is no equal to provided",t.equals(f));
+        assertNotNull("Thread author is null",t.getAuthor());
         assertEquals("username1",t.getAuthor().getUsername());
         assertEquals("A message",t.getComments().get(0).getMessage());
         repo.delete(t.getId());
@@ -63,19 +67,20 @@ public class ForumThreadPersistenceTests {
     
     @Test
     public void testUpdateThread(){
-        ForumThread f = repo.findThread(11L);
+        ForumThread f = repo.get(11L).get();
         f.setName("updatename");
         f.setCategory("updatedCat");
         repo.update(f);
-        ForumThread t = repo.findThread(11L);
-        assertNotNull(t);
+        Optional<ForumThread> o = repo.get(11L);
+        assertTrue(o.isPresent());
+        ForumThread t = o.get();
         assertTrue(t.equals(f));
     }
     
     @Test
     public void deleteThread(){
         repo.delete(11L);
-        assertNull(repo.findThread(11L));
+        assertFalse(repo.get(11L).isPresent());
     }
     
     @Test
@@ -85,17 +90,17 @@ public class ForumThreadPersistenceTests {
     
     @Test
     public void testSearchThreads(){
-        assertEquals(5, repo.searchThreads("thread").size());
+        assertEquals(5, repo.search("thread").size());
     }
 
     @Test
     public void testSearchThreadsByCategory(){
-        assertEquals(1, repo.searchThreads("thread","category1").size());
+        assertEquals(1, repo.search("thread","category1").size());
     }
     
     @Test
     public void testGetCategory(){
-        assertEquals(4, repo.loadCategory("category").size());
+        assertEquals(4, repo.getCategory("category").size());
     }
   
 }

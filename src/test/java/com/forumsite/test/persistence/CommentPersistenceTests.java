@@ -41,7 +41,7 @@ public class CommentPersistenceTests {
     public void testCreateComment(){
         Comment c = new Comment("A message");
         repo.createComment(c,"threadname1","username2");
-        ForumThread t = fRepo.findThread(11l);
+        ForumThread t = fRepo.get(11l).get();
         Comment testComment = t.getComments().get(t.getComments().size()-1);
         assertEquals(c.getMessage(),testComment.getMessage());
         User author = uRepo.getByName("username2").get();
@@ -56,7 +56,7 @@ public class CommentPersistenceTests {
         assertNotNull("Recieved null instance", c);
         assertEquals("A message", c.getMessage());
         assertEquals("username2", c.getAuthor().getUsername());
-        assertEquals(new Long(11),c.getThread().getId());
+        assertEquals((long)11,c.getThread().getId());
     }
     
     @Test
