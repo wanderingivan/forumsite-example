@@ -42,10 +42,7 @@ public class UserRepositoryImpl extends AbstractJPARepository<User> implements U
 
     @Override
     public List<User> search(String username) {
-        final String usernameParam = new StringBuilder("%").append(username)
-                                                   .append("%")
-                                                   .toString()
-                                                   .toLowerCase();
+        final String usernameParam = prepareLikeQueryParam(username); 
 
         return listWhere((cb,r,query) -> { return cb.like(
                                                    cb.lower(r.get("username")),

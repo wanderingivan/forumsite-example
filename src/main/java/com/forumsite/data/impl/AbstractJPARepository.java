@@ -57,7 +57,7 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
         return Optional.empty();
     }
     
-    protected List<T> listWhere(PredicateBuilder<T> pb,int maxResults, EntityGraph<T> graph){
+    protected List<T> listWhere(PredicateBuilder<T> pb,int maxResults, EntityGraph<?> graph){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> q = cb.createQuery(type);
         Root<T> root = q.from(type);
@@ -82,4 +82,14 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
         return em.getCriteriaBuilder();
     }
     
+    protected String prepareLikeQueryParam(String param){
+       return new StringBuilder("%").append(param)
+                                    .append("%")
+                                    .toString()
+                                    .toLowerCase(); 
+    }
+    
+    protected EntityGraph<?> entityGraph(String graphName){
+        return em.getEntityGraph(graphName);
+    }
 }
