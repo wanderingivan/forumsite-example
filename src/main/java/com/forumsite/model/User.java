@@ -41,7 +41,7 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
                       subgraphs={@NamedSubgraph(name="subgraph.comment.associations",
                                                 attributeNodes={@NamedAttributeNode("thread")})})
 })
-public class User implements Serializable{
+public class User extends Identity implements Serializable{
 
     /**
      * 
@@ -109,7 +109,7 @@ public class User implements Serializable{
         return builder.toString();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
     
