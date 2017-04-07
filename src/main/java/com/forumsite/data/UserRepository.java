@@ -1,23 +1,14 @@
 package com.forumsite.data;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.forumsite.model.User;
 
-public interface UserRepository {
+public interface UserRepository extends Repository<User> {
+    
+     Optional<User> getByName(String username);
 
-    public User findUser(long id);
-    
-    public User getUserByName(String username);
-    
-    public List<User> listUsers();
-
-    public List<User> searchUsers(String username);
-    
-    public void save(User user);
-    
-    public void update(User user);
-    
-    public void delete(long userId);
+     List<User> search(String username);
 
 }
