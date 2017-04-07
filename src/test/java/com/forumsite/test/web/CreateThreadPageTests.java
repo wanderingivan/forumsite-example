@@ -64,10 +64,11 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
     }
     
     @Test
-    public void createThreadAccessDeniedError(@InitialPage LoginPage login){
+    public void createThreadAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
         browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
-        cPage.createThread("threadname5", "category","message");
-        ePage.assertOnAccessDeniedPage();
+        assertEquals("Login",browser.getTitle().trim());
+        assertTrue(login.assertOnLoginPage());
     }
+
 }

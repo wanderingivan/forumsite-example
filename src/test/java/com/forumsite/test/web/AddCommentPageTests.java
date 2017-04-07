@@ -57,9 +57,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
         browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname2");
         assertEquals("threadname2",browser.getTitle().trim());
         tPage.goToReply();
-        assertEquals("threadname2 add comment",browser.getTitle().trim());
-        cPage.sendComment("a new comment");
-        ePage.assertOnAccessDeniedPage();
+        assertEquals("Login",browser.getTitle().trim());
     }
     
     @Test

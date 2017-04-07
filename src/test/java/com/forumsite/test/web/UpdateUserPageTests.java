@@ -2,6 +2,7 @@ package com.forumsite.test.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.page.InitialPage;
@@ -67,6 +68,15 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
         assertEquals("Editing username3",browser.getTitle().trim());
         editPage.editUser("username123", "email@email23.com", "empty");
         ePage.assertOnAccessDeniedPage();
+    }
+    
+    @Test
+    @InSequence(4)
+    public void editUserAccessDeniedLoginTest(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username3");
+        assertEquals("Login",browser.getTitle().trim());
+        assertTrue(login.assertOnLoginPage());
     }
     
 }

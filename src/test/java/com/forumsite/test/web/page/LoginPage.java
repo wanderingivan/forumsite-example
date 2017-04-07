@@ -42,4 +42,9 @@ public class LoginPage {
         if(!this.logout.isPresent()){ return; }
         logout();
     }
+
+
+    public boolean assertOnLoginPage() {
+        return this.login.isPresent();
+    }
 }

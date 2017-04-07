@@ -51,7 +51,8 @@ public class UpdateCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testUpdateCommentAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm()+ "/editComment.jsf?commentId=1");       
-        errorPage.assertOnAccessDeniedPage();
+        browser.get(deploymentUrl.toExternalForm()+ "editComment.jsf?commentId=112");
+        assertEquals("Login",browser.getTitle().trim());
+        assertTrue(login.assertOnLoginPage());
     }
 }

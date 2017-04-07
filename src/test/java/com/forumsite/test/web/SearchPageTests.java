@@ -2,6 +2,7 @@ package com.forumsite.test.web;
 
 import static org.junit.Assert.*;
 
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
@@ -44,11 +45,4 @@ public class SearchPageTests extends AbstractWebPageTests{
         assertEquals("No results for query missing", sPage.getMessage());
     }
     
-    @Test
-    public void testSearchByCategory(){
-        browser.get(deploymentUrl.toExternalForm() + "category.jsf?category=category2");
-        sForm.searchThreadsCategory("thread");
-        assertEquals(2, sPage.getTopics().size());
-        assertEquals("Topics matching thread", sPage.getMessage());
-    }
 }

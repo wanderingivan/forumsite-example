@@ -72,9 +72,10 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     }    
     
     @Test
-    public void editThreadLoginAccessDeniedError(@InitialPage LoginPage login){
+    public void editThreadAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
-        ePage.assertOnAccessDeniedPage();
+        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname5");        
+        assertEquals("Login",browser.getTitle().trim());
+        assertTrue(login.assertOnLoginPage());
     }
 }
