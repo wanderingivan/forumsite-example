@@ -2,7 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="ForumSiteDev">
 	  <!-- Non managed datasource use in test env only -->
-	  <jta-data-source>java:jboss/datasources/ForumSite-webappDS</jta-data-source>
+	  <jta-data-source>${webapp.dev.datasource}</jta-data-source>
 	  
       <class>org.picketlink.idm.jpa.model.sample.simple.AttributedTypeEntity</class>
       <class>org.picketlink.idm.jpa.model.sample.simple.AccountTypeEntity</class>
@@ -15,12 +15,15 @@
       <class>org.picketlink.idm.jpa.model.sample.simple.PasswordCredentialTypeEntity</class>
       <class>org.picketlink.idm.jpa.model.sample.simple.AttributeTypeEntity</class>
 	  <class>org.picketlink.idm.jpa.model.sample.simple.PermissionTypeEntity</class>
-	  
+      <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>	  
 	  <properties>
-	    <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-	  	<property name="hibernate.show_sql" value="true"/>
-	  	<property name="hibernate.format_sql" value="true"/>
+	    <property name="hibernate.dialect" value="${webapp.dev.driver}"/>
+        <property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl}" />
+        <property name="hibernate.use_second_level_cache" value="${hibernate.caching}"/>
+        <property name="hibernate.use_query_cache" value="${hibernate.caching}"/>
+	  	<property name="hibernate.show_sql" value="${hibernate.debug}"/>
+	  	<property name="hibernate.format_sql" value="${hibernate.debug}"/>
+	    <property name="hibernate.generate_statistics" value="${hibernate.debug}"/>
 	  </properties>
 	</persistence-unit>
 </persistence>
