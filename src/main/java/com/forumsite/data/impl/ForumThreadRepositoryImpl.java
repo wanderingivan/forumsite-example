@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -29,11 +28,14 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
 
     @Override
     public ForumThread getThreadByName(String threadName) {
-        return em.createNamedQuery("ForumThread.findByName",ForumThread.class)
-                 .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.ForumThread.associations"))
-                 .setParameter("name", threadName)
-                 .getSingleResult();
-
+        return (ForumThread) em.createQuery("SELECT t "
+                                            + "FROM ForumThread t "
+                                                 + "INNER JOIN FETCH t.comments tc "
+                                                 + "INNER JOIN FETCH t.author ta "
+                                                 + "INNER JOIN FETCH tc.author ca "
+                                           + "WHERE t.name =:name")
+                               .setParameter("name", threadName)
+                               .getSingleResult();
     }
 
     //XXX Should be replaced by a stored procedure
@@ -57,52 +59,46 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
 
     @Override
     public List<ForumThread> list() {
-        @SuppressWarnings("rawtypes")
-        EntityGraph graph = em.getEntityGraph("graph.ForumThread.associations");
-        System.out.println(graph);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
         crit.orderBy(cb.desc(r.get("createdOn")));
+        
         return em.createQuery(crit)
-                 .setHint("javax.persistence.fetchgraph",graph)
+                 .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.ForumThread.author"))
                  .setMaxResults(10)
                  .getResultList();
     }
 
     @Override
     public List<ForumThread> searchThreads(String threadName) {
-        StringBuilder sb = new StringBuilder("%").append(threadName).append("%");
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
-        Root<ForumThread> r = crit.from(ForumThread.class);
-        crit.where(cb.like(cb.lower(r.get("name")), sb.toString().toLowerCase()));
-        return em.createQuery(crit).getResultList();
+
+        CriteriaQuery<ForumThread> crit = prepareSearchQuery(threadName, null);
+
+        return em.createQuery(crit)
+                 .setHint("javax.persistence.fetchgraph", em.getEntityGraph("graph.ForumThread.author"))
+                 .getResultList();
     }
 
     @Override
     public List<ForumThread> searchThreads(String threadName, String category) {
-        StringBuilder sb = new StringBuilder("%").append(threadName).append("%");
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
-        Root<ForumThread> r = crit.from(ForumThread.class);
-        Predicate namePredicate = cb.like(cb.lower(r.get("name")), sb.toString().toLowerCase());
-        Predicate categoryPredicate = cb.and(cb.equal(r.get("category"), category));
-        crit.where(namePredicate,categoryPredicate);
+
+        CriteriaQuery<ForumThread> crit = prepareSearchQuery(threadName, category);
     
-        return em.createQuery(crit).getResultList();
+        return em.createQuery(crit)
+                 .setHint("javax.persistence.fetchgraph", em.getEntityGraph("graph.ForumThread.author"))
+                 .getResultList();
     }
     
     @Override
     public List<ForumThread> loadCategory(String category) {
-        @SuppressWarnings("rawtypes")
-        EntityGraph graph = em.getEntityGraph("graph.ForumThread.associations");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
-        crit.where(cb.like(r.get("category"),category)); 
+        crit.where(cb.equal(r.get("category"),category)); 
+        
         return em.createQuery(crit)
-                 .setHint("javax.persistence.fetchgraph",graph)
+                 .setHint("javax.persistence.fetchgraph",em.getEntityGraph("graph.ForumThread.associations"))
                  .setMaxResults(10)
                  .getResultList();
     }
@@ -114,14 +110,40 @@ public class ForumThreadRepositoryImpl implements ForumThreadRepository {
 
     @Override
     public List<ForumThread> latest() {
-        System.out.println("Latest called");
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
         crit.orderBy(cb.desc(r.get("lastUpdate")));
+        
         return em.createQuery(crit)
+                 .setHint("javax.persistence.fetchgraph", em.getEntityGraph("graph.ForumThread.author"))
                  .setMaxResults(5)
                  .getResultList();
     }
+    
+    private CriteriaQuery<ForumThread> prepareSearchQuery(String name,String category){
 
+        String query = prepareNameParam(name);
+        
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
+        Root<ForumThread> r = crit.from(ForumThread.class);
+        Predicate namePredicate = cb.like(cb.lower(r.get("name")), query);
+        if(category != null){
+            Predicate categoryPredicate = cb.and(cb.equal(r.get("category"), category));
+            crit.where(namePredicate,categoryPredicate);
+        }else{
+            crit.where(namePredicate);
+        }
+        
+        return crit;
+    }
+    
+    private String prepareNameParam(String threadname){
+       return new StringBuilder("%").append(threadname)
+                                    .append("%")
+                                    .toString()
+                                    .toLowerCase(); 
+    }
+    
 }
