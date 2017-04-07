@@ -32,7 +32,7 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
     @LoggedIn
     public void saveThread(ForumThread t,String firstMessage) {
         User user = (User) identity.getAccount();
-        repo.save(t,firstMessage,user.getLoginName());
+        repo.add(t,firstMessage,user.getLoginName());
         createAcl(t,user);
     }
 

@@ -1,6 +1,7 @@
 package com.forumsite.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
@@ -20,8 +21,8 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
     private ForumThreadRepository repo;
     
     @Override
-    public ForumThread getThread(String name) {
-        return repo.getThreadByName(name);
+    public Optional<ForumThread> getThread(String name) {
+        return repo.getByName(name);
     }
 
     @Override
@@ -31,17 +32,17 @@ public class ForumThreadProducerImpl implements ForumThreadProducer {
 
     @Override
     public List<ForumThread> search(String threadName) {
-        return repo.searchThreads(threadName);
+        return repo.search(threadName);
     }
 
     @Override
     public List<ForumThread> search(String threadName, String category) {
-        return repo.searchThreads(threadName,category);
+        return repo.search(threadName,category);
     }
     
     @Override
     public List<ForumThread> category(String category) {
-        return repo.loadCategory(category);
+        return repo.getCategory(category);
     }
 
     @Produces
