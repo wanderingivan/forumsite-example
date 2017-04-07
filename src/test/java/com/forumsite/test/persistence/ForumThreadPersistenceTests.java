@@ -33,9 +33,19 @@ public class ForumThreadPersistenceTests {
     UserRepository uRepo;
     
     @Test
-    public void testGetThreadByName(){
+    public void testGetThreadByName() throws Exception{
         ForumThread t  = repo.getThreadByName("threadname1");
         assertNotNull(t);
+        assertNotNull(t.getLastComment());
+        assertNotNull(t.getLastComment().getAuthor());
+        assertEquals("username2",t.getLastComment().getAuthor().getUsername());
+        assertEquals("threadname1", t.getName());
+        assertEquals("category", t.getCategory());
+        assertNotNull(t.getAuthor());
+        assertEquals("username1",t.getAuthor().getUsername());
+        assertNotNull(t.getComments());
+        assertEquals(1,t.getComments().size());
+        assertEquals("A message",t.getComments().get(0).getMessage());
     }
     
     @Test
