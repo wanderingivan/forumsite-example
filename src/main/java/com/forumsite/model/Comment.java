@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Comment implements Serializable {
+public class Comment extends Identity implements Serializable {
 
     /**
      * 
@@ -83,7 +83,7 @@ public class Comment implements Serializable {
         this.message = message;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
