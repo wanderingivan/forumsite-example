@@ -95,7 +95,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
                                              query.orderBy(cb.desc(root.get("lastUpdate")));
                                              return cb.equal(root.get("category"), category);
                                             }, 
-                                            10, entityGraph("graph.ForumThread.associations"));
+                                            10, entityGraph("graph.ForumThread.author"));
     }
     
     @Override
