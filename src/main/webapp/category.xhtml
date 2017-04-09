@@ -23,9 +23,13 @@
       	            <f:param name="category" value="#{category}"/>
       	          </h:link>
       	        </div>
+      	        <div class="panel-body">
+      	         <ui:repeat var="topic" value="#{categoryBean.topics}">
 				  <ui:insert name="threadlist">
 				    <ui:include src="/WEB-INF/templates/threadlist.xhtml"/>
 				  </ui:insert>
+				 </ui:repeat>
+				</div>
       	      </div>      	    
       	    </div>      	  
       	    <div class="col-md-2">

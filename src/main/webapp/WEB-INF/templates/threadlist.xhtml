@@ -5,11 +5,8 @@
    xmlns:ui="http://java.sun.com/jsf/facelets">
    <body>
      <ui:component>
-           	      <div class="panel-body">
-      	            <ui:repeat var="topic" value="#{index.threads}">
-      	              <ui:param name="last" value="#{topic.lastComment}"/>
-      	              <h:panelGroup rendered="#{topic.category == category}">
-      	                <div class="row">
+
+      	                <div class="row topic">
       	                  <div class="media forum">
       	                    <div class="col-md-7">
       	                      <div class="media">
@@ -23,8 +20,8 @@
       	                            </h:link>
       	                          </div>
       	                          <p>      	            
-      	                            <h:link value="#{category}" outcome="category" title="Go to #{category}">
-      	                              <f:param name="category" value="#{category}"/>
+      	                            <h:link value="#{topic.category}" outcome="category" title="Go to #{topic.category}">
+      	                              <f:param name="category" value="#{topic.category}"/>
       	                            </h:link>
       	                          </p>
       	                          <p>
@@ -39,7 +36,7 @@
       	                    </div>
       	                    <div class="col-md-1">
       	                    	<span class="info">
-      	                    	 1 
+      	                    	 ${topic.hits} 
       	                    	 <i class="fa fa-eye" aria-hidden="true"></i>
       	                    	</span>
       	                    </div>
@@ -47,7 +44,7 @@
       	                      <ui:fragment rendered="#{indentity.loggedIn}">
       	                    	<span class="info">
       	                    	  <h:link outcome="replyThread">      	                    	  
-      	                    	    #{topic.comments.size()}
+      	                    	    #{topic.posts}
       	                    	    <i class="fa fa-comment" aria-hidden="true"></i>
 			                        <f:param name="threadname" value="#{topic.name}"/>
       	                          </h:link>
@@ -55,7 +52,7 @@
       	                      </ui:fragment>
       	                      <ui:fragment rendered="#{!indentity.loggedIn}">
       	                    	<span class="info">
-      	                    	  #{topic.comments.size()}
+      	                    	    #{topic.posts}
       	                    	  <i class="fa fa-comment" aria-hidden="true"></i>
 							    </span>      	                      
       	                      </ui:fragment>
@@ -63,36 +60,24 @@
       	                    <div class="col-md-3">
       	                      <div class="media lastComment">
       	                        <div class="media-left">
-      	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{last.author.username}'s profile picture"/>
+      	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
       	                        </div>
       	                        <div class="media-body">
       	                          <p>
-      	                            <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{last.author.username}'s profile" >
+      	                            <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                              <f:param name="username" value="#{topic.author.username}"/>
       	                            </h:link>
       	                          </p>
-      	                          <p>
-      	                            <ui:fragment rendered="#{last.message.length() gt 50}">
-								      <h:outputText value="#{last.message.substring(0,50)}"/>
-      	                            </ui:fragment>
-      	                            <ui:fragment rendered="#{last.message.length() lt 50}">
-								      <h:outputText value="#{last.message}"/>
-      	                            </ui:fragment>
-
-                                  </p>
-      	                            <i>
-      	                              <h:outputText value="#{last.lastUpdate}" >
-                                        <f:convertDateTime pattern="dd.MM HH:mm" />
-                                      </h:outputText>
-                                    </i>
+      	                         <i>
+      	                           <h:outputText value="#{topic.lastUpdate}" >
+                                     <f:convertDateTime pattern="dd.MM HH:mm" />
+                                   </h:outputText>
+                                 </i>
       	                        </div>
       	                      </div>
       	                    </div>
       	                  </div>
       	                </div>
-      	              </h:panelGroup>
-      	            </ui:repeat>
-      	          </div>
      </ui:component>
    </body>
 </html>

@@ -22,9 +22,15 @@
       	            </h:link>
       	            <i class="fa fa-minus pull-right"></i>
       	          </div>
-				  <ui:insert name="threadlist">
-				    <ui:include src="/WEB-INF/templates/threadlist.xhtml"/>
-				  </ui:insert>
+           	      <div class="panel-body">
+      	            <ui:repeat var="topic" value="#{index.threads}">
+      	              <h:panelGroup rendered="#{topic.category == category}">
+				        <ui:insert name="threadlist">
+				          <ui:include src="/WEB-INF/templates/threadlist.xhtml"/>
+				        </ui:insert>
+				      </h:panelGroup>
+				    </ui:repeat>
+				  </div>
       	        </div>
       	      </ui:repeat>
       	    </div>
