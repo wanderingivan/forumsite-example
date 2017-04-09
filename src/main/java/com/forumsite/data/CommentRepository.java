@@ -2,14 +2,10 @@ package com.forumsite.data;
 
 import com.forumsite.model.Comment;
 
-public interface CommentRepository {
+public interface CommentRepository extends Repository<Comment> {
 
-    void createComment(Comment c, String threadName, String username);
+    void add(Comment c, String threadName, String username);
 
-    Comment retrieveComment(long id);
-
-    void updateComment(long commentId, String message);
-
-    void delete(long commentId);
-
+    void update(long commentId, String message);
+    
 }
