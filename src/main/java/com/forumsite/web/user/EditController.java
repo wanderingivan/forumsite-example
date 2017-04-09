@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -26,9 +25,6 @@ public class EditController implements Serializable {
      * 
      */
     private static final long serialVersionUID = 2097796810404302279L;
-
-    @Inject
-    private FacesContext ctx;
     
     @Inject
     private transient UserManagement umgmt;
@@ -55,7 +51,8 @@ public class EditController implements Serializable {
     public void load(){
         if(user == null){
             conversation.begin();
-            user = producer.getUser(username);
+            user = producer.getUser(username)
+                           .orElseThrow(() -> new IllegalArgumentException("Tried to update non-existing user"));
         }
     }
     

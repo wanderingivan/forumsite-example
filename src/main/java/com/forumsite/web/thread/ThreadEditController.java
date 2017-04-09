@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,9 +25,6 @@ public class ThreadEditController implements Serializable {
     private static final long serialVersionUID = 2097796810404302279L;
 
     @Inject
-    private FacesContext ctx;
-    
-    @Inject
     private transient ForumThreadManagement fmgmt;
     
     @Inject
@@ -47,7 +43,8 @@ public class ThreadEditController implements Serializable {
     public void load(){
         if(thread == null){
             conversation.begin();
-            thread = producer.getThread(threadname);
+            thread = producer.getThread(threadname)
+                             .orElseThrow(() -> new IllegalArgumentException("Tried to update non-existing thread"));
         }
     }
     

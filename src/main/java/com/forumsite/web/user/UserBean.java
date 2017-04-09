@@ -1,11 +1,12 @@
 package com.forumsite.web.user;
 
+import java.util.Optional;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 
@@ -40,12 +41,11 @@ public class UserBean {
         if(logger.isDebugEnabled()){
             logger.debug("Loading user "  + user.getUsername());
         }
-        try{
-            user  = producer.getUser(username);
-        }catch(NoResultException e){
-            ctx.addMessage(null, new FacesMessage("Sorry, there is no user with the name " + username));
-        }catch(Exception e){
-            logger.error(String.format("Exception caught loading user %s :\n %s",username,e));
+        Optional<User> o = producer.getUser(username);
+        if(o.isPresent()){
+            user  = o.get();
+        }else{
+            ctx.addMessage(null, new FacesMessage(getMessage("no_user") + username));
         }
     }
 
@@ -73,6 +73,12 @@ public class UserBean {
         int reqSize = getFromComment() + COMMENTS_PER_PAGE;
         int total = user.getComments().size();
         return reqSize > total ? total : reqSize;
+    }
+    
+    private String getMessage(String key){
+        return ctx.getApplication()
+                  .getResourceBundle(ctx, "msg")
+                  .getString(key);
     }
     
 }
