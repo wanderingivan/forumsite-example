@@ -49,9 +49,11 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
         CriteriaQuery<T> q = cb.createQuery(type);
         Root<T> root = q.from(type);
         q.where(pb.build(cb, root,q));
+        TypedQuery<T> tq =  em.createQuery(q);
+        if(graph != null){ tq.setHint("javax.persistence.fetchgraph", graph); }
+        
         try{
-            return Optional.ofNullable(em.createQuery(q)
-                                         .getSingleResult());
+            return Optional.ofNullable(tq.getSingleResult());
         }catch(NoResultException nre){}
 
         return Optional.empty();
@@ -71,7 +73,7 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
     
     @Override
     public void delete(long userId) {
-        em.remove(get(userId).get());
+        em.remove(em.find(type,userId));
     } 
        
     protected EntityManager em(){
