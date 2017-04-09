@@ -39,9 +39,6 @@ public class ForumThreadPersistenceTests {
         Optional<ForumThread> o = repo.getByName("threadname1");
         assertTrue(o.isPresent());
         ForumThread t = o.get();
-        assertNotNull(t.getLastComment());
-        assertNotNull(t.getLastComment().getAuthor());
-        assertEquals("username2",t.getLastComment().getAuthor().getUsername());
         assertEquals("threadname1", t.getName());
         assertEquals("category", t.getCategory());
         assertNotNull(t.getAuthor());

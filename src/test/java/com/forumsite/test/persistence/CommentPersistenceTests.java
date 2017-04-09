@@ -2,6 +2,8 @@ package com.forumsite.test.persistence;
 
 import static org.junit.Assert.*;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -40,7 +42,7 @@ public class CommentPersistenceTests {
     @Test
     public void testCreateComment(){
         Comment c = new Comment("A message");
-        repo.createComment(c,"threadname1","username2");
+        repo.add(c,"threadname1","username2");
         ForumThread t = fRepo.get(11l).get();
         Comment testComment = t.getComments().get(t.getComments().size()-1);
         assertEquals(c.getMessage(),testComment.getMessage());
@@ -52,8 +54,9 @@ public class CommentPersistenceTests {
     
     @Test
     public void testRetrieveComment(){
-        Comment c = repo.retrieveComment(11l);
-        assertNotNull("Recieved null instance", c);
+        Optional<Comment> o = repo.get(11l);
+        assertTrue("No comment wa retrieved",o.isPresent());
+        Comment c = o.get();
         assertEquals("A message", c.getMessage());
         assertEquals("username2", c.getAuthor().getUsername());
         assertEquals((long)11,c.getThread().getId());
@@ -61,15 +64,15 @@ public class CommentPersistenceTests {
     
     @Test
     public void testUpdateComment(){
-        repo.updateComment(11l,"Edited message");
-        Comment testComment = repo.retrieveComment(11l);
+        repo.update(11l,"Edited message");
+        Comment testComment = repo.get(11l).get();
         assertEquals("Edited message",testComment.getMessage());
     }
     
     @Test
     public void deleteComment(){
         repo.delete(11l);
-        assertNull(repo.retrieveComment(11l));
+        assertFalse(repo.get(11l).isPresent());
     }
     
 }
