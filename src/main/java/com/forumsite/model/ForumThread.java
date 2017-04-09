@@ -27,7 +27,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.JoinFormula;
 import org.picketlink.idm.permission.annotations.AllowedOperation;
 import org.picketlink.idm.permission.annotations.AllowedOperations;
 
@@ -60,6 +59,12 @@ public class ForumThread extends Identity implements Serializable{
     @Column(name="id",nullable=false,updatable=false)
     private Long id;
     
+    @Column(nullable=false,columnDefinition="INTEGER default 1")
+    private long hits;
+    
+    @Column(nullable=false,columnDefinition="INTEGER default 1")
+    private long posts;
+    
     @NotNull    
     @Size(min=5,max=50)
     @Column
@@ -76,10 +81,6 @@ public class ForumThread extends Identity implements Serializable{
     
     @OneToMany(mappedBy="thread",cascade=CascadeType.ALL,orphanRemoval=true)
     private List<Comment> comments;
-    
-    @ManyToOne(fetch=FetchType.LAZY) 
-    @JoinFormula("(SELECT c.id FROM Comment c WHERE c.id = id ORDER BY c.lastUpdate DESC LIMIT 1)")
-    private Comment latestComment;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
@@ -163,10 +164,22 @@ public class ForumThread extends Identity implements Serializable{
         this.createdOn = createdOn;
     }
     
-    public Comment getLastComment(){
-        return getComments().get(getComments().size()-1);
+    public long getHits() {
+        return hits;
     }
-    
+
+    public void setHits(long hits) {
+        this.hits = hits;
+    }
+
+    public long getPosts() {
+        return posts;
+    }
+
+    public void setPosts(long posts) {
+        this.posts = posts;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -201,8 +214,5 @@ public class ForumThread extends Identity implements Serializable{
                .append(createdOn).append("]");
         return builder.toString();
     }
-
-    public Comment getLatestComment() {
-        return latestComment;
-    }
+    
 }
