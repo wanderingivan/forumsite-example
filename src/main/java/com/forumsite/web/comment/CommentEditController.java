@@ -39,7 +39,7 @@ public class CommentEditController implements Serializable {
     public void fetchComment(){
         if(comment == null){
             conversation.begin();
-            this.comment = cmgmt.getComment(commentId);
+            this.comment = cmgmt.getComment(commentId).get();//XXX
         }
     }
     

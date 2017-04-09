@@ -1,5 +1,7 @@
 package com.forumsite.service.impl;
 
+import java.util.Optional;
+
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 
@@ -33,13 +35,13 @@ public class CommentManagementImpl implements CommentManagement {
     @LoggedIn
     public void addComment(Comment comment,String threadName) {
         User user = (User) identity.getAccount();
-        repo.createComment(comment, threadName, user.getLoginName());
+        repo.add(comment, threadName, user.getLoginName());
         createAcl(user,comment);
     }
 
     @Override
-    public Comment getComment(long commentId) {
-        return repo.retrieveComment(commentId);
+    public Optional<Comment> getComment(long commentId) {
+        return repo.get(commentId);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class CommentManagementImpl implements CommentManagement {
             throw new AccessDeniedException(String.format("No permission for update for Comment %d by user %s",comment.getId(),identity.getAccount()
                                                                                                                              .getId()));
         }
-        repo.updateComment(comment.getId(), comment.getMessage());
+        repo.update(comment.getId(), comment.getMessage());
         
     }
 
