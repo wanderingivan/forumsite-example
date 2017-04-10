@@ -2,6 +2,7 @@ package com.forumsite.test.persistence;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -55,7 +56,7 @@ public class CommentPersistenceTests {
     @Test
     public void testRetrieveComment(){
         Optional<Comment> o = repo.get(11l);
-        assertTrue("No comment wa retrieved",o.isPresent());
+        assertTrue("No comment was retrieved",o.isPresent());
         Comment c = o.get();
         assertEquals("A message", c.getMessage());
         assertEquals("username2", c.getAuthor().getUsername());
@@ -73,6 +74,17 @@ public class CommentPersistenceTests {
     public void deleteComment(){
         repo.delete(11l);
         assertFalse(repo.get(11l).isPresent());
+    }
+    
+    @Test
+    public void testGetForThread(){
+        List<Comment> comments = repo.getForThread("threadname1");
+        assertNotNull(comments);
+        assertEquals(1,comments.size());
+        Comment c = comments.get(0);
+        assertEquals("A message", c.getMessage());
+        assertEquals("username2", c.getAuthor().getUsername());
+        assertEquals((long)11,c.getThread().getId());
     }
     
 }

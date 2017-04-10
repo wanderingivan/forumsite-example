@@ -34,14 +34,14 @@ public class UserPersistenceTests {
         User u = new User("username4","password","email@test.com");
         repo.add(u);
         Optional<User> t = repo.getByName("username4");
-        assertTrue(t.isPresent());
+        assertTrue("No user was retrieved",t.isPresent());
         assertEquals(u,t.get());
     }
     
     @Test
     public void testReadUser(){
         Optional<User> u = repo.getByName("username1");
-        assertTrue(u.isPresent());
+        assertTrue("No user was retrieved",u.isPresent());
         assertEquals("username1",u.get()
                                   .getUsername());
     }
