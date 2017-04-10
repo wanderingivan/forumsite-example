@@ -44,13 +44,14 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
         return Optional.ofNullable(em.find(type, id));
     }
     
-    protected Optional<T> getWhere(PredicateBuilder<T> pb, EntityGraph<T> graph){
+    protected Optional<T> getWhere(PredicateBuilder<T> pb, EntityGraph<?> graph,boolean cacheable){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> q = cb.createQuery(type);
         Root<T> root = q.from(type);
         q.where(pb.build(cb, root,q));
         TypedQuery<T> tq =  em.createQuery(q);
         if(graph != null){ tq.setHint("javax.persistence.fetchgraph", graph); }
+        if(cacheable){ tq.setHint("org.hibernate.cacheable", true);}
         
         try{
             return Optional.ofNullable(tq.getSingleResult());
@@ -59,14 +60,16 @@ public abstract class AbstractJPARepository<T extends Identity> implements Repos
         return Optional.empty();
     }
     
-    protected List<T> listWhere(PredicateBuilder<T> pb,int maxResults, EntityGraph<?> graph){
+    protected List<T> listWhere(PredicateBuilder<T> pb,int firstResult,int maxResults, EntityGraph<?> graph,boolean cacheable){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> q = cb.createQuery(type);
         Root<T> root = q.from(type);
         q.where(pb.build(cb, root,q));
         TypedQuery<T> tq =  em.createQuery(q);
+        if(firstResult > 0){ tq.setFirstResult(firstResult); }
         if(maxResults > 0){ tq.setMaxResults(maxResults); }
         if(graph != null){ tq.setHint("javax.persistence.fetchgraph", graph); }
+        if(cacheable){ tq.setHint("org.hibernate.cacheable", true);}
         
         return tq.getResultList();
     }
