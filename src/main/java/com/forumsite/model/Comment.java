@@ -3,6 +3,7 @@ package com.forumsite.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 @Entity
+@Cacheable(true)
 public class Comment extends Identity implements Serializable {
 
     /**
@@ -28,11 +31,11 @@ public class Comment extends Identity implements Serializable {
     @Column(name="id",nullable=false,updatable=false)
     private Long id;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="thread_id")
     private ForumThread thread;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="comment_author_id")
     private User author;
     

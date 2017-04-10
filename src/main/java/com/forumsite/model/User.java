@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.QueryHint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -33,7 +34,8 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username","email"}))
 @NamedQueries({
         @NamedQuery(name="User.findByName",
-                    query="SELECT u FROM Users u WHERE u.username= :username")
+                    query="SELECT u FROM Users u WHERE u.username= :username",
+                    hints = { @QueryHint(name = "org.hibernate.cacheable", value ="true")})
 })
 @NamedEntityGraphs({
     @NamedEntityGraph(name="graph.User.fetchComments",
@@ -41,6 +43,7 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
                       subgraphs={@NamedSubgraph(name="subgraph.comment.associations",
                                                 attributeNodes={@NamedAttributeNode("thread")})})
 })
+@Cacheable(true)
 public class User extends Identity implements Serializable{
 
     /**
@@ -73,10 +76,10 @@ public class User extends Identity implements Serializable{
     @Column
     private String imageName;
     
-    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE,orphanRemoval=true)
+    @OneToMany(mappedBy="author",orphanRemoval=true)
     private List<ForumThread> threads; 
     
-    @OneToMany(mappedBy="author",cascade=CascadeType.REMOVE,orphanRemoval=true)
+    @OneToMany(mappedBy="author",orphanRemoval=true)
     private List<Comment> comments;
     
     public User() {

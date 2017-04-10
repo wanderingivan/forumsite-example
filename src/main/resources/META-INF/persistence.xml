@@ -19,8 +19,8 @@
 	  <properties>
 	    <property name="hibernate.dialect" value="${webapp.dev.driver}"/>
         <property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl}" />
-        <property name="hibernate.use_second_level_cache" value="${hibernate.caching}"/>
-        <property name="hibernate.use_query_cache" value="${hibernate.caching}"/>
+        <property name="hibernate.cache.use_second_level_cache" value="${hibenate.caching}"/>
+        <property name="hibernate.cache.use_query_cache" value="${hibenate.caching}"/>
 	  	<property name="hibernate.show_sql" value="${hibernate.debug}"/>
 	  	<property name="hibernate.format_sql" value="${hibernate.debug}"/>
 	    <property name="hibernate.generate_statistics" value="${hibernate.debug}"/>

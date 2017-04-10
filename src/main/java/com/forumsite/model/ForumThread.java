@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +40,11 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQueries({
     @NamedQuery(name="ForumThread.findByName",
-                query="SELECT ft FROM ForumThread ft where ft.name = :name")
+                query="SELECT ft "
+                      + "FROM ForumThread ft "
+                     + "WHERE ft.name = :name",
+                hints = { @QueryHint(name = "org.hibernate.cacheable", value ="true")}
+               )
 })
 @NamedEntityGraphs({
     @NamedEntityGraph(name="graph.ForumThread.author",
@@ -47,6 +53,7 @@ import org.picketlink.idm.permission.annotations.AllowedOperations;
                       attributeNodes={ @NamedAttributeNode(value="comments"),
                                        @NamedAttributeNode("author")})
 })
+@Cacheable(true)
 public class ForumThread extends Identity implements Serializable{
     
     /**
@@ -75,11 +82,11 @@ public class ForumThread extends Identity implements Serializable{
     @Column
     private String category;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="author_id")
     private User author;
     
-    @OneToMany(mappedBy="thread",cascade=CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="thread",cascade=CascadeType.ALL,orphanRemoval=true)
     private List<Comment> comments;
     
     @Temporal(TemporalType.TIMESTAMP)
