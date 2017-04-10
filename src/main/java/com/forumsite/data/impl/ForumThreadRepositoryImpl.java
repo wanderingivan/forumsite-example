@@ -40,7 +40,6 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         return Optional.empty();
     }
 
-    //XXX Should be replaced by a stored procedure
     @Override
     public void add(ForumThread thread,String firstMessage,String username) {
         User author = (User) em().createNamedQuery("User.findByName")

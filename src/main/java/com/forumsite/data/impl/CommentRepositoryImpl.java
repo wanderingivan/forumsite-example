@@ -17,7 +17,6 @@ public class CommentRepositoryImpl extends AbstractJPARepository<Comment> implem
         super(Comment.class);
     }
     
-    //NOTE preliminary method should be replaced by stored procedure
     @Override
     public void add(Comment c, String threadName, String username) {
         ForumThread t = (ForumThread) em().createNamedQuery("ForumThread.findByName")
