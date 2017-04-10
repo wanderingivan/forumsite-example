@@ -52,5 +52,11 @@ public class CommentRepositoryImpl extends AbstractJPARepository<Comment> implem
                                    .setMaxResults(20)
                                    .getResultList();
     }
+
+    @Override
+    public List<Comment> getForThread(String threadName) {
+        return listWhere((cb,root,query)->{ return cb.equal(root.get("thread").get("name"),threadName); }, 
+                                                   0,0,null,true);
+    }
  
 }
