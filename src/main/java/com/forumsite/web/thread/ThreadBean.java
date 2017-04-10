@@ -1,7 +1,7 @@
 package com.forumsite.web.thread;
 
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
@@ -10,8 +10,9 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
+import com.forumsite.model.Comment;
 import com.forumsite.model.ForumThread;
-import com.forumsite.service.ForumThreadProducer;
+import com.forumsite.service.CommentProducer;
 
 @Model
 public class ThreadBean {
@@ -23,7 +24,7 @@ public class ThreadBean {
     private Logger logger;
     
     @Inject
-    private ForumThreadProducer producer;
+    private CommentProducer producer;
     
     private final int DEFAULT_OFFSET = 0,COMMENTS_PER_PAGE=10;
     
@@ -37,13 +38,13 @@ public class ThreadBean {
         if(logger.isDebugEnabled()){
             logger.debug("Loading thread with name " + threadName);
         }
-        Optional<ForumThread> o = producer.getThread(threadName);
-        if(o.isPresent()){
-            topic = producer.getThread(threadName)
-                            .get();
-        }else{
+        List<Comment> comments= producer.getCommentsForThread(threadName);
+        if(comments.size() < 1){
             ctx.addMessage(null, new FacesMessage(getMessage("no_thread") + threadName));
+            return;
         }
+        topic = comments.get(0).getThread();
+        topic.setComments(comments);
     }
 
     public String getThreadName() {
