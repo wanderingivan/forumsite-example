@@ -35,6 +35,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
                                                                      + "INNER JOIN FETCH tc.author ca "
                                                                + "WHERE t.name =:name")
                                                   .setParameter("name", threadName)
+                                                  .setHint("org.hibernate.cacheable", false)
                                                   .getSingleResult());
         }catch(NoResultException nre){}
         return Optional.empty();
@@ -61,8 +62,9 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         crit.orderBy(cb.desc(r.get("createdOn")));
         
         return em().createQuery(crit)
-                   .setHint("javax.persistence.fetchgraph",entityGraph("graph.ForumThread.author"))
-                   .setMaxResults(10)
+                   .setFirstResult(0)
+                   .setMaxResults(20)
+                   .setHint("org.hibernate.cacheable", "true")
                    .getResultList();
     }
 
@@ -73,7 +75,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         return listWhere((cb,r,query) ->{
                                          return cb.like(cb.lower(r.get("name")), threadNameParam);
                                         }, 
-                                        15, entityGraph("graph.ForumThread.author"));
+                                        0,15, null,true);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
                                          Predicate categoryPredicate = cb.equal(r.get("category"), category);                                         
                                          return cb.and(namePredicate,categoryPredicate);
                                         }, 
-                                        15, entityGraph("graph.ForumThread.author"));
+                                        0,15, null, true);
     }
     
     @Override
@@ -94,7 +96,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
                                              query.orderBy(cb.desc(root.get("lastUpdate")));
                                              return cb.equal(root.get("category"), category);
                                             }, 
-                                            10, entityGraph("graph.ForumThread.author"));
+                                            0,20, null, true);
     }
     
     @Override
@@ -107,6 +109,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         
         return em().createQuery(crit)
                    .setHint("javax.persistence.fetchgraph", entityGraph("graph.ForumThread.author"))
+                   .setHint("org.hibernate.cacheable", "true")
                    .setMaxResults(5)
                    .getResultList();
     }

@@ -22,11 +22,11 @@ public class UserRepositoryImpl extends AbstractJPARepository<User> implements U
     @Override
     public Optional<User> getByName(String username) {
         try{
-            return Optional.ofNullable(
-                    em().createNamedQuery("User.findByName",User.class)
-                        .setHint("javax.persistence.fetchgraph",em().getEntityGraph("graph.User.fetchComments"))
-                        .setParameter("username", username)
-                        .getSingleResult());
+              return Optional.of(em().createNamedQuery("User.findByName",User.class)
+                                     .setHint("javax.persistence.fetchgraph",em().getEntityGraph("graph.User.fetchComments"))
+                                     .setHint("org.hibernate.cacheable", false)
+                                     .setParameter("username", username)
+                                     .getSingleResult());
         }catch(NoResultException nre){}
         return Optional.empty();
     }
@@ -48,8 +48,8 @@ public class UserRepositoryImpl extends AbstractJPARepository<User> implements U
                                                    cb.lower(r.get("username")),
                                                    usernameParam
                                                   );
-                                         }
-                                          ,15,null);
+                                         },
+                                          0,15,null,true);
     }
 
 }
