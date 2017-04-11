@@ -37,7 +37,7 @@ public class ThreadCreateController {
         }        
 
         fmgmt.saveThread(newThread,initialMessage);
-        return "loadThread?faces-redirect=true&threadname="+newThread.getName();
+        return "/thread/loadThread?faces-redirect=true&threadname="+newThread.getName();
     }
 
     public ForumThread getNewThread() {

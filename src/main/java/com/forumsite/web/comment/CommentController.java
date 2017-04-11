@@ -37,7 +37,7 @@ public class CommentController {
             logger.trace("Adding new comment " + message + " for thread " + threadName );
         }
         cmgmt.addComment(new Comment(message),threadName);
-        return "loadThread?faces-redirect=true&threadname="+threadName;
+        return "/thread/loadThread?faces-redirect=true&threadname="+threadName;
     }
 
 

@@ -54,7 +54,7 @@ public class ThreadEditController implements Serializable {
         }
         fmgmt.updateThread(thread);
         conversation.end();
-        return "loadThread?faces-redirect=true&threadname="+thread.getName();
+        return "/thread/loadThread?faces-redirect=true&threadname="+thread.getName();
     }
 
     public ForumThread getThread() {

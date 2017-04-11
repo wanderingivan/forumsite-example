@@ -40,7 +40,7 @@ public class UserController {
             logger.info("UserController adding new user " + user);
         }
         umgmt.saveUser(user,Optional.ofNullable(imageFile));
-        return "loadUser?faces-redirect=true&username="+user.getUsername();
+        return "/user/loadUser?faces-redirect=true&username="+user.getUsername();
     }
     
 

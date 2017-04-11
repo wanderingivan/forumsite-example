@@ -62,7 +62,7 @@ public class EditController implements Serializable {
         }
         umgmt.updateUser(user,Optional.ofNullable(imageFile));
         conversation.end();
-        return "loadUser?faces-redirect=true&username="+user.getUsername();
+        return "/user/loadUser?faces-redirect=true&username="+user.getUsername();
     }
 
     public User getUser() {

@@ -34,7 +34,7 @@ public class SearchThreadController {
         }
         topics = service.search(getQuery());
         ctx.addMessage("searchMessage", prepareMessage());
-        return "searchThreads";
+        return "thread/searchThreads";
     }
     
     private FacesMessage prepareMessage(){

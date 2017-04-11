@@ -49,7 +49,7 @@ public class CommentEditController implements Serializable {
         }
         cmgmt.updateComment(this.comment);
         conversation.end();
-        return "loadThread?faces-redirect=true&threadname=".concat(this.comment
+        return "/thread/loadThread?faces-redirect=true&threadname=".concat(this.comment
                                                                        .getThread()
                                                                        .getName());
     }
