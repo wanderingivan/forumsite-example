@@ -9,7 +9,7 @@
       	      <div class="action-bar top">
       	        <div class="row">
       	          <div class="col-md-10">
-      	            <h:link id="reply-link" class="button-new" value="#{msg['new_comment']}" outcome="replyThread">
+      	            <h:link id="reply-link" class="button-new" value="#{msg['new_comment']}" outcome="/thread/replyThread">
 			          <f:param name="threadname" value="#{threadBean.topic.name}"/>
       	            </h:link>
       	          </div>

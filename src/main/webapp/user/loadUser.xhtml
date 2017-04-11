@@ -18,7 +18,7 @@
              <div class="user-profile">
               <div class="media">
                 <div class="media-left">
-                 <h:graphicImage value="images/#{userBean.user.imageName}" />
+                 <h:graphicImage value="/images/#{userBean.user.imageName}" />
 				 Signed on is not implemented yet
                 </div>
                 <div class="media-body">
@@ -29,7 +29,7 @@
            			<h:outputText id="description" value="#{userBean.user.description}"/>
                   </p>
                   <ui:fragment rendered="#{authorizationChecker.hasPermission(userBean.user,'update')}">
-                    <h:link outcome="editUser" value="#{msg['edit_profile']}" class="button-new">
+                    <h:link outcome="user/editUser" value="#{msg['edit_profile']}" class="button-new">
                       <f:param name="username" value="#{userBean.user.username}"/>
                     </h:link>
                   </ui:fragment>
