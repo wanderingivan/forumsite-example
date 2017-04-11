@@ -40,7 +40,7 @@ public class CreateUserPageTests extends AbstractWebPageTests {
     @Test
     public void createUserTest(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() +  "newUser.jsf");      
+        browser.get(deploymentUrl.toExternalForm() +  "user/newUser.jsf");      
         cPage.assertCreateUser("username4", "password", "email@email.com", "empty");
         assertEquals("username4's Profile Page",browser.getTitle().trim());
         assertEquals("username4",userPage.getUsername());
@@ -68,7 +68,7 @@ public class CreateUserPageTests extends AbstractWebPageTests {
     @Test
     public void createUserAccessDeniedTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() +  "newUser.jsf");
+        browser.get(deploymentUrl.toExternalForm() +  "user/newUser.jsf");
         ePage.assertOnAccessDeniedPage();
     }
     

@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
-@Location("newUser.jsf")
+@Location("user/newUser.jsf")
 public class CreateUserPage {
 
     @FindBy(id="createUserForm:username")

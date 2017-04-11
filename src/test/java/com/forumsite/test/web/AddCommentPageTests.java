@@ -40,7 +40,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateComment(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname5");
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname5");
         assertEquals("threadname5",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("threadname5 add comment",browser.getTitle().trim());
@@ -54,7 +54,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentLoginError(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname2");
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname2");
         assertEquals("threadname2",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("Login",browser.getTitle().trim());
@@ -63,7 +63,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentInputMessage(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "loadThread.jsf?threadname=threadname2");
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname2");
         assertEquals("threadname2",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("threadname2 add comment",browser.getTitle().trim());

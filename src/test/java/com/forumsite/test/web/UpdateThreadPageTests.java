@@ -39,18 +39,18 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     @Test
     public void editThreadTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname1");
         assertEquals("Editing threadname1",browser.getTitle().trim());
         editPage.edit("threadname11", "category2");
         assertTrue("The thread was not updated",browser.getTitle().trim().equals("threadname11"));
         assertEquals("threadname11",threadPage.getThreadname());
-        assertEquals("Category2",threadPage.getCategory());
+        assertEquals("category2",threadPage.getCategory());
     }
     
     @Test
     public void editThreadInputMessagesTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname1");
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname1");
         assertEquals("Editing threadname1",browser.getTitle().trim());
         editPage.edit("", "cat");
         assertFalse("There are no error messages for threadname", editPage.getThreadNameError().getText().isEmpty());
@@ -65,7 +65,7 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     @Test
     public void editThreadAclAccessDeniedError(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname5");
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname5");
         assertEquals("Editing threadname5",browser.getTitle().trim());
         editPage.edit("threadname10", "category2");
         ePage.assertOnAccessDeniedPage();
@@ -74,7 +74,7 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     @Test
     public void editThreadAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "editThread.jsf?threadname=threadname5");        
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname5");        
         assertEquals("Login",browser.getTitle().trim());
         assertTrue(login.assertOnLoginPage());
     }

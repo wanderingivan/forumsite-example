@@ -40,7 +40,7 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     @InSequence(1)
     public void editUserInputMessagesTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username2");
+        browser.get(deploymentUrl.toExternalForm() + "user/editUser.jsf?username=username2");
         assertEquals("Editing username2",browser.getTitle().trim());
         editPage.editUser("use", "email", "empty");
         assertFalse(editPage.getUsernameError().getText().isEmpty());
@@ -51,7 +51,7 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     @InSequence(2)
     public void editUserTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username2");
+        browser.get(deploymentUrl.toExternalForm() + "user/editUser.jsf?username=username2");
         assertEquals("Editing username2",browser.getTitle().trim());
         editPage.editUser("username123", "email@email23.com", "empty");
 
@@ -64,7 +64,7 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     @InSequence(3)
     public void editUserAclAccessDeniedTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username3");
+        browser.get(deploymentUrl.toExternalForm() + "user/editUser.jsf?username=username3");
         assertEquals("Editing username3",browser.getTitle().trim());
         editPage.editUser("username123", "email@email23.com", "empty");
         ePage.assertOnAccessDeniedPage();
@@ -74,7 +74,7 @@ public class UpdateUserPageTests extends AbstractWebPageTests {
     @InSequence(4)
     public void editUserAccessDeniedLoginTest(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "editUser.jsf?username=username3");
+        browser.get(deploymentUrl.toExternalForm() + "user/editUser.jsf?username=username3");
         assertEquals("Login",browser.getTitle().trim());
         assertTrue(login.assertOnLoginPage());
     }

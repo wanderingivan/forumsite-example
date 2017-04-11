@@ -37,11 +37,11 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
     @Test
     public void createThreadTest(@InitialPage LoginPage login){ // NOTE right now this is a very short test that checks if the user has permission to create,
         login.loginIfNotAuthenticated("username2", "password"); // it should check that the entity is persisted and presented properly
-        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
+        browser.get(deploymentUrl.toExternalForm() + "thread/newThread.jsf");
         cPage.createThread("threadname4", "category1","message");
         assertEquals("threadname4",browser.getTitle().trim());
         assertEquals("threadname4",threadPage.getThreadname());
-        assertEquals("Category1",threadPage.getCategory());
+        assertEquals("category1",threadPage.getCategory());
         assertTrue("Comment was not saved",threadPage.commentExists());
         //assertEquals("message",threadPage.getFirstComment());
 
@@ -50,7 +50,7 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
     @Test
     public void createThreadInputMessagesTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
+        browser.get(deploymentUrl.toExternalForm() + "thread/newThread.jsf");
         cPage.createThread("thre", "cat", "");
         assertEquals("We're not on input page","New Thread",browser.getTitle().trim());
         assertFalse("Threadname error messages are missing",cPage.getThreadNameError().getText().isEmpty());
@@ -66,7 +66,7 @@ public class CreateThreadPageTests extends AbstractWebPageTests{
     @Test
     public void createThreadAccessDeniedLogin(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "newThread.jsf");
+        browser.get(deploymentUrl.toExternalForm() + "thread/newThread.jsf");
         assertEquals("Login",browser.getTitle().trim());
         assertTrue(login.assertOnLoginPage());
     }
