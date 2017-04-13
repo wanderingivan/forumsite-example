@@ -44,7 +44,7 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
         editPage.edit("threadname11", "category2");
         assertTrue("The thread was not updated",browser.getTitle().trim().equals("threadname11"));
         assertEquals("threadname11",threadPage.getThreadname());
-        assertEquals("category2",threadPage.getCategory());
+        assertEquals("Category2",threadPage.getCategory());
     }
     
     @Test

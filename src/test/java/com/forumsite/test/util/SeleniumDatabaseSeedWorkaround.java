@@ -64,6 +64,7 @@ public class SeleniumDatabaseSeedWorkaround {
     private void initUsers(){
        for(int i = 2; i < 4; i++){
            User u = new User("username"+i,"password","email@email"+i+".com"); 
+           u.setImageName("placeholder.jpg");
            em.persist(u);
        }
        addUserAcl();
