@@ -27,7 +27,7 @@
 			          <ui:fragment rendered="#{threadBean.topic.comments.size() gt 10}">
 			            <ui:repeat begin="0" end="#{(threadBean.topic.comments.size()-1)/10}" 
 			                       value="#{threadBean.topic.comments}" varStatus="stat">
-				          <h:link id="nextPageLink" value="#{(stat.index) + 1}" outcome="loadThread" class="pagination-link">
+				          <h:link id="nextPageLink" value="#{(stat.index) + 1}" outcome="/thread/loadThread" class="pagination-link">
 			                <f:param name="threadname" value="#{threadBean.threadName}"/>
 			                <f:param name="fromComment" value="#{stat.index * 10}"/>
 			              </h:link>		        	
@@ -50,7 +50,7 @@
 			                       <div class="col-md-10">
 			                         <ui:fragment rendered="#{identity.loggedIn}">
 			                           <ui:fragment rendered="#{authorizationChecker.hasPermission(comment,'update')}">
-			                             <h:link id="editComment#{stat.index}Link"  value="comment/editComment" outcome="editComment">
+			                             <h:link id="editComment#{stat.index}Link"  value="#{msg['edit_comment']}" outcome="/comment/editComment">
 			                             	<f:param name="commentId" value="#{comment.id}"/>
 			                             </h:link>
 			                           </ui:fragment>
@@ -101,7 +101,7 @@
       	                        <div class="media-left user-info">
       	                          <h:graphicImage value="/images/#{comment.author.imageName}"/>
       	                          <p>
-      	                             <h:link value="#{comment.author.username}" outcome="loadUser">
+      	                             <h:link value="#{comment.author.username}" outcome="/user/loadUser">
       	                               <f:param name="username" value="#{comment.author.username}"/>
       	                             </h:link>
       	                          </p>

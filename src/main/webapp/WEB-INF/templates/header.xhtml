@@ -38,8 +38,8 @@
                
                </li>
                	<ui:fragment rendered="#{!identity.loggedIn}">
-               	  <li class="pull-right"><h:link value="#{msg['register']}" outcome="newUser"/></li>
-                  <li class="pull-right"><h:link value="#{msg['login']}" outcome="login"/></li>
+               	  <li class="pull-right"><h:link value="#{msg['register']}" outcome="/user/newUser"/></li>
+                  <li class="pull-right"><h:link value="#{msg['login']}" outcome="/login"/></li>
                	</ui:fragment>
                	<ui:fragment rendered="#{identity.loggedIn}">
                	  <h:form id="logoutForm">
