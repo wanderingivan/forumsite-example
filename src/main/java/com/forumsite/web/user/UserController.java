@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 
@@ -16,9 +15,6 @@ import com.forumsite.service.UserManagement;
 @Model
 public class UserController {
 
-    @Inject
-    private FacesContext ctx;
-    
     @Inject
     private UserManagement umgmt;
     

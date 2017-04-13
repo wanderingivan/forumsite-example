@@ -14,17 +14,21 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
 import org.apache.deltaspike.security.api.authorization.AccessDeniedException;
+import org.apache.log4j.Logger;
 
 
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
+    
+    private Logger logger = Logger.getLogger(CustomExceptionHandler.class);
+    
     private ExceptionHandler exceptionHandler;
     
-    private FacesContext context;
+    private FacesContext ctx = FacesContext.getCurrentInstance();
     
     public CustomExceptionHandler(ExceptionHandler exceptionHandler) {
             this.exceptionHandler = exceptionHandler;
     }
-
+   
 
     @Override
     public ExceptionHandler getWrapped() {
@@ -35,13 +39,13 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     public void handle() throws FacesException{
         final Iterator<ExceptionQueuedEvent> queue = getUnhandledExceptionQueuedEvents().iterator();
 
-        context = FacesContext.getCurrentInstance();
+       
         while (queue.hasNext()){
 
             try {
                 Throwable throwable = extractThrowable((ExceptionQueuedEventContext) queue.next()
                                                                                       .getSource());
-                System.err.println("Exception: " + throwable.getMessage());
+                logger.error("Exception: " + throwable.getMessage());
 
                 Map<String, Object> requestMap = getRequestMap();
                 
@@ -50,7 +54,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
                 else{ handleGenericError(requestMap); }
                 
                 switchToErrorView();
-                context.renderResponse();
+                ctx.renderResponse();
             } finally {
                 queue.remove();
             }
@@ -66,30 +70,30 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
     
     private void handleViewExpiredError(Map<String, Object> requestMap,Throwable t){
-        requestMap.put("error-title", "View Expired");
+        requestMap.put("error-title", getMessage("expired_view_title"));
         requestMap.put("error-type","404");
-        requestMap.put("error-message", "Sorry this view has expired");
-        requestMap.put("error-link-message", "Main Page");
+        requestMap.put("error-message", getMessage("expired_view_message"));
+        requestMap.put("error-link-message", getMessage("main_view"));
         requestMap.put("error-link-src", "main.jsf");
         requestMap.put("return-link-src",((ViewExpiredException) t).getViewId());
         
     }
     
     private void handleAccessDeniedError(Map<String, Object> requestMap){
-        requestMap.put("error-title", "Access Denied");
+        requestMap.put("error-title", getMessage("access_denied_title"));
         requestMap.put("error-type","403");
-        requestMap.put("error-message", "Sorry you must be logged in to proceed");
-        requestMap.put("error-link-message", "Login");
+        requestMap.put("error-message", getMessage("access_denied_message"));
+        requestMap.put("error-link-message", getMessage("login"));
         requestMap.put("error-link-src", "login.jsf");
         
     }
     
     private void handleGenericError(Map<String, Object> requestMap){
-        requestMap.put("error-title", "Oops");
+        requestMap.put("error-title", getMessage("generic_error_title"));
         requestMap.put("error-type","404");
-        requestMap.put("error-message", "Sorry something went wrong");
-        requestMap.put("error-link-message", "Go back");
-        requestMap.put("error-link-src", "main.jsf.jsf");
+        requestMap.put("error-message", getMessage("generic_error_message"));
+        requestMap.put("error-link-message", getMessage("main_view"));
+        requestMap.put("error-link-src", "main.jsf");
     }
     
     private boolean exceptionTypeExpired(Throwable throwable){
@@ -106,7 +110,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
     
     private Map<String,Object> getRequestMap(){
-        return context.getExternalContext()
+        return ctx.getExternalContext()
                       .getRequestMap();
     }
 
@@ -115,8 +119,15 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
     
     private void switchOutputView(String pageName){
-        context.getApplication()
+        ctx.getApplication()
                .getNavigationHandler()
-               .handleNavigation(context, null, pageName);
+               .handleNavigation(ctx, null, pageName);
     }
+    
+    private String getMessage(String key){
+        return ctx.getApplication()
+                  .getResourceBundle(ctx, "msg")
+                  .getString(key);
+    }
+
 }

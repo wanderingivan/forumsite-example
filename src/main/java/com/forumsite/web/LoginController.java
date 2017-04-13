@@ -12,22 +12,23 @@ import org.picketlink.Identity.AuthenticationResult;
 
 @Named
 @Stateless
-public class LoginController {
+public class LoginController extends AbstractController {
 
    @Inject
    private Identity identity;
    
    @Inject
-   private FacesContext fctx;
+   private FacesContext ctx;
    
    public String login(){
        AuthenticationResult result = identity.login();
        if(AuthenticationResult.FAILED.equals(result)){
-           fctx.addMessage(null, new FacesMessage("Authentication was unsuccessful.  Please check your username and password before trying again."));
+           ctx.addMessage(null, new FacesMessage(getMessage("auth_failure")));
            return "";
        }
        return "main.jsf?faces-redirect=true";
    }
    
+
     
 }

@@ -1,23 +1,20 @@
-package com.forumsite.web;
+package com.forumsite.web.thread;
 
 import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 import com.forumsite.model.ForumThread;
 import com.forumsite.service.ForumThreadProducer;
+import com.forumsite.web.AbstractController;
 
 @Model
-public class SearchThreadController {
+public class SearchThreadController extends AbstractController{
 
-    @Inject
-    private FacesContext ctx;
-    
     @Inject
     private Logger logger;
     
@@ -43,12 +40,6 @@ public class SearchThreadController {
         }else{ 
             return new FacesMessage(getMessage("threads_matching") + getQuery());
         }
-    }
-    
-    private String getMessage(String key){
-        return ctx.getApplication()
-                  .getResourceBundle(ctx, "msg")
-                  .getString(key);
     }
 
     public List<ForumThread> getTopics(){

@@ -5,29 +5,26 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 import com.forumsite.model.User;
 import com.forumsite.service.UserProducer;
+import com.forumsite.web.AbstractController;
 
 @Model
-public class UserBean {
+public class UserBean extends AbstractController {
 
     @Inject
     private Logger logger;
-    
-    @Inject
-    private FacesContext ctx;
     
     @Inject
     private UserProducer producer;
     
     private String username;
 
-    private final int DEFAULT_OFFSET = 0,COMMENTS_PER_PAGE=10;
+    private final int DEFAULT_OFFSET = 0, COMMENTS_PER_PAGE= 10;
 
     private int fromComment;
     
@@ -74,11 +71,6 @@ public class UserBean {
         int total = user.getComments().size();
         return reqSize > total ? total : reqSize;
     }
-    
-    private String getMessage(String key){
-        return ctx.getApplication()
-                  .getResourceBundle(ctx, "msg")
-                  .getString(key);
-    }
+
     
 }

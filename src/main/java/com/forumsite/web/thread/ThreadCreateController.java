@@ -2,19 +2,16 @@ package com.forumsite.web.thread;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 import com.forumsite.model.ForumThread;
 import com.forumsite.service.ForumThreadManagement;
+import com.forumsite.web.AbstractController;
 
 @Model
-public class ThreadCreateController {
-    
-    @Inject
-    private FacesContext ctx;
+public class ThreadCreateController extends AbstractController {
     
     @Inject
     private ForumThreadManagement fmgmt;

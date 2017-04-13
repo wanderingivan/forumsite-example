@@ -1,5 +1,6 @@
 package com.forumsite.data.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,7 +28,10 @@ public class CommentRepositoryImpl extends AbstractJPARepository<Comment> implem
                                  .getSingleResult();
         c.setAuthor(author);
         c.setThread(t);
+        c.setLastUpdate(new Date());
         add(c);
+        t.addComments(c);
+        author.addComments(c);
     }
 
     @Override

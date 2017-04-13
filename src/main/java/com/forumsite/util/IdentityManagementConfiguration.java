@@ -14,7 +14,7 @@ public class IdentityManagementConfiguration {
         
         builder
             .idmConfig()
-                .named("default")
+                .named("DEFAULT")
                     .stores()
                         .jpa()
                             .supportAllFeatures();

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -13,13 +12,11 @@ import org.apache.log4j.Logger;
 import com.forumsite.model.Comment;
 import com.forumsite.model.ForumThread;
 import com.forumsite.service.CommentProducer;
+import com.forumsite.web.AbstractController;
 
 @Model
-public class ThreadBean {
+public class ThreadBean extends AbstractController {
 
-    @Inject
-    private FacesContext ctx;
-    
     @Inject
     private Logger logger;
     
@@ -73,9 +70,4 @@ public class ThreadBean {
         return reqSize > total ? total : reqSize;
     }
     
-    private String getMessage(String key){
-        return ctx.getApplication()
-                  .getResourceBundle(ctx, "msg")
-                  .getString(key);
-    }
 }

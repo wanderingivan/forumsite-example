@@ -1,21 +1,17 @@
 package com.forumsite.web.comment;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.log4j.Logger;
 
 import com.forumsite.model.Comment;
 import com.forumsite.service.CommentManagement;
+import com.forumsite.web.AbstractController;
 
-@Named
-@RequestScoped
-public class CommentController {
+@Model
+public class CommentController extends AbstractController {
 
-    @Inject
-    private FacesContext ctx;
     
     @Inject
     private CommentManagement cmgmt;
