@@ -39,8 +39,8 @@ public class Comment extends Identity implements Serializable {
     @JoinColumn(name="comment_author_id")
     private User author;
     
-    @NotNull
-    @Size(min=1,max=225)
+    @NotNull(message="field.required")
+    @Size(min=1,max=225,message="field.maxsize")
     @Column
     private String message;
 

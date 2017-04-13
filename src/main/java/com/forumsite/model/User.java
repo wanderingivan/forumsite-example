@@ -56,8 +56,8 @@ public class User extends Identity implements Serializable{
     @Column(name="id",nullable=false,updatable=false)
     private Long id;
     
-    @NotNull
-    @Size(min = 5, max = 25)
+    @NotNull(message="{field.required}")
+    @Size(min = 5, max = 25,message="{field.between}")
     @Column
     private String username;
     
@@ -66,11 +66,11 @@ public class User extends Identity implements Serializable{
     
     @NotNull
     @Column
-    @Pattern(regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}") //XXX Weak method of validating email change
+    @Pattern(regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}",message="{email.valid}") //XXX Weak method of validating email change
     private String email;
     
     @Column
-    @Size(max=255)
+    @Size(max=255,message="field.maxsize")
     private String description;
     
     @Column
