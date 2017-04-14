@@ -16,7 +16,9 @@
         <div class="row">
           <div class="col-md-offset-4 col-md-4">
      	    <h:form id="commentForm" class="siteform">
-     	      <h:message id="messageError" for="message"/>
+     	      <div class="form-group">
+     	      	<h:message id="messageError" for="message" class="alert alert-danger"/>
+     	      </div>
      	      <h:outputLabel for="message" value="#{msg['comment']}" />
      	      <div class="form-group">
      	        <b:markdown id="message"

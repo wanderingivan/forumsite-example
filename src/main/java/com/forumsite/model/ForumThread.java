@@ -72,12 +72,12 @@ public class ForumThread extends Identity implements Serializable{
     @Column(nullable=false,columnDefinition="INTEGER default 1")
     private long posts;
     
-    @NotNull(message="field.required")
-    @Size(min=5,max=50,message="field.maxsize")
+    @NotNull(message="{field.required}")
+    @Size(min=5,max=50,message="{field.maxsize}")
     @Column
     private String name;
     
-    @NotNull(message="field.required")
+    @NotNull(message="{field.required}")
     @Pattern(regexp="\\w+",message="{field.category}")// XXX Change this regex when cat names are specified
     @Column
     private String category;

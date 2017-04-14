@@ -10,7 +10,7 @@
       	     <ui:fragment rendered="#{!identity.loggedIn}">
               <div class="sideform">
                 <h:form id="loginForm" class="siteform">
-                  <h:messages/>
+                  <h:messages class="alert alert-danger"/>
     			  <div class="form-group">
         			<h:outputLabel for="name" value="#{msg['username']}" styleClass="loginLabel"/>
         			<h:inputText id="name" class="form-control" value="#{loginCredentials.userId}"/>

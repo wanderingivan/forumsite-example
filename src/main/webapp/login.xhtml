@@ -16,7 +16,7 @@
         </div>
         <div class="row">
 		  <div class="col-md-offset-4 col-md-4">
-	        <h:messages globalOnly="true"/>
+	        <h:messages globalOnly="true" class="alert alert-danger"/>
 			<h:form id="loginForm" rendered="#{not identity.loggedIn}" class="siteform">
 		      <div class="form-group">
         		<h:outputLabel for="name" value="#{msg['username']}" styleClass="loginLabel"/>
@@ -37,7 +37,7 @@
        <ui:fragment rendered="#{identity.loggedIn}">
          <div class="row">
        	   <div class="col-md-offset-4 col-md-4">
-            <div><h:outputText value="#{msg['loggedin_as']}"/><b>#{identity.account.loginName}</b></div>
+            <div><h:outputText value="#{msg['logged_in_as']}"/><b>#{identity.account.loginName}</b></div>
            </div>
          </div>
 		 <h:form id="formLogout">
