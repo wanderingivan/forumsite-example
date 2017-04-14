@@ -25,6 +25,8 @@ body {
     height:175px;
 }
 .site-title{
+	color:#ffffff;
+	text-shadow:0 1px 1px rgba(0,0,0,0.5);
     width:500px;
     text-align:center;
     margin:50px auto 100px;
@@ -76,10 +78,22 @@ h2.forum-title{
 	background-color:#D82527;
 	text-decoration:none;
 }
+.button-new:active{
+	color:#ffffff;
+	background-color:#D82527;
+	text-decoration:none;
+}
 .page-header {
     position:relative;
-    background-color:#ababf9;
     margin : 0px 0px 0px 0px;
+    background-color : #4a569d;
+    background: -moz-linear-gradient(left, #4a569d 1%, #dc2424 100%);
+    background: -webkit-linear-gradient(left, #4a569d 1%,#dc2424 100%);
+    background: linear-gradient(to right, #4a569d 1%,#dc2424 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a569d', endColorstr='#dc2424',GradientType=1 );
+}
+.header-overlay {
+	
 }
 input.base-form{
     background-color: #ECF0F1;
@@ -164,9 +178,13 @@ span.info {
 	height:50px;
 }
 .footer {
-    background-color: #ababf9;
-    height: 90px;
-    margin-top: -25px;
+	height: 130px;
+	margin-top: -50px;
+    background-color : #4a569d;
+    background: -moz-linear-gradient(left, #4a569d 1%, #dc2424 100%);
+    background: -webkit-linear-gradient(left, #4a569d 1%,#dc2424 100%);
+    background: linear-gradient(to right, #4a569d 1%,#dc2424 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a569d', endColorstr='#dc2424',GradientType=1 );
 }
 .action-bar {
 	margin-bottom:25px;
@@ -233,7 +251,7 @@ span.info {
     border: none;
 }
 .siteform .button.small {
-	width: 18%;
+	width: 17%;
 	height: 34px;
 }
 .siteform .button:hover {
@@ -303,4 +321,16 @@ span.info {
 	background: -webkit-linear-gradient(left, #4a569d 1%,#dc2424 100%);
 	background: linear-gradient(to right, #4a569d 1%,#dc2424 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a569d', endColorstr='#dc2424',GradientType=1 );	
+}
+.link{
+    color: #ffffff !important;
+    text-shadow:0 1px 1px rgba(0,0,0,0.5);
+	text-transform: capitalize;
+	font-size: 1.2em;
+}
+.icon-locale{
+	width:30px;
+	height:30px;
+	margin-left:15px;	
+}
 }

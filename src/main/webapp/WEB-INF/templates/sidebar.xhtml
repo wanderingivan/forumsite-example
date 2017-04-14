@@ -10,6 +10,7 @@
       	     <ui:fragment rendered="#{!identity.loggedIn}">
               <div class="sideform">
                 <h:form id="loginForm" class="siteform">
+                  <h:messages/>
     			  <div class="form-group">
         			<h:outputLabel for="name" value="#{msg['username']}" styleClass="loginLabel"/>
         			<h:inputText id="name" class="form-control" value="#{loginCredentials.userId}"/>
@@ -38,12 +39,12 @@
               	     <div class="media">
               	      <div class="media-body">
       	                <p>      	            
-      	                  <h:link value="#{topic.name}" outcome="loadThread">
+      	                  <h:link value="#{topic.name}" outcome="/thread/loadThread">
       	                    <f:param name="threadname" value="#{topic.name}"/>
       	                  </h:link>   
       	                </p>
       	                <p>
-      	                  <h:link value="#{topic.category}" outcome="category" title="Go to #{topic.category}">
+      	                  <h:link value="#{topic.category}" outcome="/category" title="Go to #{topic.category}" class="red">
       	                    <f:param name="category" value="#{topic.category}"/>
       	                  </h:link>
       	                </p>    	      
