@@ -9,7 +9,7 @@
     <body>
      <ui:component>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9 col-sm-7 col-xs-12">
           <ol class="breadcrumb">
             <li><h:link value="Home" outcome="/main"/></li>
             <h:panelGroup rendered="#{not empty category}">
@@ -24,8 +24,8 @@
             </h:panelGroup>
           </ol>
         </div>
-        <div class="col-md-4">
-          <h:form id="searchForm" class="form-inline pull-right siteform">
+        <div class="col-md-3 col-sm-5 col-xs-12">
+          <h:form id="searchForm" class="form-inline siteform pull-right">
             <div class="form-group">
               <h:inputText class="form-control" id="query"  title="#{msg['search_site']}" p:placeholder="#{msg['search_site']}" value="#{searchThreadController.query}"/>
             </div>
