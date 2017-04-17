@@ -8,14 +8,14 @@
       <ui:define name="content">
        <ui:fragment rendered="#{not identity.loggedIn}"> 
         <div class="row">
-       	  <div class="col-md-offset-4 col-md-4">
+       	  <div class="col-md-offset-4 col-md-4 col-sm-offset-1 col-sm-10">
        	    <div class="form-title">
               <h:outputText value="#{msg['login']}"/>
             </div>
        	  </div>
         </div>
         <div class="row">
-		  <div class="col-md-offset-4 col-md-4">
+		  <div class="col-md-offset-4 col-md-4 col-sm-offset-1 col-sm-10">
 	        <h:messages globalOnly="true" class="alert alert-danger"/>
 			<h:form id="loginForm" rendered="#{not identity.loggedIn}" class="siteform">
 		      <div class="form-group">
@@ -31,12 +31,12 @@
 		      </div>
 		    </h:form>
 		  </div>
-		  <div class="col-md-4"></div>        
+		  <div class="col-md-4 col-sm-1"></div>        
         </div>
        </ui:fragment>
        <ui:fragment rendered="#{identity.loggedIn}">
          <div class="row">
-       	   <div class="col-md-offset-4 col-md-4">
+       	   <div class="col-md-offset-4 col-md-4 col-sm-offset-1 col-sm-10">
             <div><h:outputText value="#{msg['logged_in_as']}"/><b>#{identity.account.loginName}</b></div>
            </div>
          </div>

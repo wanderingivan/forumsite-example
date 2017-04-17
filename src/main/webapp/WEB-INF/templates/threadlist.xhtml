@@ -8,9 +8,9 @@
 
       	                <div class="row topic">
       	                  <div class="media forum">
-      	                    <div class="col-md-7">
+      	                    <div class="col-md-7 col-sm-7 col-xs-7">
       	                      <div class="media">
-      	                        <div class="media-left">
+      	                        <div class="media-left hidden-xs">
       	                          perhaps some gif
       	                        </div>
       	                        <div class="media-body">
@@ -34,13 +34,13 @@
       	                        </div>
       	                      </div>
       	                    </div>
-      	                    <div class="col-md-1">
+      	                    <div class="col-md-1 col-sm-1 hidden-xs">
       	                    	<span class="info">
       	                    	 ${topic.hits} 
       	                    	 <i class="fa fa-eye" aria-hidden="true"></i>
       	                    	</span>
       	                    </div>
-      	                    <div class="col-md-1">
+      	                    <div class="col-md-1 col-sm-1 hidden-xs">
       	                      <ui:fragment rendered="#{indentity.loggedIn}">
       	                    	<span class="info">
       	                    	  <h:link outcome="replyThread">      	                    	  
@@ -57,12 +57,12 @@
 							    </span>      	                      
       	                      </ui:fragment>
       	                    </div>
-      	                    <div class="col-md-3">
+      	                    <div class="col-md-3 col-sm-3 col-xs-5">
       	                      <div class="media lastComment">
       	                        <div class="media-left">
       	                          <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
       	                        </div>
-      	                        <div class="media-body">
+      	                        <div class="media-body hidden-xs">
       	                          <p>
       	                            <h:link value="#{topic.author.username}" outcome="user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                              <f:param name="username" value="#{topic.author.username}"/>

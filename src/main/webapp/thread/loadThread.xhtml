@@ -21,7 +21,7 @@
 
         	<h:panelGroup rendered="#{not empty threadBean.topic}">  
 			  <div class="row">
-			    <div class="col-md-10">
+			    <div class="col-md-10 col-sm-12 col-xs-12">
 			      <div class="panel panel-default forum-panel">
 			        <div class="page-links">
 			          <ui:fragment rendered="#{threadBean.topic.comments.size() gt 10}">
@@ -43,11 +43,11 @@
 			           <div class="threadComment">
 			           <div class="row">
 			             <div class="media forum">
-			               <div class="col-md-10">
+			               <div class="col-md-10 col-sm-9 col-xs-8">
 			                 <div class="media">
 			                   <div class="media-heading">
 			                     <div class="row">
-			                       <div class="col-md-10">
+			                       <div class="col-md-10 col-sm-8 col-xs-6">
 			                         <ui:fragment rendered="#{identity.loggedIn}">
 			                           <ui:fragment rendered="#{authorizationChecker.hasPermission(comment,'update')}">
 			                             <h:link id="editComment#{stat.index}Link"  value="#{msg['edit_comment']}" outcome="/comment/editComment">
@@ -61,7 +61,7 @@
                                        </h:outputText>
                                      </p>
 			                       </div>
-			                       <div class="col-md-2">
+			                       <div class="col-md-2 col-sm-4 col-xs-6">
 			                     	   <h:link outcome="replyThread" value="#{msg['quote']}" >
 			                     	     <f:param name="quoted" value="#{comment.author.username}"/>
 			                     	     <f:param name="quote" value="#{comment.message}"/>
@@ -96,7 +96,7 @@
 			                   </div>
 			                 </div>
 			               </div>
-			               <div class="col-md-2">
+			               <div class="col-md-2 col-sm-3 col-xs-4">
 			                 <div class="media">
       	                        <div class="media-left user-info">
       	                          <h:graphicImage value="/images/#{comment.author.imageName}"/>
