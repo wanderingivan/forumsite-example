@@ -50,7 +50,6 @@ public class CommentPersistenceTests {
         User author = uRepo.getByName("username2").get();
         assertEquals(author,testComment.getAuthor());
         repo.delete(c.getId());
-        fRepo.delete(t.getId());
     }
     
     @Test

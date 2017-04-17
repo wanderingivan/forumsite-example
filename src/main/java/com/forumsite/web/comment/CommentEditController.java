@@ -39,7 +39,8 @@ public class CommentEditController implements Serializable {
     public void fetchComment(){
         if(comment == null){
             conversation.begin();
-            this.comment = cmgmt.getComment(commentId).get();//XXX
+            this.comment = cmgmt.getComment(commentId)
+                                .orElseThrow(() -> new IllegalArgumentException("Tried to update non-existing comment"));
         }
     }
     
