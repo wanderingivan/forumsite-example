@@ -78,7 +78,7 @@ public class ForumThread extends Identity implements Serializable{
     private String name;
     
     @NotNull(message="{field.required}")
-    @Pattern(regexp="\\w+",message="{field.category}")// XXX Change this regex when cat names are specified
+    @Pattern(regexp="Real\\sTime\\sStrategy|First\\sPerson\\sShooter|Role\\sPlay\\sGame|Sports|Offtopic",message="{field.category}") 
     @Column
     private String category;
     

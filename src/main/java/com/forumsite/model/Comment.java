@@ -40,7 +40,7 @@ public class Comment extends Identity implements Serializable {
     private User author;
     
     @NotNull(message="field.required")
-    @Size(min=1,max=225,message="field.maxsize")
+    @Size(min=2,max=1000,message="field.maxsize")
     @Column
     private String message;
 
