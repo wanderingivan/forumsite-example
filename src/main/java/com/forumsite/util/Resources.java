@@ -38,10 +38,11 @@ public class Resources {
     @Produces
     @ApplicationScoped
     public List<String> categories(){
-        return Collections.unmodifiableList(Arrays.asList("category1",
-                                                          "category2",
-                                                          "category3",
-                                                          "TestCat"));
+        return Collections.unmodifiableList(Arrays.asList("Real Time Strategy",
+                                                          "First Person Shooter",
+                                                          "Role Play Game",
+                                                          "Sports",
+                                                          "Offtopic"));
     }
     
     @Produces
