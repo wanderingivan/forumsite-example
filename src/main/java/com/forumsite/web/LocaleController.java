@@ -28,9 +28,10 @@ public class LocaleController extends AbstractController implements Serializable
         return this.locale;
     }
     
-    public void changeLocale(String locale){
+    public String changeLocale(String locale){
         this.locale = new Locale(locale);
         ctx.getViewRoot().setLocale(this.locale);
+        return "/main.jsf?faces-redirect=true";
     }
     
 }
