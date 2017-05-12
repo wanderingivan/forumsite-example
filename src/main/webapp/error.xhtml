@@ -7,7 +7,8 @@
 
 		<ui:param name="title" value="#{requestScope['error-title']}"/>
         <ui:define name="content">
-          <h3 id="error-type">#{requestScope['error-type']}</h3>
+          <h2 id="error-type">#{requestScope['error-type']}</h2>
+          <br/>
           <h6 id="error-message">#{requestScope['error-message']}</h6>
           <h:link id="error-link"  outcome="#{requestScope['error-link-src']}" value="#{requestScope['error-link-message']}"/>
           <h:link rendered="#{requestScope['return-link-src'] != null}" outcome="#{requestScope['return-link-src']}" value="Reload"/>

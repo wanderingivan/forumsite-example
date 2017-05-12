@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"       	          
-   xmlns:ui="http://java.sun.com/jsf/facelets">
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:b="http://butterfaces.larmic.de/components">  
    <h:body> 
       <ui:composition template="/WEB-INF/templates/default.xhtml">
         <f:metadata>
@@ -19,7 +20,11 @@
               <div class="media">
                 <div class="media-left">
                  <h:graphicImage value="/images/#{userBean.user.imageName}" />
-				 Signed on is not implemented yet
+                 <h:outputText value="#{msg['signed_on']}" />
+                 <h:outputText value="#{userBean.user.signedOn}"> 
+                   <f:convertDateTime pattern="dd-MMM-yyyy" timeZone="EET" />
+                 </h:outputText>
+
                 </div>
                 <div class="media-body">
                   <h3 class="media-heading">
@@ -29,7 +34,7 @@
            			<h:outputText id="description" value="#{userBean.user.description}"/>
                   </p>
                   <ui:fragment rendered="#{authorizationChecker.hasPermission(userBean.user,'update')}">
-                    <h:link outcome="user/editUser" value="#{msg['edit_profile']}" class="button-new">
+                    <h:link outcome="/user/editUser" value="#{msg['edit_profile']}" class="button-new">
                       <f:param name="username" value="#{userBean.user.username}"/>
                     </h:link>
                   </ui:fragment>
@@ -66,28 +71,30 @@
 			                 <div class="media-heading">
 			                   <div class="row">
 			                     <div class="col-md-10">
-			                       <ui:fragment rendered="#{identity.loggedIn}">
+			                       <ui:fragment rendered="#{identity.loggedIn and identity.account.loginName}">
 			                         <ui:fragment rendered="#{authorizationChecker.hasPermission(comment,'update')}">
-			                           <h:link id="editComment#{stat.index}Link"  value="editComment" outcome="editComment">
+			                           <h:link id="editComment#{stat.index}Link"  value="editComment" outcome="/comment/editComment">
 			                             <f:param name="commentId" value="#{comment.id}"/>
 			                           </h:link>
 			                         </ui:fragment>
 			                       </ui:fragment>
 			                       <p>
 			                     	 <h:outputText value="#{comment.lastUpdate}" >
-                                       <f:convertDateTime pattern="dd.MM HH:mm" />
+                                       <f:convertDateTime pattern="dd.MM HH:mm" timeZone="EET"/>
                                      </h:outputText>
                                    </p>
 			                     </div>
 			                     <div class="col-md-2">
-			                       <h:link outcome="loadThread" value="#{comment.thread.name}" >
+			                       <h:link outcome="/thread/loadThread" value="#{comment.thread.name}" >
 			                     	 <f:param name="threadname" value="#{comment.thread.name}"/>
 			                       </h:link>
 			                     </div>
 			                   </div>
 			                 </div>
 			                 <div class="media-body" style="padding-top:15px;">
-			                   <h5 id="commentId#{stat.index}">#{comment.message}</h5>
+			                   <h5 id="commentId#{stat.index}">
+			                     <b:markdown hideLabel="true" readonly="true" disabled="true" value="#{comment.message}"/>
+			                   </h5>
 			                   <hr/>
 			                 </div>
 			               </div>
@@ -115,7 +122,6 @@
             </div>
             <div class="col-md-2"></div>
           </div>
-
         </ui:define>
       </ui:composition>
     </h:body>

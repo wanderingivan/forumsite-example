@@ -59,7 +59,7 @@
               	      <div class="media-right">
       	                <h:graphicImage class="commentImage" value="/images/#{topic.author.imageName}" alt="#{topic.author.username}'s profile picture"/>
       	                <p>
-      	                  <h:link value="#{topic.author.username}" outcome="loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                  <h:link value="#{topic.author.username}" outcome="/user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                    <f:param name="username" value="#{topic.author.username}"/>
       	                  </h:link>
       	                </p>    	      

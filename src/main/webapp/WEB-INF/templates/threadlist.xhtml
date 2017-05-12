@@ -15,7 +15,7 @@
       	                        </div>
       	                        <div class="media-body">
       	                          <div class="media-heading">
-      	                            <h:link value="#{topic.name}" outcome="thread/loadThread">
+      	                            <h:link value="#{topic.name}" outcome="/thread/loadThread">
       	                              <f:param name="threadname" value="#{topic.name}"/>
       	                            </h:link>
       	                          </div>
@@ -27,7 +27,7 @@
       	                          <p>
       	                             <h:outputText value="#{msg['topic_by']}"/>
       	                             <h:outputText value="&#160;" /> 
-      	                             <h:link value="#{topic.author.username}" outcome="user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                             <h:link value="#{topic.author.username}" outcome="/user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                               <f:param name="username" value="#{topic.author.username}"/>
       	                             </h:link>
       	                          </p>
@@ -64,7 +64,7 @@
       	                        </div>
       	                        <div class="media-body hidden-xs">
       	                          <p>
-      	                            <h:link value="#{topic.author.username}" outcome="user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
+      	                            <h:link value="#{topic.author.username}" outcome="/user/loadUser" class="red" title="Visit #{topic.author.username}'s profile" >
       	                              <f:param name="username" value="#{topic.author.username}"/>
       	                            </h:link>
       	                          </p>

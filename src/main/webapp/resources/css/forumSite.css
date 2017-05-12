@@ -251,7 +251,7 @@ span.info {
     border: none;
 }
 .siteform .button.small {
-	width: 17%;
+	width: 19%;
 	height: 34px;
 }
 .siteform .button:hover {
@@ -335,6 +335,9 @@ span.info {
 }
 
 @media screen and (max-width: 360px){
+	.siteform .button.small {
+		font-size:14px;
+	}
 	.icon-locale{
 		margin-left:2px;
 	}

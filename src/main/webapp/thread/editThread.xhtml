@@ -32,7 +32,10 @@
                </div>
                <div class="form-group">
                  <h:outputLabel for="category" value="#{msg['category']}"/>
-                 <h:inputText id="category" class="form-control" value="#{threadEditController.thread.category}" />
+                 <h:selectOneMenu id="category" class="form-control" value="#{threadCreateController.newThread.category}" >
+                   <f:selectItems value="#{categories}" var="c"
+   			                      itemLabel="#{c}" itemValue="#{c}" />
+                 </h:selectOneMenu>
                </div>
                <br/>
                <div class="form-group">

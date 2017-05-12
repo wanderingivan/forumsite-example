@@ -48,7 +48,7 @@
 			                   <div class="media-heading">
 			                     <div class="row">
 			                       <div class="col-md-10 col-sm-8 col-xs-6">
-			                         <ui:fragment rendered="#{identity.loggedIn}">
+			                         <ui:fragment rendered="#{identity.loggedIn and (identity.account.loginName == comment.author.username)}">
 			                           <ui:fragment rendered="#{authorizationChecker.hasPermission(comment,'update')}">
 			                             <h:link id="editComment#{stat.index}Link"  value="#{msg['edit_comment']}" outcome="/comment/editComment">
 			                             	<f:param name="commentId" value="#{comment.id}"/>
@@ -57,7 +57,7 @@
 			                         </ui:fragment>
 			                     	 <p>
 			                     	   <h:outputText value="#{comment.lastUpdate}" >
-                                         <f:convertDateTime pattern="dd.MM HH:mm" />
+                                         <f:convertDateTime pattern="dd.MM HH:mm" timeZone="EET" />
                                        </h:outputText>
                                      </p>
 			                       </div>

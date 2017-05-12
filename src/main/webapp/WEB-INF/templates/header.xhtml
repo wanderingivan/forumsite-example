@@ -41,7 +41,7 @@
                	<ui:fragment rendered="#{identity.loggedIn}">
                	 <li class="pull-right">
                	  <h:form id="logoutForm">
-     	            <h:commandLink id="logout" action="#{identity.logout}" value="#{msg['logout']}" class="link">
+     	            <h:commandLink id="logout" action="#{loginController.logout}" value="#{msg['logout']}" class="link">
                	      <i class="fa fa-level-up link" aria-hidden="true"></i>
      	            </h:commandLink>               	
      	          </h:form>

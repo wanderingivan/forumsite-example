@@ -31,7 +31,7 @@
                     rendered="true"
                     value="#{commentController.message}"
                     >
-                    <f:validateLength minimum="1" maximum="225" />
+                    <f:validateLength minimum="2" maximum="1000" />
                 </b:markdown>
      	      </div>
      	      <h:commandButton id="addComment" class="button" action="#{commentController.addComment}" value="#{msg['add_comment']}" />

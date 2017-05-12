@@ -37,12 +37,9 @@
        <ui:fragment rendered="#{identity.loggedIn}">
          <div class="row">
        	   <div class="col-md-offset-4 col-md-4 col-sm-offset-1 col-sm-10">
-            <div><h:outputText value="#{msg['logged_in_as']}"/><b>#{identity.account.loginName}</b></div>
+            <h3 style="color:#4A569D"><h:outputText value="#{msg['logged_in_as']}"/> <b>#{identity.account.loginName}</b></h3>
            </div>
          </div>
-		 <h:form id="formLogout">
-     	   <h:commandLink id="logout" class="button" action="#{identity.logout}" value="#{msg['logout']}"/>
-         </h:form>
        </ui:fragment>
       </ui:define>
     </ui:composition>
