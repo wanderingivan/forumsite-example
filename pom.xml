@@ -28,6 +28,8 @@
 
     <webapp.dev.datasource>java:jboss/datasources/ForumSite-webappH2DS</webapp.dev.datasource>
     <webapp.dev.driver>org.hibernate.dialect.H2Dialect</webapp.dev.driver>	 
+    <sql.maven.version>1.5</sql.maven.version>
+    <h2.version>1.4.194</h2.version>
 
   </properties>
   
@@ -246,10 +248,7 @@
         <version>${version.wildfly.maven.plugin}</version>
       </plugin>
       
-
- 
     </plugins>
-    
     
   </build>  
   
@@ -277,6 +276,8 @@
         <hibernate.debug>true</hibernate.debug>
         <hibernate.hbm2ddl>validate</hibernate.hbm2ddl>
         <hibenate.caching>true</hibenate.caching>
+        <sql.dir>src/scripts/sql</sql.dir>
+        <url>jdbc:mysql://localhost:3306/ForumSite?useSSL=false</url>
       </properties>
       
       <build>
@@ -300,7 +301,7 @@
           	  <username>root</username>
           	  <password>password</password>
             </configuration>
-       	    <!--all executions are ignored if -Dmaven.test.skip.database=true-->
+       	    <!--all executions are ignored if -Dmaven.build.skip.database=true-->
         
             <executions>
               <execution>
@@ -324,10 +325,10 @@
                  <goal>execute</goal>
                 </goals>
                 <configuration>
-                  <url>jdbc:mysql://localhost:3306/SOCIALNETDATA?useSSL=false</url>
+                  <url>${url}</url>
                   <autocommit>true</autocommit>
                   <srcFiles>
-                    <srcFile>src/scripts/sql/create_schema.sql</srcFile>
+                    <srcFile>${sql.dir}/create_schema.sql</srcFile>
                   </srcFiles>
                   <skip>${build.database.skip}</skip>
                 </configuration>
@@ -340,10 +341,10 @@
               	  <goal>execute</goal>
             	</goals>
             	<configuration>
-              	  <url>jdbc:mysql://localhost:3306/SOCIALNETDATA?useSSL=false</url>
+              	  <url>${url}</url>
               	  <autocommit>true</autocommit>
               	  <srcFiles>
-                	<srcFile>src/scripts/sql/createPresetDatabase.sql</srcFile>
+                	<srcFile>${sql.dir}/createPresetDatabase.sql</srcFile>
               	  </srcFiles>
               	  <skip>${build.database.skip}</skip>
               	  <skip>${build.preset.skip}</skip>
@@ -368,6 +369,7 @@
     <profile>
       <id>arquillian-wildfly-managed-chrome-selenium-tests</id>
 
+
 	  <properties>
       	<browser>chrome</browser>
       </properties>      
@@ -384,6 +386,10 @@
     
   	<profile>
   	  <id>arquillian-wildfly-managed</id>
+
+	  <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
 
   	  <dependencies>
      	<dependency>
