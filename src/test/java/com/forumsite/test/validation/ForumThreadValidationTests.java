@@ -38,14 +38,31 @@ public class ForumThreadValidationTests extends AbstractValidationTest {
     
     @Test
     public void testRegisterValidThread(){
-        ForumThread thread = new ForumThread("threadname","category");
+
+        ForumThread thread = new ForumThread("threadname","Role Play Game");
         Set<ConstraintViolation<ForumThread>> violations = validator.validate(thread);
+        assertEquals(0, violations.size());
+        
+        thread = new ForumThread("threadname","First Person Shooter");
+        violations = validator.validate(thread);
+        assertEquals(0, violations.size());
+        
+        thread = new ForumThread("threadname","Real Time Strategy");
+        violations = validator.validate(thread);
+        assertEquals(0, violations.size());
+        
+        thread = new ForumThread("threadname","Sports");
+        violations = validator.validate(thread);
+        assertEquals(0, violations.size());
+        
+        thread = new ForumThread("threadname","Offtopic");
+        violations = validator.validate(thread);
         assertEquals(0, violations.size());
     }
     
     @Test
     public void testRegisterInvalidThreadname(){
-        ForumThread thread = new ForumThread(testStringOfSize(60),"category");
+        ForumThread thread = new ForumThread(testStringOfSize(60),"Sports");
         Set<ConstraintViolation<ForumThread>> violations = validator.validate(thread);
         assertEquals(1, violations.size());       
     }
@@ -54,6 +71,10 @@ public class ForumThreadValidationTests extends AbstractValidationTest {
     public void testRegisterInvalidCategory(){
         ForumThread thread = new ForumThread("threadname","");
         Set<ConstraintViolation<ForumThread>> violations = validator.validate(thread);
+        assertEquals(1, violations.size());       
+
+        thread = new ForumThread("threadname","Something else");
+        violations = validator.validate(thread);
         assertEquals(1, violations.size());       
     }
     

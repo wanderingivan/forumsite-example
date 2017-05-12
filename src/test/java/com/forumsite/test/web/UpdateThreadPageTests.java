@@ -39,22 +39,21 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     @Test
     public void editThreadTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname1");
-        assertEquals("Editing threadname1",browser.getTitle().trim());
-        editPage.edit("threadname11", "category2");
-        assertTrue("The thread was not updated",browser.getTitle().trim().equals("threadname11"));
-        assertEquals("threadname11",threadPage.getThreadname());
-        assertEquals("Category2",threadPage.getCategory());
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=Arma 3");
+        assertEquals("Editing Arma 3",browser.getTitle().trim());
+        editPage.edit("Arma 3", "Role Play Game");
+        assertTrue("The thread was not updated",browser.getTitle().trim().equals("Arma 3"));
+        assertEquals("Arma 3",threadPage.getThreadname());
+        assertEquals("Role Play Game",threadPage.getCategory());
     }
     
     @Test
     public void editThreadInputMessagesTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname1");
-        assertEquals("Editing threadname1",browser.getTitle().trim());
-        editPage.edit("", "cat");
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=Arma 3");
+        assertEquals("Editing Arma 3",browser.getTitle().trim());
+        editPage.edit("", "Role Play Game");
         assertFalse("There are no error messages for threadname", editPage.getThreadNameError().getText().isEmpty());
-        assertFalse("There are no error messages for category", editPage.getCategoryError().getText().isEmpty());
     }
     
     @Test
@@ -65,9 +64,9 @@ public class UpdateThreadPageTests extends AbstractWebPageTests {
     @Test
     public void editThreadAclAccessDeniedError(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=threadname5");
-        assertEquals("Editing threadname5",browser.getTitle().trim());
-        editPage.edit("threadname10", "category2");
+        browser.get(deploymentUrl.toExternalForm() + "thread/editThread.jsf?threadname=Arma 3");
+        assertEquals("Editing Arma 3",browser.getTitle().trim());
+        editPage.edit("threadname10", "Role Play Game");
         ePage.assertOnAccessDeniedPage();
     }    
     

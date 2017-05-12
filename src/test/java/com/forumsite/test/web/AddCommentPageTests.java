@@ -40,13 +40,13 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateComment(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname5");
-        assertEquals("threadname5",browser.getTitle().trim());
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=Starcraft 2");
+        assertEquals("Starcraft 2",browser.getTitle().trim());
         tPage.goToReply();
-        assertEquals("threadname5 add comment",browser.getTitle().trim());
+        assertEquals("Starcraft 2 add comment",browser.getTitle().trim());
         cPage.sendComment("a new comment");
-        assertEquals("threadname5",browser.getTitle().trim());
-        GrapheneElement comment = new GrapheneElementImpl(browser.findElement(By.id("commentId5")));
+        assertEquals("Starcraft 2",browser.getTitle().trim());
+        GrapheneElement comment = new GrapheneElementImpl(browser.findElement(By.id("commentId2")));
         assertTrue("Did not find comment",comment.isPresent());
         assertEquals("a new comment",comment.getText().toString());
     }
@@ -54,8 +54,8 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentLoginError(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname2");
-        assertEquals("threadname2",browser.getTitle().trim());
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=Starcraft 2");
+        assertEquals("Starcraft 2",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("Login",browser.getTitle().trim());
     }
@@ -63,10 +63,10 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentInputMessage(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=threadname2");
-        assertEquals("threadname2",browser.getTitle().trim());
+        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=Starcraft 2");
+        assertEquals("Starcraft 2",browser.getTitle().trim());
         tPage.goToReply();
-        assertEquals("threadname2 add comment",browser.getTitle().trim());
+        assertEquals("Starcraft 2 add comment",browser.getTitle().trim());
         cPage.sendComment("");
         assertFalse("There are no error messages for comment message", cPage.getMessageError().getText().isEmpty());
     }

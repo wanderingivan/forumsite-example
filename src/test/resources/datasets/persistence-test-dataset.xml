@@ -6,11 +6,11 @@
 	<Users id="22" username="username2" email="email@email.com2"  description="No description" imageName="empty"/>
 	<Users id="33" username="username3" email="email@email.com3"  description="No description" imageName="empty"/>
 
-	<ForumThread id="11" name="threadname1" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
-	<ForumThread id="22" name="threadname2" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
-	<ForumThread id="33" name="threadname3" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
-	<ForumThread id="44" name="threadname4" category="category" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
-	<ForumThread id="55" name="threadname5" category="category1" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="11" name="threadname1" category="Sports" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="22" name="threadname2" category="Sports" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="33" name="threadname3" category="Sports" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="44" name="threadname4" category="Sports" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
+	<ForumThread id="55" name="threadname5" category="First Person Shooter" author_id="11" createdOn="2017-01-01" lastUpdate="2017-01-01"/>
 	
 	<Comment id="11" message="A message" thread_id="11" comment_author_id="22"/>
 </dataset>

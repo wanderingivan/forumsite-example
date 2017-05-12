@@ -3,6 +3,7 @@ package com.forumsite.test.web.page;
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 public class EditThreadPage {
 
@@ -10,7 +11,7 @@ public class EditThreadPage {
     private WebElement threadName;
     
     @FindBy(id="editThreadForm:category")
-    private WebElement category;
+    private Select category;
     
     @FindBy(id="editThreadForm:edit")
     private WebElement edit;
@@ -24,8 +25,7 @@ public class EditThreadPage {
     public void edit(String threadName, String category){
         this.threadName.clear();
         this.threadName.sendKeys(threadName);
-        this.category.clear();
-        this.category.sendKeys(category);
+        this.category.selectByValue(category);
         Graphene.guardHttp(edit).click();       
     }
 

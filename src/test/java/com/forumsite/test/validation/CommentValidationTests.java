@@ -52,7 +52,7 @@ public class CommentValidationTests extends AbstractValidationTest {
     
     @Test
     public void testRegisterInvalidCommentSize(){
-        Comment comment = new Comment(testStringOfSize(300));
+        Comment comment = new Comment(testStringOfSize(1300));
         Set<ConstraintViolation<Comment>> violations = validator.validate(comment);
         assertEquals(1, violations.size());       
     }

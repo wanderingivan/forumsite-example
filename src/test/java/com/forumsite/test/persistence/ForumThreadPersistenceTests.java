@@ -40,7 +40,7 @@ public class ForumThreadPersistenceTests {
         assertTrue(o.isPresent());
         ForumThread t = o.get();
         assertEquals("threadname1", t.getName());
-        assertEquals("category", t.getCategory());
+        assertEquals("Sports", t.getCategory());
         assertNotNull(t.getAuthor());
         assertEquals("username1",t.getAuthor().getUsername());
         assertNotNull(t.getComments());
@@ -50,7 +50,7 @@ public class ForumThreadPersistenceTests {
     
     @Test
     public void testCreateThread(){
-        ForumThread f = new ForumThread("newthread", "category");
+        ForumThread f = new ForumThread("newthread", "Role Play Game");
         repo.add(f,"A message","username1");
         Optional<ForumThread> o = repo.getByName("newthread");
         assertTrue("No thread was returned",o.isPresent());
@@ -66,7 +66,7 @@ public class ForumThreadPersistenceTests {
     public void testUpdateThread(){
         ForumThread f = repo.get(11L).get();
         f.setName("updatename");
-        f.setCategory("updatedCat");
+        f.setCategory("Offtopic");
         repo.update(f);
         Optional<ForumThread> o = repo.get(11L);
         assertTrue(o.isPresent());
@@ -92,12 +92,12 @@ public class ForumThreadPersistenceTests {
 
     @Test
     public void testSearchThreadsByCategory(){
-        assertEquals(1, repo.search("thread","category1").size());
+        assertEquals(1, repo.search("thread","First Person Shooter").size());
     }
     
     @Test
     public void testGetCategory(){
-        assertEquals(4, repo.getCategory("category").size());
+        assertEquals(4, repo.getCategory("Sports").size());
     }
   
 }

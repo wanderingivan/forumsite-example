@@ -32,8 +32,8 @@ public class SearchPageTests extends AbstractWebPageTests{
     @Test
     public void testSearchExistingThreads(){
         browser.get(deploymentUrl.toExternalForm() + "main.jsf");
-        sForm.searchThreads("thread");
-        assertEquals(5, sPage.getTopics().size());
+        sForm.searchThreads("Red");
+        assertEquals(1, sPage.getTopics().size());
         assertEquals("Topics matching thread", sPage.getMessage());
     }
     

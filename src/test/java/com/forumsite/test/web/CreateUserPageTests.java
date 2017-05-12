@@ -41,9 +41,9 @@ public class CreateUserPageTests extends AbstractWebPageTests {
     public void createUserTest(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
         browser.get(deploymentUrl.toExternalForm() +  "user/newUser.jsf");      
-        cPage.assertCreateUser("username4", "password", "email@email.com", "empty");
-        assertEquals("username4's Profile Page",browser.getTitle().trim());
-        assertEquals("username4",userPage.getUsername());
+        cPage.assertCreateUser("username5", "password", "email@email.com", "empty");
+        assertEquals("username5's Profile Page",browser.getTitle().trim());
+        assertEquals("username5",userPage.getUsername());
         assertEquals("empty",userPage.getDescription());
     }
     
