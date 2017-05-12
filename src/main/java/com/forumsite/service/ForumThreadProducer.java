@@ -17,6 +17,5 @@ public interface ForumThreadProducer {
     
     public List<ForumThread> category(String category);
     
-
     public List<ForumThread> latest();
 }

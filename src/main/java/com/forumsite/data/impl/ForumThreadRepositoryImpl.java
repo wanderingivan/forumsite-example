@@ -1,5 +1,6 @@
 package com.forumsite.data.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +50,11 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         Comment c = new Comment(firstMessage);
         c.setAuthor(author);
         c.setThread(thread);
+        Date time = new Date();
+        c.setLastUpdate(time);
         thread.setAuthor(author);
         thread.addComments(c);
+        thread.setLastUpdate(time);
         em().persist(thread);
     }
 

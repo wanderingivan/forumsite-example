@@ -51,9 +51,7 @@ public class CommentManagementImpl implements CommentManagement {
                                                                                                                              .getId()));
         }
         repo.update(comment.getId(), comment.getMessage());
-        
     }
-
     
     private void createAcl(User user,Comment comment){
         permissionManager.grantPermission(user, comment, "update, delete");

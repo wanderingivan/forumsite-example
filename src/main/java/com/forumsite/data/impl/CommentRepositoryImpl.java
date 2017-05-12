@@ -28,9 +28,11 @@ public class CommentRepositoryImpl extends AbstractJPARepository<Comment> implem
                                  .getSingleResult();
         c.setAuthor(author);
         c.setThread(t);
-        c.setLastUpdate(new Date());
+        Date time = new Date();
+        c.setLastUpdate(time);
         add(c);
         t.addComments(c);
+        t.setLastUpdate(time);
         author.addComments(c);
     }
 

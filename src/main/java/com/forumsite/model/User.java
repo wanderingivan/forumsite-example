@@ -2,6 +2,7 @@ package com.forumsite.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Cacheable;
@@ -17,6 +18,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.QueryHint;
@@ -61,6 +64,9 @@ public class User extends Identity implements Serializable{
     @Column
     private String username;
     
+    @Temporal(TemporalType.DATE)
+    private Date signedOn;
+    
     @Transient
     private String password;
     
@@ -101,8 +107,6 @@ public class User extends Identity implements Serializable{
         this.description = description;
         this.imageName = imageName;
     }
-
-
 
     @Override
     public String toString() {
@@ -216,4 +220,11 @@ public class User extends Identity implements Serializable{
         return true;
     }
     
+    public Date getSignedOn() {
+        return signedOn;
+    }
+
+    public void setSignedOn(Date signedOn) {
+        this.signedOn = signedOn;
+    }
 }

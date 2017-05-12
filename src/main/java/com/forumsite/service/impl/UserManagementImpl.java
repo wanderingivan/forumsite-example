@@ -1,5 +1,6 @@
 package com.forumsite.service.impl;
 
+import java.util.Date;
 import java.util.Optional;
 
 import javax.ejb.Stateless;
@@ -51,6 +52,7 @@ public class UserManagementImpl implements UserManagement {
         String imageName = placeholder;
         if(image.isPresent()){ imageName = imageService.saveImage(image.get()); }
         u.setImageName(imageName);
+        u.setSignedOn(new Date());
         repo.add(u);
         updatePricketlink(u);
     }
