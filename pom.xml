@@ -269,6 +269,10 @@
 	</profile>
 
     <profile>
+
+      <!-- Embedded wildfly ships with h2 database only
+           This profile is usable only if deploying to a wildfly instance with
+           mysql installed -->
       <id>mysql-db</id>
       <properties>
         <webapp.dev.datasource>java:jboss/datasources/ForumSite-webappMySqlDS</webapp.dev.datasource>
@@ -359,19 +363,14 @@
 
     </profile>  
     
-  	<profile>
-      <id>skipTests</id>
-      <properties>
-      	<maven.test.skip>true</maven.test.skip>
-      </properties>
-    </profile>
-    
     <profile>
       <id>arquillian-wildfly-managed-chrome-selenium-tests</id>
 
 
 	  <properties>
       	<browser>chrome</browser>
+        <driverBinary>chromeDriverBinary</driverBinary>
+        <drivername>chromedriver</drivername>
       </properties>      
       
       <dependencies>
@@ -390,7 +389,10 @@
 	  <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-
+      <properties>
+        <browser>phantomjs</browser>
+        <driverBinary>none</driverBinary>
+      </properties>
   	  <dependencies>
      	<dependency>
        	  <groupId>org.wildfly</groupId>
