@@ -20,7 +20,7 @@ import com.forumsite.test.web.page.LoginPage;
 import com.forumsite.test.web.page.ShowThreadPage;
 
 @RunWith(Arquillian.class)
-public class AddCommentPageTests extends AbstractWebPageTests {
+public class AddCommentPageTests extends AbstractWebPageTest {
     
     @Deployment(testable= false)
     public static WebArchive createDeployment(){
@@ -54,7 +54,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentLoginError(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=Starcraft 2");
+        loadPage("thread/loadThread.jsf?threadname=Starcraft 2");
         assertEquals("Starcraft 2",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("Login",browser.getTitle().trim());
@@ -63,7 +63,7 @@ public class AddCommentPageTests extends AbstractWebPageTests {
     @Test
     public void testCreateCommentInputMessage(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() + "thread/loadThread.jsf?threadname=Starcraft 2");
+        loadPage("thread/loadThread.jsf?threadname=Starcraft 2");
         assertEquals("Starcraft 2",browser.getTitle().trim());
         tPage.goToReply();
         assertEquals("Starcraft 2 add comment",browser.getTitle().trim());

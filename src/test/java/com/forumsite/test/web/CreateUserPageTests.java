@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Arquillian.class)
-public class CreateUserPageTests extends AbstractWebPageTests {
+public class CreateUserPageTests extends AbstractWebPageTest {
 
     
     @Deployment(testable = false)
@@ -40,7 +40,7 @@ public class CreateUserPageTests extends AbstractWebPageTests {
     @Test
     public void createUserTest(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
-        browser.get(deploymentUrl.toExternalForm() +  "user/newUser.jsf");      
+        loadPage("user/newUser.jsf");      
         cPage.assertCreateUser("username5", "password", "email@email.com", "empty");
         assertEquals("username5's Profile Page",browser.getTitle().trim());
         assertEquals("username5",userPage.getUsername());
@@ -68,7 +68,7 @@ public class CreateUserPageTests extends AbstractWebPageTests {
     @Test
     public void createUserAccessDeniedTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
-        browser.get(deploymentUrl.toExternalForm() +  "user/newUser.jsf");
+        loadPage("user/newUser.jsf");
         ePage.assertOnAccessDeniedPage();
     }
     

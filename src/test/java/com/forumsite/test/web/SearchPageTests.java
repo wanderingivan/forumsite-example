@@ -15,7 +15,7 @@ import com.forumsite.test.web.page.SearchForm;
 import com.forumsite.test.web.page.SearchResultsPage;
 
 @RunWith(Arquillian.class)
-public class SearchPageTests extends AbstractWebPageTests{
+public class SearchPageTests extends AbstractWebPageTest{
 
     
     @Deployment(testable = false)
@@ -31,15 +31,15 @@ public class SearchPageTests extends AbstractWebPageTests{
     
     @Test
     public void testSearchExistingThreads(){
-        browser.get(deploymentUrl.toExternalForm() + "main.jsf");
+        loadPage("main.jsf");
         sForm.searchThreads("Red");
         assertEquals(1, sPage.getTopics().size());
-        assertEquals("Topics matching thread", sPage.getMessage());
+        assertEquals("Topics matching Red", sPage.getMessage());
     }
     
     @Test
     public void testSearchMissingThreads(){
-        browser.get(deploymentUrl.toExternalForm() + "main.jsf");
+        loadPage("main.jsf");
         sForm.searchThreads("missing");
         assertEquals(0, sPage.getTopics().size());
         assertEquals("No results for query missing", sPage.getMessage());
