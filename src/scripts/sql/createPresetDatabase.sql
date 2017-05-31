@@ -125,10 +125,10 @@ INSERT INTO `PermissionTypeEntity` VALUES (6,'org.picketlink.idm.model.basic.Use
                                           (132,'org.picketlink.idm.model.basic.User:f209b353-676f-4222-bd5a-f0ea0b320b27:9596adea-e4ca-455b-b062-ba7d2831b85a','update,delete','com.forumsite.model.Comment','131'),
                                           (134,'org.picketlink.idm.model.basic.User:f209b353-676f-4222-bd5a-f0ea0b320b27:f94c4e7e-87c9-46cd-9cbb-660450e51653','update,delete','com.forumsite.model.Comment','133');
                                           
-INSERT INTO `Users` VALUES (4,'An example user','email@email.com','4YmZAbQ.jpg','2017-05-03','username1'),
-                           (9,'An example user','email@email2.com','1490299849682.jpg','2017-05-03','username2'),
-                           (14,'An example user','email@email3.com','vRVcFnL.jpg','2017-05-03','username3'),
-                           (19,'An example user','email@email4.com','1.jpg','2017-05-03','username4');
+INSERT INTO `Users` VALUES (4,'An example user','email@email.com','userimage1.jpg','2017-05-03','username1'),
+                           (9,'An example user','email@email2.com','userimage2.jpg','2017-05-03','username2'),
+                           (14,'An example user','email@email3.com','userimage3.jpg','2017-05-03','username3'),
+                           (19,'An example user','email@email4.com','userimage4.jpg','2017-05-03','username4');
                           
 INSERT INTO `ForumThread` VALUES (24,'First Person Shooter','2017-05-07 13:37:47',261,'2017-05-10 20:36:44','CS:GO',3,19),
 							     (29,'First Person Shooter','2017-05-07 13:37:47',189,'2017-05-10 20:54:06','Arma 3',3,9),
