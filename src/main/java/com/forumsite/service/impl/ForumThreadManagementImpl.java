@@ -24,7 +24,6 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
     @Inject
     private PermissionManager permissionManager;
     
-    
     @Inject
     private ForumThreadRepository repo;
 
@@ -53,7 +52,7 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
 
     private void createAcl(ForumThread t,User user){
         permissionManager.grantPermission(user, t, "update, delete");
+        permissionManager.grantPermission(user, t.getComments().get(0), "update, delete");
     }
-
 
 }
