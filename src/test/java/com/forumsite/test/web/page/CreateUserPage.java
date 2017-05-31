@@ -27,7 +27,6 @@ public class CreateUserPage {
     @FindBy(id="createUserForm:usernameError")
     private WebElement usernameError;
     
-
     @FindBy(id="createUserForm:passwordError")
     private WebElement passwordError;
     
