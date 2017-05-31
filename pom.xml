@@ -5,8 +5,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>ForumSite Example App</name>
-  <description> A forum site powered by JSF</description>
-  <url>http://github.com/wanderingivan</url>
+  <description>A basic forum site powered by JSF and Hibernate.</description>
+  <url>http://github.com/wanderingivan/forumsite-example</url>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
