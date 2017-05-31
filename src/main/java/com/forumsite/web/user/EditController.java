@@ -44,10 +44,6 @@ public class EditController implements Serializable {
     
     private String username;
     
-    public void init(){
-        user = new User();
-    }
-    
     public void load(){
         if(user == null){
             conversation.begin();

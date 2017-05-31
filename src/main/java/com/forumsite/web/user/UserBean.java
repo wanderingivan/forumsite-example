@@ -24,7 +24,7 @@ public class UserBean extends AbstractController {
     
     private String username;
 
-    private final int DEFAULT_OFFSET = 0, COMMENTS_PER_PAGE= 10;
+    private static final int DEFAULT_OFFSET = 0, COMMENTS_PER_PAGE= 10;
 
     private int fromComment;
     
@@ -34,6 +34,7 @@ public class UserBean extends AbstractController {
     public void init(){
         user = new User();
     }
+    
     public void load(){
         if(logger.isDebugEnabled()){
             logger.debug("Loading user "  + user.getUsername());
