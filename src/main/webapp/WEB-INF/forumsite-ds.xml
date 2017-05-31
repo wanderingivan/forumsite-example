@@ -11,7 +11,9 @@
             <password>sa</password>
         </security>
     </datasource>
-    <datasource jndi-name="java:jboss/datasources/ForumSite-webappMySqlDS"
+    <!-- Embedded wildfly ships with h2 database only
+         Uncomment only if deploying to a server with mysql installed  -->
+    <!--<datasource jndi-name="java:jboss/datasources/ForumSite-webappMySqlDS"
         pool-name="jboss-javaee-webapp" enabled="true"
         use-java-context="true">
         <connection-url>jdbc:mysql://localhost:3306/ForumSite?useSSL=false</connection-url>
@@ -20,5 +22,5 @@
             <user-name>root</user-name>
             <password>password</password>
         </security>
-    </datasource>
+    </datasource>-->
 </datasources>
