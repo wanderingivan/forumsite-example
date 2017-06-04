@@ -73,7 +73,7 @@ public class ForumThread extends Identity implements Serializable{
     private long posts;
     
     @NotNull(message="{field.required}")
-    @Size(min=5,max=50,message="{field.maxsize}")
+    @Size(min=5,max=50,message="{field.between}")
     @Column
     private String name;
     

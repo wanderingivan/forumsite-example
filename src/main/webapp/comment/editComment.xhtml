@@ -13,13 +13,14 @@
       <ui:define name="content">
      	<h:form id="commentEditForm" class="siteform">
      	  <div class="form-group">
-     	    <h:message id="messageError" for="message"/>
+     	    <h:message id="messageError" for="message" class="alert alert-danger"/>
+     	  </div>
+     	  <div class="form-group">
      	    <b:markdown id="message"
                         hideLabel="true"
                         tooltip="tooltip"
                         styleClass="null"
                         readonly="false"
-                        required="true"
                         disabled="false"
                         language="en"
                         autoFocus="false"
