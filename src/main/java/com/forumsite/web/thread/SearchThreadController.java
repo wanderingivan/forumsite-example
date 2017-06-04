@@ -27,11 +27,11 @@ public class SearchThreadController extends AbstractController{
     
     public String search(){
         if(logger.isDebugEnabled()){
-            logger.debug("Search action querring for threads with name " + getQuery());
+            logger.debug("Search action querying for threads with name " + getQuery());
         }
         topics = service.search(getQuery());
         ctx.addMessage("searchMessage", prepareMessage());
-        return "thread/searchThreads";
+        return "/thread/searchThreads";
     }
     
     private FacesMessage prepareMessage(){
