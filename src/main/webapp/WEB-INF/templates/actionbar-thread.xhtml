@@ -12,6 +12,11 @@
       	            <h:link id="reply-link" class="button-new" value="#{msg['new_comment']}" outcome="/thread/replyThread">
 			          <f:param name="threadname" value="#{threadBean.topic.name}"/>
       	            </h:link>
+                    <ui:fragment rendered="#{identity.loggedIn and (identity.account.loginName == threadBean.topic.author.username)}">
+      	            <h:link id="edit-link" class="button-new" value="#{msg['update_thread']}" outcome="/thread/editThread">
+			          <f:param name="threadname" value="#{threadBean.topic.name}"/>
+      	            </h:link>
+      	            </ui:fragment>
       	          </div>
       	          <div class="col-md-2"></div>
       	        </div>
