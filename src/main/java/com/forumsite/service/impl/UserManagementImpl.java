@@ -10,6 +10,8 @@ import javax.servlet.http.Part;
 import org.picketlink.Identity;
 import org.picketlink.http.AccessDeniedException;
 import org.picketlink.idm.credential.Password;
+import org.picketlink.idm.credential.UsernamePasswordCredentials;
+import org.picketlink.idm.credential.Credentials.Status;
 import org.picketlink.idm.model.basic.BasicModel;
 import org.picketlink.authorization.annotations.LoggedIn;
 import org.picketlink.authorization.annotations.Restrict;
@@ -75,6 +77,22 @@ public class UserManagementImpl implements UserManagement {
     @RolesAllowed("admin")
     public void deleteUser(long userId) {
         repo.delete(userId);
+    }
+    
+    @Override
+    public void changePassword(String newPassword){
+        org.picketlink.idm.model.basic.User user = (org.picketlink.idm.model.basic.User) identity.getAccount();
+        
+        idm.updateCredential(user, new Password(newPassword));
+    }
+    
+    @Override
+    public boolean checkPassword(String password){
+        org.picketlink.idm.model.basic.User user = (org.picketlink.idm.model.basic.User) identity.getAccount();
+        UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(user.getLoginName(),new Password(password));
+        idm.validateCredentials(credentials);
+       
+        return Status.VALID.equals(credentials.getStatus()) ? true : false;
     }
 
     private void updatePricketlink(User u){

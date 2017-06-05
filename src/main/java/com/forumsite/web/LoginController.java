@@ -19,7 +19,6 @@ public class LoginController extends AbstractController {
    
    public String login(){
        AuthenticationResult result = identity.login();
-       System.out.println(result);
        if(AuthenticationResult.FAILED.equals(result)){
            ctx.addMessage(null, new FacesMessage(getMessage("auth_failure")));
            return "";

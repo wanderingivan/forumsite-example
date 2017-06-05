@@ -8,10 +8,14 @@ import com.forumsite.model.User;
 
 public interface UserManagement {
 
-    public void saveUser(User u, Optional<Part> image) throws Exception;
+    void saveUser(User u, Optional<Part> image) throws Exception;
     
-    public void updateUser(User u, Optional<Part> image) throws Exception;
+    void updateUser(User u, Optional<Part> image) throws Exception;
     
-    public void deleteUser(long userId);
+    void deleteUser(long userId);
+
+    void changePassword(String newPassword);
+    
+    boolean checkPassword(String password);
     
 }
