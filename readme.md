@@ -12,7 +12,7 @@
   Still under construction
   
   While wildfly can be ran in embedded mode for demonstration purposes,
-  test are use with arquillian wildfly plugin in managed mode,
+  tests use arquillian wildfly plugin in managed mode,
   hence the argument -Djboss.test.home=<path> is required 
   
   If you don't want to use preset threads and users add -Dbuild.preset.skip=true argument
