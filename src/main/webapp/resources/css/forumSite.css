@@ -333,6 +333,14 @@ span.info {
 	height:30px;
 	margin-left:15px;	
 }
+.error{
+	text-align: center;
+}
+#error-type{
+	font-size:196px;
+	font-weight:700;
+	color:#4a569d;
+}
 
 @media screen and (max-width: 360px){
 	.siteform .button.small {

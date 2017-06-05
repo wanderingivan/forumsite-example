@@ -70,12 +70,10 @@
 			                 <div class="media-heading">
 			                   <div class="row">
 			                     <div class="col-md-10">
-			                       <ui:fragment rendered="#{identity.loggedIn and identity.account.loginName}">
-			                         <ui:fragment rendered="#{authorizationChecker.hasPermission(comment,'update')}">
-			                           <h:link id="editComment#{stat.index}Link"  value="editComment" outcome="/comment/editComment">
+			                       <ui:fragment rendered="#{identity.loggedIn and (identity.account.loginName == comment.author.username)}">
+			                           <h:link id="editComment#{stat.index}Link"  value="#{msg['edit_comment']}" outcome="/comment/editComment">
 			                             <f:param name="commentId" value="#{comment.id}"/>
 			                           </h:link>
-			                         </ui:fragment>
 			                       </ui:fragment>
 			                       <p>
 			                     	 <h:outputText value="#{comment.lastUpdate}" >

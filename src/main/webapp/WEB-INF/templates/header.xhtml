@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
    xmlns:h="http://java.sun.com/jsf/html"   
+   xmlns:f="http://java.sun.com/jsf/core"       	          
    xmlns:ui="http://java.sun.com/jsf/facelets">
    <body>
      <ui:component>
@@ -27,7 +28,6 @@
                </li>
                	<ui:fragment rendered="#{!identity.loggedIn}">
                	  <li class="pull-right">
-      	            
                	    <h:link value="#{msg['register']}" outcome="/user/newUser" class="link">
                	      <i class="fa fa-pencil-square-o link" aria-hidden="true"></i>
                	    </h:link>
@@ -46,6 +46,13 @@
      	            </h:commandLink>               	
      	          </h:form>
      	         </li>
+                  <li class="pull-right">
+                    <h:link value="#{msg['homepage']}" outcome="/user/loadUser" class="link">
+                      <f:param name="username" value="#{identity.account.loginName}"/>
+                      <i class="fa fa-user link" aria-hidden="true"></i>
+                    </h:link>
+                  </li>
+
                	</ui:fragment>
              </ul>
            </div>
