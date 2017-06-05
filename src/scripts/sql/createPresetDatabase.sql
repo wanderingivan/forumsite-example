@@ -188,4 +188,4 @@ INSERT INTO `Comment` VALUES (25,'2017-05-07 13:32:47','###Nam commodo eget puru
                              (131,'2017-05-11 13:04:05','> username1 said: Cras commodo lectus lacus, nec feugiat neque malesuada eu. Etiam tincidunt viverra eros, vel dapibus dolor rhoncus non. Nunc aliquet elit tortor, sit amet luctus risus rutrum vitae. \r\n\r\nNullam aliquet leo a neque dignissim, sed vestibulum lacus _imperdiet_. Pellentesque metus libero, maximus congue tristique id, porttitor vitae libero. ',19,61),
                              (133,'2017-05-11 13:04:50','Cras convallis suscipit felis non laoreet. Cras fringilla sodales varius. Nam id tellus at nunc maximus ornare eu ac mauris. Nam sed odio hendrerit, laoreet justo aliquet, molestie purus. Sed molestie sem nec faucibus fermentum. Nullam a molestie arcu, in bibendum elit. Sed a enim id ipsum vulputate porttitor. ',14,61);                                 
                                  
-INSERT INTO `hibernate_sequence` VALUES (135),(135);
+UPDATE `hibernate_sequence` SET `next_val`=135;
