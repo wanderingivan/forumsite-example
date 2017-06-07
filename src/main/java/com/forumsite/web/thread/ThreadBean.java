@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.forumsite.model.Comment;
 import com.forumsite.model.ForumThread;
 import com.forumsite.service.CommentProducer;
+import com.forumsite.util.HitResolver;
 import com.forumsite.web.AbstractController;
 
 @Model
@@ -23,6 +24,9 @@ public class ThreadBean extends AbstractController {
     @Inject
     private CommentProducer producer;
     
+    @Inject
+    private HitResolver resolver;
+    
     private final int DEFAULT_OFFSET = 0,COMMENTS_PER_PAGE=10;
     
     private int fromComment;
@@ -30,6 +34,8 @@ public class ThreadBean extends AbstractController {
     private String threadName;
     
     private ForumThread topic;
+    
+    private boolean fromLast;
     
     public void load(){
         if(logger.isDebugEnabled()){
@@ -42,6 +48,7 @@ public class ThreadBean extends AbstractController {
         }
         topic = comments.get(0).getThread();
         topic.setComments(comments);
+        resolver.resolve(topic);
     }
 
     public String getThreadName() {
@@ -57,6 +64,10 @@ public class ThreadBean extends AbstractController {
     }
 
     public int getFromComment() {
+        if(fromLast){
+            int first = topic.getComments().size() - COMMENTS_PER_PAGE;
+            return first < 0 ? 0 : first; 
+        }
         return fromComment == 0 ? DEFAULT_OFFSET : fromComment;
     }
 
@@ -68,6 +79,14 @@ public class ThreadBean extends AbstractController {
         int reqSize = getFromComment() + COMMENTS_PER_PAGE;
         int total = topic.getComments().size();
         return reqSize > total ? total : reqSize;
+    }
+    
+    public void setFromLast(boolean fromLast){
+        this.fromLast = fromLast;
+    }
+    
+    public boolean getFromLast(){
+        return this.fromLast;
     }
     
 }

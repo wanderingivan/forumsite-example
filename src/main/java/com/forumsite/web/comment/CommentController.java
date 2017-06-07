@@ -33,7 +33,7 @@ public class CommentController extends AbstractController {
             logger.trace("Adding new comment " + message + " for thread " + threadName );
         }
         cmgmt.addComment(new Comment(message),threadName);
-        return "/thread/loadThread?faces-redirect=true&threadname="+threadName;
+        return "/thread/loadThread?faces-redirect=true&fromLast=true&threadname="+threadName;
     }
 
 

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.forumsite.model.ForumThread;
 import com.forumsite.service.ForumThreadProducer;
+import com.forumsite.util.HitResolver;
 
 @Named("categoryBean")
 @RequestScoped
@@ -17,6 +18,9 @@ public class CategoryThreadBean {
 
     @Inject
     private Logger logger;
+    
+    @Inject
+    private HitResolver resolver;
     
     @Inject
     private ForumThreadProducer producer;
@@ -30,6 +34,8 @@ public class CategoryThreadBean {
             logger.debug("Loading threads with category " + category);
         }
         topics = producer.category(category);
+        resolver.resolve(topics);
+        
     }
 
     public String getCategory() {
