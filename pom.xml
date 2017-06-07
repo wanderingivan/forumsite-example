@@ -78,6 +78,13 @@
       <artifactId>cdi-api</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>javax.enterprise.concurrent</groupId>
+      <artifactId>javax.enterprise.concurrent-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+	</dependency>
 
     <dependency>
       <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -278,7 +285,7 @@
         <webapp.dev.datasource>java:jboss/datasources/ForumSite-webappMySqlDS</webapp.dev.datasource>
         <webapp.dev.driver>org.hibernate.dialect.MySQLDialect</webapp.dev.driver>
         <hibernate.debug>true</hibernate.debug>
-        <hibernate.hbm2ddl>validate</hibernate.hbm2ddl>
+        <hibernate.hbm2ddl>none</hibernate.hbm2ddl>
         <hibenate.caching>true</hibenate.caching>
         <sql.dir>src/scripts/sql</sql.dir>
         <url>jdbc:mysql://localhost:3306/ForumSite?useSSL=false</url>
