@@ -1,6 +1,8 @@
 package com.forumsite.service.impl;
 
 
+import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -48,6 +50,11 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
     @RolesAllowed({"admin"})
     public void deleteThread(long threadId) {
         repo.delete(threadId);
+    }
+    
+    @Override
+    public void updateHits(Map<Long, Long> hits){
+        repo.updateHits(hits);
     }
 
     private void createAcl(ForumThread t,User user){
