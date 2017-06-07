@@ -2,10 +2,13 @@ package com.forumsite.data.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -63,7 +66,7 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
         CriteriaBuilder cb = cb();
         CriteriaQuery<ForumThread> crit = cb.createQuery(ForumThread.class);
         Root<ForumThread> r = crit.from(ForumThread.class);
-        crit.orderBy(cb.desc(r.get("createdOn")));
+        crit.orderBy(cb.desc(r.get("lastUpdate")));
         
         return em().createQuery(crit)
                    .setFirstResult(0)
@@ -116,6 +119,16 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
                    .setHint("org.hibernate.cacheable", "true")
                    .setMaxResults(5)
                    .getResultList();
+    }
+    
+    @Override
+    public void updateHits(Map<Long, Long> hits) {
+       Query q = em().createQuery("UPDATE ForumThread t SET t.hits = :hits WHERE t.id = :id");
+       for(Entry<Long, Long> e : hits.entrySet()){
+           q.setParameter("hits", e.getValue())
+            .setParameter("id", e.getKey())
+            .executeUpdate();
+       }
     }
     
 }

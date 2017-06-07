@@ -1,6 +1,7 @@
 package com.forumsite.data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.forumsite.model.ForumThread;
@@ -22,4 +23,5 @@ public interface ForumThreadRepository extends Repository<ForumThread> {
     
     List<ForumThread> getCategory(String category);
 
+    void updateHits(Map<Long, Long> hits);
 }
