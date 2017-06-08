@@ -8,6 +8,7 @@
         <f:metadata>
     		<f:viewParam name="threadname" value="#{threadBean.threadName}"/>
     		<f:viewParam name="fromComment" value="#{threadBean.fromComment}"/>
+    		<f:viewParam name="fromLast" value="#{threadBean.fromLast}"/>
     		<f:viewAction action="#{threadBean.load}"/>
 		</f:metadata>
 		<ui:param name="title" value="#{threadBean.threadName}" />
@@ -18,7 +19,6 @@
         	<ui:insert name="actionbar">
         	  <ui:include src="/WEB-INF/templates/actionbar-thread.xhtml"/>
         	</ui:insert>
-
         	<h:panelGroup rendered="#{not empty threadBean.topic}">  
 			  <div class="row">
 			    <div class="col-md-10 col-sm-12 col-xs-12">
