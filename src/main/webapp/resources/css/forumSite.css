@@ -333,6 +333,12 @@ span.info {
 	height:30px;
 	margin-left:15px;	
 }
+.credits {
+	background-color:#2D3039;
+	text-align: center;
+	min-height:20px;
+	color:#ffffff;
+}
 .error{
 	text-align: center;
 }

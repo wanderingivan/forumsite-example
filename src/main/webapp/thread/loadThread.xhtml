@@ -73,24 +73,6 @@
 			                       <b:markdown hideLabel="true" readonly="true" disabled="true" value="#{comment.message}"/>
 			                     </h5>
 			                     <hr/>
-								 <div class="quick-reply">
-								   <div id="qrLink#{stat.index}" class="quick-reply-link">Quick Reply</div>
-								   <div id="qrForm#{stat.index}" class="quick-reply-form" style="display:none;">
-								     <h:form id="quickReply#{stat.index}" class="form-horizonthal siteform">
-     	  							    <h:message id="messageError" for="message"/>
-     	  							    <div class="form-group">
-     	  								  <h:inputTextarea id="message" value="#{commentController.message}" class="form-control">
-     	    							    <f:validateLength minimum="1" maximum="225" />
-     	  								  </h:inputTextarea>
-     	  								</div>
-			          					<f:param name="threadname" value="#{threadBean.topic.name}"/>
-			          					<div class="form-group">
-     	  								  <h:commandButton id="addComment" class="button" action="#{commentController.addComment}" value="#{msg['add_comment']}" >
-     	  								  </h:commandButton>
-     	  								</div>
-								     </h:form>
-								   </div>
-								 </div>
 			                   </div>
 			                 </div>
 			               </div>
