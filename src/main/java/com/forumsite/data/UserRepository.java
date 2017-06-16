@@ -11,4 +11,8 @@ public interface UserRepository extends Repository<User> {
 
      List<User> search(String username);
 
+     boolean checkUsername(String username);
+
+     boolean checkEmail(String email);
+
 }

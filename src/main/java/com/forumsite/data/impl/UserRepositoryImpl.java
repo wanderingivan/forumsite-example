@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.Query;
 
 import com.forumsite.data.UserRepository;
 import com.forumsite.model.User;
@@ -50,6 +51,30 @@ public class UserRepositoryImpl extends AbstractJPARepository<User> implements U
                                                   );
                                          },
                                           0,15,null,true);
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        Query q = em().createQuery("SELECT 1  FROM Users u where u.username=:username")
+                      .setParameter("username", username);     
+        try{
+            q.getSingleResult();
+        }catch(NoResultException nre){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        Query q = em().createQuery("SELECT 1  FROM Users u where u.email=:email")
+                      .setParameter("email", email);     
+        try{
+            q.getSingleResult();
+        }catch(NoResultException nre){
+            return true;
+        }
+        return false;
     }
 
 }

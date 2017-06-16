@@ -130,5 +130,17 @@ public class ForumThreadRepositoryImpl extends AbstractJPARepository<ForumThread
             .executeUpdate();
        }
     }
+
+    @Override
+    public boolean checkName(String threadname) {
+        Query q = em().createQuery("SELECT 1  FROM ForumThread t where t.name=:name")
+                      .setParameter("name", threadname);     
+        try{
+            q.getSingleResult();
+        }catch(NoResultException nre){
+            return true;
+        }
+        return false;
+    }
     
 }

@@ -24,4 +24,6 @@ public interface ForumThreadRepository extends Repository<ForumThread> {
     List<ForumThread> getCategory(String category);
 
     void updateHits(Map<Long, Long> hits);
+
+    boolean checkName(String threadname);
 }
