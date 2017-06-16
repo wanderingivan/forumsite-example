@@ -288,7 +288,7 @@
         <hibernate.hbm2ddl>none</hibernate.hbm2ddl>
         <hibenate.caching>true</hibenate.caching>
         <sql.dir>src/scripts/sql</sql.dir>
-        <url>jdbc:mysql://localhost:3306/ForumSite?useSSL=false</url>
+        <db.url>jdbc:mysql://localhost:3306/ForumSite?useSSL=false</db.url>
       </properties>
       
       <build>
@@ -336,7 +336,7 @@
                  <goal>execute</goal>
                 </goals>
                 <configuration>
-                  <url>${url}</url>
+                  <url>${db.url}</url>
                   <autocommit>true</autocommit>
                   <srcFiles>
                     <srcFile>${sql.dir}/create_schema.sql</srcFile>
@@ -352,7 +352,7 @@
               	  <goal>execute</goal>
             	</goals>
             	<configuration>
-              	  <url>${url}</url>
+              	  <url>${db.url}</url>
               	  <autocommit>true</autocommit>
               	  <srcFiles>
                 	<srcFile>${sql.dir}/createPresetDatabase.sql</srcFile>
