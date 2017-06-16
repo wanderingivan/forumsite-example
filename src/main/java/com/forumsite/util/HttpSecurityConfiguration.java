@@ -10,36 +10,21 @@ public class HttpSecurityConfiguration {
     public void configureHttpSecurity(@Observes SecurityConfigurationEvent event){
         SecurityConfigurationBuilder builder = event.getBuilder();
         builder.http()
-                .forPath("/thread/newThread.jsf")
-                    .authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")
-                            .errorPage("/error.jsf")
-                .forPath("/thread/editThread.jsf")
-                    .authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")
-                            .errorPage("/error.jsf")
-                .forPath("/thread/replyThread.jsf")
-                    .authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")
-                            .errorPage("/error.jsf")
-                .forPath("/comment/editComment.jsf")
-                    .authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")
-                            .errorPage("/error.jsf")
-                .forPath("/user/editUser.jsf")
-                    .authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")
-                            .errorPage("/error.jsf")                              
-                .forPath("/test/*")
-                    .authorizeWith()
-                        .group("admin").authenticateWith()
-                        .form()
-                            .loginPage("/login.jsf")                        
-                        .errorPage("/error.jsf");                              
+               .forGroup("Web Pages")
+                   .authenticateWith()
+                       .form()
+                           .loginPage("/login.jsf")
+                           .errorPage("/403.jsf")
+                           
+               .forPath("/thread/newThread.jsf","Web Pages")
+
+               .forPath("/thread/editThread.jsf","Web Pages")
+
+               .forPath("/thread/replyThread.jsf","Web Pages")
+
+               .forPath("/comment/editComment.jsf","Web Pages")
+
+               .forPath("/user/editUser.jsf","Web Pages");
+                     
     }
 }

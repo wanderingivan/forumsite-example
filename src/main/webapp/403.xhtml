@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"       	          
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:body> 
+      <ui:composition template="/WEB-INF/templates/default.xhtml">
+
+		<ui:param name="title" value="#{requestScope['error-title']}"/>
+        <ui:define name="content">
+         <div class="error">
+          <h2 id="error-type">403</h2>
+          <br/>
+          <h3 id="error-message">Sorry you must be logged in to proceed#{requestScope['error-message']}</h3>
+          <h4><h:link id="error-link"  outcome="/login" value="Login" class="red"/></h4>
+          <br/>
+         </div>
+        </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
