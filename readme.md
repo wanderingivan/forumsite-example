@@ -13,7 +13,11 @@
   tests will use arquillian wildfly plugin in managed mode,
   hence the argument -Djboss.test.home=<path> is required.
   
-  An additional argument -Ddriver.binary.loc is required if using chrome browser for selenium tests. 
+  Selenium tests will be run when executing mvn:test with phantomjs browser as default.
+  
+  To use a different browser (say chrome) select -Parquillian-wildfly-managed-chrome-browser
+  and add a path to a driver with argument -Ddriver.binary.loc
+  e.g.: mvn verify -Parquillian-wildfly-managed-chrome-browser -Ddriver.binary.loc=<path to driver> -DskipUTs=true
   
   If you don't want to use preset threads and users add -Dbuild.preset.skip=true argument
      

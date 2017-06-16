@@ -371,7 +371,7 @@
     </profile>  
     
     <profile>
-      <id>arquillian-wildfly-managed-chrome-selenium-tests</id>
+      <id>arquillian-wildfly-managed-chrome-browser</id>
 
 
 	  <properties>
