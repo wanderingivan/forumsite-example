@@ -62,4 +62,9 @@ public class ForumThreadManagementImpl implements ForumThreadManagement {
         permissionManager.grantPermission(user, t.getComments().get(0), "update, delete");
     }
 
+    @Override
+    public boolean isNameAvailable(String threadname) {
+        return repo.checkName(threadname);
+    }
+
 }

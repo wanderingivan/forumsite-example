@@ -13,6 +13,8 @@ public interface ForumThreadManagement {
     public void deleteThread(long threadId);
 
     void updateHits(Map<Long, Long> hints);
+
+    boolean isNameAvailable(String threadname);
     
     
 }

@@ -17,5 +17,9 @@ public interface UserManagement {
     void changePassword(String newPassword);
     
     boolean checkPassword(String password);
+
+    boolean isUsernameAvailable(String username);
+
+    boolean isEmailAvailable(String email);
     
 }

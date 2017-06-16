@@ -103,5 +103,15 @@ public class UserManagementImpl implements UserManagement {
         permissionManager.grantPermission(user, u, "update");
         BasicModel.grantRole(relManager, user, BasicModel.getRole(idm, "user"));
     }
+
+    @Override
+    public boolean isUsernameAvailable(String username) {
+        return repo.checkUsername(username);
+    }
+
+    @Override
+    public boolean isEmailAvailable(String email) {
+        return repo.checkEmail(email);
+    }
     
 }
