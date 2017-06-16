@@ -9,11 +9,11 @@
   2. Execute mvn wildfly:run -DskipTests
   5. Load localhost:8080/ForumSite on your favorite browser
   
-  Still under construction
-  
   While wildfly can be ran in embedded mode for demonstration purposes,
-  tests use arquillian wildfly plugin in managed mode,
-  hence the argument -Djboss.test.home=<path> is required 
+  tests will use arquillian wildfly plugin in managed mode,
+  hence the argument -Djboss.test.home=<path> is required.
+  
+  An additional argument -Ddriver.binary.loc is required if using chrome browser for selenium tests. 
   
   If you don't want to use preset threads and users add -Dbuild.preset.skip=true argument
      
