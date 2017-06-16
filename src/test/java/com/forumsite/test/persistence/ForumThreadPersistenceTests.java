@@ -100,4 +100,13 @@ public class ForumThreadPersistenceTests {
         assertEquals(4, repo.getCategory("Sports").size());
     }
   
+    @Test
+    public void testCheckExistingName(){
+        assertFalse(repo.checkName("threadname1"));
+    }
+    
+    @Test
+    public void testCheckUsernameAvailable(){
+        assertTrue(repo.checkName("threadname100"));
+    }
 }

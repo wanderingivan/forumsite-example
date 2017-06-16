@@ -74,5 +74,24 @@ public class UserPersistenceTests {
     public void testFindUsers(){
         assertEquals(3,repo.search("username").size());
     }
+
+    @Test
+    public void testCheckUsernameExistingUser(){
+        assertFalse(repo.checkUsername("username1"));
+    }
     
+    @Test
+    public void testCheckUsernameAvailable(){
+        assertTrue(repo.checkUsername("username100"));
+    }
+    
+    @Test
+    public void testCheckEmailExisting(){
+        assertFalse(repo.checkEmail("email@email.com1"));
+    }
+    
+    @Test
+    public void testCheckEmailAvailable(){
+        assertTrue(repo.checkEmail("email@email.com100"));
+    }    
 }
