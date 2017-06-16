@@ -20,7 +20,9 @@
                </div>
                <div class="form-group">
 	             <h:outputLabel for="username" value="#{msg['username']}"/>
-                 <h:inputText id="username" class="form-control" value="#{userController.user.username}" />
+                 <h:inputText id="username" class="form-control" value="#{userController.user.username}" >
+                   <f:validator validatorId="usernameFieldValidator"/>
+                 </h:inputText>
                </div>
                <div class="form-group">
                  <h:message id="passwordError" for="password" class="alert alert-danger"/>
@@ -36,7 +38,9 @@
                </div>
                <div class="form-group">         
                  <h:outputLabel for="email" value="#{msg['email']}"/>
-                 <h:inputText id="email" class="form-control"  value="#{userController.user.email}" />
+                 <h:inputText id="email" class="form-control"  value="#{userController.user.email}" >
+                   <f:validator validatorId="emailFieldValidator"/>
+                 </h:inputText>
                </div>
                <div class="form-group">
                  <h:message id="decriptionError" for="description" class="alert alert-danger"/>
