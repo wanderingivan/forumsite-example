@@ -11,7 +11,6 @@
       	                    <div class="col-md-7 col-sm-7 col-xs-7">
       	                      <div class="media">
       	                        <div class="media-left hidden-xs">
-      	                          perhaps some gif
       	                        </div>
       	                        <div class="media-body">
       	                          <div class="media-heading">
@@ -68,11 +67,12 @@
       	                              <f:param name="username" value="#{topic.author.username}"/>
       	                            </h:link>
       	                          </p>
-      	                         <i>
+     	                          <h:outputText value="#{msg['last_reply']}"/><br/>
+      	                          <i>
       	                           <h:outputText value="#{topic.lastUpdate}" >
                                      <f:convertDateTime pattern="dd.MM HH:mm" timeZone="EET" />
                                    </h:outputText>
-                                 </i>
+                                  </i>
       	                        </div>
       	                      </div>
       	                    </div>
