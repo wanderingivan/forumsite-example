@@ -69,6 +69,7 @@ public class CreateUserPageTests extends AbstractWebPageTest {
     public void createUserAccessDeniedTest(@InitialPage LoginPage login){
         login.loginIfNotAuthenticated("username2", "password");
         loadPage("user/newUser.jsf");
+        cPage.assertCreateUser("username7", "password", "email@email7.com", "empty");
         ePage.assertOnAccessDeniedPage();
     }
     
