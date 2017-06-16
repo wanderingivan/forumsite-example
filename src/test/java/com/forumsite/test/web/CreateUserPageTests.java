@@ -41,7 +41,7 @@ public class CreateUserPageTests extends AbstractWebPageTest {
     public void createUserTest(@InitialPage LoginPage login){
         login.logoutIfAuthenticated();
         loadPage("user/newUser.jsf");      
-        cPage.assertCreateUser("username5", "password", "email@email.com", "empty");
+        cPage.assertCreateUser("username5", "password", "email@email5.com", "empty");
         assertEquals("username5's Profile Page",browser.getTitle().trim());
         assertEquals("username5",userPage.getUsername());
         assertEquals("empty",userPage.getDescription());
@@ -50,19 +50,25 @@ public class CreateUserPageTests extends AbstractWebPageTest {
     @Test
     public void createUserInputMessagesTest(@InitialPage CreateUserPage cPage){
         cPage.assertCreateUser("use", "pas", "email", "empty");
-        assertFalse(cPage.getUsernameError().getText().isEmpty());
-        assertFalse(cPage.getPasswordError().getText().isEmpty());
-        assertFalse(cPage.getEmailError().getText().isEmpty());
+        assertFalse(cPage.getUsernameError().isEmpty());
+        assertFalse(cPage.getPasswordError().isEmpty());
+        assertFalse(cPage.getEmailError().isEmpty());
     }
     
     @Test
-    public void createUserDuplicateUsernameExceptionTest(@InitialPage CreateUserPage cPage){
-        fail("To be defined");
+    public void createUserDuplicateUsernameExceptionTest(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        loadPage("user/newUser.jsf");      
+        cPage.assertCreateUser("username1", "password", "email@email5.com", "empty");
+        assertFalse(cPage.getUsernameError().isEmpty());
     }
     
     @Test
-    public void createUserDuplicateEmailTest(@InitialPage CreateUserPage cPage){
-        fail("To be defined");
+    public void createUserDuplicateEmailTest(@InitialPage LoginPage login){
+        login.logoutIfAuthenticated();
+        loadPage("user/newUser.jsf");      
+        cPage.assertCreateUser("username5", "password", "email@email.com", "empty");
+        assertFalse(cPage.getEmailError().isEmpty());
     }
     
     @Test

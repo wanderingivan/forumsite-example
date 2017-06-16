@@ -38,31 +38,36 @@ public class CreateUserPage {
     
     
     public void assertCreateUser(String username, String password,String email, String description){
+        fillForm(username,password,email,description);
+        guardHttp(createButton).click();
+    }
+    
+    public void fillForm(String username, String password,String email, String description){
         usernameInput.sendKeys(username);
         userPassword.sendKeys(password);
         userEmail.sendKeys(email);
         userDescription.sendKeys(description);
-        guardHttp(createButton).click();
+        
     }
 
 
-    public WebElement getUsernameError() {
-        return usernameError;
+    public String getUsernameError() {
+        return usernameError.getText().trim();
     }
 
 
-    public WebElement getPasswordError() {
-        return passwordError;
+    public String getPasswordError() {
+        return passwordError.getText().trim();
     }
 
 
-    public WebElement getEmailError() {
-        return emailError;
+    public String getEmailError() {
+        return emailError.getText().trim();
     }
 
 
-    public WebElement getDescriptionError() {
-        return descriptionError;
+    public String getDescriptionError() {
+        return descriptionError.getText().trim();
     }
     
     

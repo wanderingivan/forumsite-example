@@ -39,15 +39,15 @@ public class CreateThreadPage {
         Graphene.guardHttp(create).click();
     }
 
-    public WebElement getThreadNameError() {
-        return threadNameError;
+    public String getThreadNameError() {
+        return threadNameError.getText().trim();
     }
 
-    public WebElement getCategoryError() {
-        return categoryError;
+    public String getCategoryError() {
+        return categoryError.getText().trim();
     }
 
-    public WebElement getMessageError() {
-        return messageError;
+    public String getMessageError() {
+        return messageError.getText().trim();
     }
 }

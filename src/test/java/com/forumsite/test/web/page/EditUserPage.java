@@ -32,28 +32,32 @@ public class EditUserPage {
     
     
     public void editUser(String username, String email, String description){
+        fillForm(username, email, description);
+        guardHttp(editButton).click();
+    }
+    
+    public void fillForm(String username, String email, String description){
         usernameInput.clear();
         usernameInput.sendKeys(username);
         userEmail.clear();
         userEmail.sendKeys(email);
         userDescription.clear();
-        userDescription.sendKeys(description);
-        guardHttp(editButton).click();
+        userDescription.sendKeys(description);        
     }
 
 
-    public WebElement getUsernameError() {
-        return usernameError;
+    public String getUsernameError() {
+        return usernameError.getText().trim();
     }
 
 
-    public WebElement getEmailError() {
-        return emailError;
+    public String getEmailError() {
+        return emailError.getText().trim();
     }
 
 
-    public WebElement getDescriptionError() {
-        return descriptionError;
+    public String getDescriptionError() {
+        return descriptionError.getText().trim();
     }
     
 }

@@ -3,7 +3,6 @@ package com.forumsite.test.web;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.page.InitialPage;
@@ -38,12 +37,14 @@ public class UpdateThreadPageTests extends AbstractWebPageTest {
     
     @Test
     public void editThreadTest(@InitialPage LoginPage login){
-        login.loginIfNotAuthenticated("username2", "password");
+        login.logoutIfAuthenticated();
+        loadPage("/login.jsf");
+        login.login("username2", "password");
         loadPage("thread/editThread.jsf?threadname=Arma 3");
         assertEquals("Editing Arma 3",browser.getTitle().trim());
-        editPage.edit("Arma 3", "Role Play Game");
-        assertTrue("The thread was not updated",browser.getTitle().trim().equals("Arma 3"));
-        assertEquals("Arma 3",threadPage.getThreadname());
+        editPage.edit("Arma 4", "Role Play Game");
+        assertTrue("The thread was not updated",browser.getTitle().trim().equals("Arma 4"));
+        assertEquals("Arma 4",threadPage.getThreadname());
         assertEquals("Role Play Game",threadPage.getCategory());
     }
     
@@ -53,17 +54,14 @@ public class UpdateThreadPageTests extends AbstractWebPageTest {
         loadPage("thread/editThread.jsf?threadname=Arma 3");
         assertEquals("Editing Arma 3",browser.getTitle().trim());
         editPage.edit("", "Role Play Game");
-        assertFalse("There are no error messages for threadname", editPage.getThreadNameError().getText().isEmpty());
-    }
-    
-    @Test
-    public void editThreadDuplicateThreadnameError(){
-        fail("To be defined");
+        assertFalse("There are no error messages for threadname", editPage.getThreadNameError().isEmpty());
     }
     
     @Test
     public void editThreadAclAccessDeniedError(@InitialPage LoginPage login){
-        login.loginIfNotAuthenticated("username2", "password");
+        login.logoutIfAuthenticated();
+        loadPage("/login.jsf");
+        login.login("username3", "password");
         loadPage("thread/editThread.jsf?threadname=Arma 3");
         assertEquals("Editing Arma 3",browser.getTitle().trim());
         editPage.edit("threadname10", "Role Play Game");

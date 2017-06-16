@@ -52,13 +52,17 @@ public class CreateThreadPageTests extends AbstractWebPageTest{
         loadPage("thread/newThread.jsf");
         cPage.createThread("thre", "First Person Shooter", "");
         assertEquals("We're not on input page","New Thread",browser.getTitle().trim());
-        assertFalse("Threadname error messages are missing",cPage.getThreadNameError().getText().isEmpty());
-        assertFalse("Message error messages are missing",cPage.getMessageError().getText().isEmpty());
+        assertFalse("Threadname error messages are missing",cPage.getThreadNameError().isEmpty());
+        assertFalse("Message error messages are missing",cPage.getMessageError().isEmpty());
     }
     
     @Test
-    public void createThreadDuplicateThreadnameError(@InitialPage CreateThreadPage cPage){
-        fail("To be defined");
+    public void createThreadDuplicateThreadnameError(@InitialPage LoginPage login){
+        login.loginIfNotAuthenticated("username2", "password");
+        loadPage("thread/newThread.jsf");
+        cPage.createThread("Red Alert", "First Person Shooter","message");
+        assertEquals("We're not on input page","New Thread",browser.getTitle().trim());
+        assertFalse("Threadname duplicate error messages are missing",cPage.getThreadNameError().isEmpty());
     }
     
     @Test

@@ -43,8 +43,8 @@ public class UpdateUserPageTests extends AbstractWebPageTest {
         loadPage("user/editUser.jsf?username=username2");
         assertEquals("Editing username2",browser.getTitle().trim());
         editPage.editUser("use", "email", "empty");
-        assertFalse(editPage.getUsernameError().getText().isEmpty());
-        assertFalse(editPage.getEmailError().getText().isEmpty());
+        assertFalse(editPage.getUsernameError().isEmpty());
+        assertFalse(editPage.getEmailError().isEmpty());
     }
     
     @Test
