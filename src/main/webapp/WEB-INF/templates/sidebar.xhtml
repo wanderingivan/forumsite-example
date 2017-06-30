@@ -10,6 +10,9 @@
       	     <ui:fragment rendered="#{!identity.loggedIn}">
               <div class="sideform">
                 <h:form id="loginForm" class="siteform">
+                  <div class="alert alert-info">
+	  	     		Premade accounts are username1 trough username4 with password <i>password</i>
+	              </div>
                   <h:messages class="alert alert-danger"/>
     			  <div class="form-group">
         			<h:outputLabel for="name" value="#{msg['username']}" styleClass="loginLabel"/>
